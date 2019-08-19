@@ -3,7 +3,7 @@ import MyTextField from '../Components/TextField';
 import MyButton from '../Components/Button';
 import useForm from '../Components/UseForm';
 
-function LoginView() {
+function RegisterView() {
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
@@ -40,7 +40,7 @@ function LoginView() {
             onChange={handleChange}
           />
           <MyButton style={{ marginTop: 15 }} variant="contained" color="primary" type="submit">
-            Login
+            Register
           </MyButton>
         </form>
       </div>
@@ -48,4 +48,4 @@ function LoginView() {
   );
 }
 
-export default LoginView;
+export default RegisterView;
