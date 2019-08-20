@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import Routes from './Containers/routes';
 import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from './Containers/routes';
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <Router>
         <Routes />
       </Router>

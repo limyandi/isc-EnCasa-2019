@@ -3,6 +3,7 @@ import MyTextField from '../Components/TextField';
 import MyButton from '../Components/Button';
 import MyHyperLink from '../Components/Hyperlink';
 import useForm from '../Components/UseForm';
+import PaperSheet from '../Components/Paper';
 
 function LoginView() {
   const { values, handleChange, handleSubmit } = useForm({
@@ -26,24 +27,32 @@ function LoginView() {
     <div>
       <div>
         <form onSubmit={handleSubmit}>
-          <MyTextField
-            style={{ marginBottom: 10 }}
-            name="email"
-            label="email"
-            value={values.email}
-            onChange={handleChange}
-          />
-          <MyTextField
-            style={{ marginBottom: 10 }}
-            name="password"
-            label="password"
-            value={values.password}
-            onChange={handleChange}
-          />
-          <MyButton style={{ marginTop: 15 }} variant="contained" color="primary" type="submit">
-            Login
-          </MyButton>
-          <MyHyperLink to="/register">No account? Register!</MyHyperLink>
+          <PaperSheet>
+            <MyTextField
+              style={{ marginBottom: 10 }}
+              name="email"
+              label="email"
+              value={values.email}
+              onChange={handleChange}
+            />
+            <MyTextField
+              style={{ marginBottom: 10 }}
+              name="password"
+              label="password"
+              type="password"
+              value={values.password}
+              onChange={handleChange}
+            />
+            <MyButton
+              style={{ marginTop: 15, marginBottom: 10 }}
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              Login
+            </MyButton>
+            <MyHyperLink to="/register">No account? Register!</MyHyperLink>
+          </PaperSheet>
         </form>
       </div>
     </div>

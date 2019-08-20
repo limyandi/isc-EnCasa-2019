@@ -9,7 +9,7 @@ const MyHyperLink = props => {
   const { children, variant, to } = props;
   return (
     <RouterLink to={to}>
-      <Link type="button" variant={variant}>
+      <Link type="button" variant={variant} {...props}>
         {children}
       </Link>
     </RouterLink>
