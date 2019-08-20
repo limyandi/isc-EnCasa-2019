@@ -6,10 +6,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const MyHyperLink = props => {
-  const { children, variant, to } = props;
+  const { children, to } = props;
   return (
     <RouterLink to={to}>
-      <Link type="button" variant={variant} {...props}>
+      <Link type="button" {...props}>
         {children}
       </Link>
     </RouterLink>
@@ -17,13 +17,8 @@ const MyHyperLink = props => {
 };
 
 MyHyperLink.propTypes = {
-  variant: PropTypes.string,
   children: PropTypes.string.isRequired,
   to: PropTypes.string.isRequired
-};
-
-MyHyperLink.defaultProps = {
-  variant: 'body'
 };
 
 export default MyHyperLink;

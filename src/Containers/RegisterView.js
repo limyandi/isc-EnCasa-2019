@@ -4,9 +4,12 @@ import MyButton from '../Components/Button';
 import useForm from '../Components/UseForm';
 import MyHyperLink from '../Components/Hyperlink';
 import PaperSheet from '../Components/Paper';
+import MyDropdown from '../Components/Dropdown';
 import MyCheckbox from '../Components/Checkbox';
+import FormDialog from '../Components/FormDialog';
 
 function RegisterView() {
+  // hooks for simple email and password form
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
@@ -14,7 +17,11 @@ function RegisterView() {
       driverChecked: false
     },
     onSubmit(val, errors) {
-      console.log(JSON.stringify({ val, errors }, null, 2));
+      // alert(JSON.stringify({ val, errors }, null, 2));
+      console.log(val, errors);
+      // TODO: Fix this circular dependency.
+      // eslint-disable-next-line no-use-before-define
+      handleClickOpen();
     },
     validate(val) {
       const errors = {};
@@ -24,6 +31,36 @@ function RegisterView() {
       return errors;
     }
   });
+
+  const [open, setOpen] = React.useState(false);
+  const [suburb, setSuburbs] = React.useState([]);
+
+  const suburbLists = [
+    'CBD',
+    'Mascot',
+    'Surry Hills',
+    'Hurstville',
+    'Glensville'
+  ];
+
+  function handleAddSuburb(event) {
+    setSuburbs(event.target.value);
+  }
+
+  function handleClickOpen() {
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setOpen(false);
+  }
+
+  function handleConfirm() {
+    // TODO: API CALL FOR REGISTER HERE.
+    // alert(JSON.stringify({ val, errors }, null, 2));
+    setOpen(false);
+    console.log(values, suburb);
+  }
 
   return (
     <div>
@@ -59,7 +96,20 @@ function RegisterView() {
             >
               Register
             </MyButton>
-            <MyHyperLink to="/">Already have an account? Login!</MyHyperLink>
+            <FormDialog
+              open={open}
+              handleClose={handleClose}
+              handleSubmit={handleConfirm}
+            >
+              <MyDropdown
+                value={suburb}
+                onChange={handleAddSuburb}
+                valueLists={suburbLists}
+              />
+            </FormDialog>
+            <MyHyperLink to="/login">
+              Already have an account? Login!
+            </MyHyperLink>
           </PaperSheet>
         </form>
       </div>
