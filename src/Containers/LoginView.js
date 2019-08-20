@@ -1,6 +1,7 @@
 import React from 'react';
 import MyTextField from '../Components/TextField';
 import MyButton from '../Components/Button';
+import MyHyperLink from '../Components/Hyperlink';
 import useForm from '../Components/UseForm';
 
 function LoginView() {
@@ -42,6 +43,7 @@ function LoginView() {
           <MyButton style={{ marginTop: 15 }} variant="contained" color="primary" type="submit">
             Login
           </MyButton>
+          <MyHyperLink to="/register">No account? Register!</MyHyperLink>
         </form>
       </div>
     </div>

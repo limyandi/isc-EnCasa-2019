@@ -2,6 +2,7 @@ import React from 'react';
 import MyTextField from '../Components/TextField';
 import MyButton from '../Components/Button';
 import useForm from '../Components/UseForm';
+import MyHyperLink from '../Components/Hyperlink';
 
 function RegisterView() {
   const { values, handleChange, handleSubmit } = useForm({
@@ -42,6 +43,7 @@ function RegisterView() {
           <MyButton style={{ marginTop: 15 }} variant="contained" color="primary" type="submit">
             Register
           </MyButton>
+          <MyHyperLink to="/">Already have an account? Login!</MyHyperLink>
         </form>
       </div>
     </div>

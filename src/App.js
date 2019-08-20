@@ -1,11 +1,14 @@
 import React from 'react';
 import './App.css';
-import LoginView from './Containers/LoginView';
+import Routes from './Containers/routes';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
   return (
     <div>
-      <LoginView />
+      <Router>
+        <Routes />
+      </Router>
     </div>
   );
 }
