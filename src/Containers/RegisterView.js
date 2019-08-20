@@ -4,15 +4,17 @@ import MyButton from '../Components/Button';
 import useForm from '../Components/UseForm';
 import MyHyperLink from '../Components/Hyperlink';
 import PaperSheet from '../Components/Paper';
+import MyCheckbox from '../Components/Checkbox';
 
 function RegisterView() {
   const { values, handleChange, handleSubmit } = useForm({
     initialValues: {
       email: '',
-      password: ''
+      password: '',
+      driverChecked: false
     },
     onSubmit(val, errors) {
-      alert(JSON.stringify({ val, errors }, null, 2));
+      console.log(JSON.stringify({ val, errors }, null, 2));
     },
     validate(val) {
       const errors = {};
@@ -42,6 +44,12 @@ function RegisterView() {
               type="password"
               value={values.password}
               onChange={handleChange}
+            />
+            <MyCheckbox
+              checked={values.driverChecked}
+              onChange={handleChange}
+              name="driverChecked"
+              label="Register as Driver"
             />
             <MyButton
               style={{ marginTop: 15, marginBottom: 10 }}
