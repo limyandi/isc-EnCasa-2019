@@ -69,9 +69,8 @@ function RegisterView() {
         Authorization: 'Basic bHZpY290cmk6ZGlnaXRhbA=='
       }
     };
-    axios
-      .post('/api/user/user', { ...{ Roles: [1] }, ...values }, config)
-      .then(res => console.log(res));
+
+    axios.post('/api/user/user', values, config).then(res => console.log(res));
   }
 
   return (
