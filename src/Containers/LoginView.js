@@ -1,12 +1,14 @@
 import React from 'react';
-import MyTextField from '../Components/TextField';
-import MyButton from '../Components/Button';
-import MyHyperLink from '../Components/Hyperlink';
-import useForm from '../Components/UseForm';
-import PaperSheet from '../Components/Paper';
+import {
+  MyTextField,
+  MyButton,
+  MyHyperlink,
+  MyUseForm,
+  MyPaper
+} from '../Components';
 
 function LoginView() {
-  const { values, handleChange, handleSubmit } = useForm({
+  const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
       password: ''
@@ -27,7 +29,7 @@ function LoginView() {
     <div>
       <div>
         <form onSubmit={handleSubmit}>
-          <PaperSheet>
+          <MyPaper>
             <MyTextField
               style={{ marginBottom: 10 }}
               name="email"
@@ -51,8 +53,8 @@ function LoginView() {
             >
               Login
             </MyButton>
-            <MyHyperLink to="/register">No account? Register!</MyHyperLink>
-          </PaperSheet>
+            <MyHyperlink to="/register">No account? Register!</MyHyperlink>
+          </MyPaper>
         </form>
       </div>
     </div>

@@ -1,16 +1,19 @@
 import React from 'react';
-import MyTextField from '../Components/TextField';
-import MyButton from '../Components/Button';
-import useForm from '../Components/UseForm';
-import MyHyperLink from '../Components/Hyperlink';
-import PaperSheet from '../Components/Paper';
-import MyDropdown from '../Components/Dropdown';
-import MyCheckbox from '../Components/Checkbox';
-import FormDialog from '../Components/FormDialog';
+
+import {
+  MyTextField,
+  MyButton,
+  MyHyperlink,
+  MyUseForm,
+  MyPaper,
+  MyDropdown,
+  MyCheckbox,
+  MyFormDialog
+} from '../Components';
 
 function RegisterView() {
   // hooks for simple email and password form
-  const { values, handleChange, handleSubmit } = useForm({
+  const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
       password: '',
@@ -66,7 +69,7 @@ function RegisterView() {
     <div>
       <div>
         <form onSubmit={handleSubmit}>
-          <PaperSheet>
+          <MyPaper>
             <MyTextField
               style={{ marginBottom: 10 }}
               name="email"
@@ -96,7 +99,7 @@ function RegisterView() {
             >
               Register
             </MyButton>
-            <FormDialog
+            <MyFormDialog
               open={open}
               handleClose={handleClose}
               handleSubmit={handleConfirm}
@@ -106,11 +109,11 @@ function RegisterView() {
                 onChange={handleAddSuburb}
                 valueLists={suburbLists}
               />
-            </FormDialog>
-            <MyHyperLink to="/login">
+            </MyFormDialog>
+            <MyHyperlink to="/login">
               Already have an account? Login!
-            </MyHyperLink>
-          </PaperSheet>
+            </MyHyperlink>
+          </MyPaper>
         </form>
       </div>
     </div>

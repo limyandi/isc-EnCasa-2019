@@ -1,9 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
-import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Routes from './Containers/routes';
+import 'typeface-roboto';
 
 function App() {
   return (

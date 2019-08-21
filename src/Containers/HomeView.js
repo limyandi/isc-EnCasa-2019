@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { MyHeader } from '../Components';
 
 function HomeView() {
   // TODO: or persist data
@@ -13,7 +14,7 @@ function HomeView() {
       <button type="button" onClick={axiosFetch}>
         Try Get Value
       </button>
-      <div>Your delivery is here!</div>
+      <MyHeader>Your delivery</MyHeader>
     </div>
   );
 }
