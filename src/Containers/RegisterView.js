@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 import {
   MyTextField,
@@ -17,7 +18,8 @@ function RegisterView() {
     initialValues: {
       email: '',
       password: '',
-      driverChecked: false
+      // by default, has the role 1 = Customer
+      roles: [1]
     },
     onSubmit(val, errors) {
       // alert(JSON.stringify({ val, errors }, null, 2));
@@ -62,7 +64,14 @@ function RegisterView() {
     // TODO: API CALL FOR REGISTER HERE.
     // alert(JSON.stringify({ val, errors }, null, 2));
     setOpen(false);
-    console.log(values, suburb);
+    const config = {
+      headers: {
+        Authorization: 'Basic bHZpY290cmk6ZGlnaXRhbA=='
+      }
+    };
+    axios
+      .post('/api/user/user', { ...{ Roles: [1] }, ...values }, config)
+      .then(res => console.log(res));
   }
 
   return (
