@@ -8,7 +8,13 @@ const MyButton = props => {
 
   return (
     <div>
-      <Button onClick={onClick} color={color} type={type} variant={variant} {...props}>
+      <Button
+        onClick={onClick}
+        color={color}
+        type={type}
+        variant={variant}
+        {...props}
+      >
         {children}
       </Button>
     </div>
