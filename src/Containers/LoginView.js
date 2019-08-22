@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import {
   MyTextField,
   MyButton,
@@ -16,7 +17,7 @@ function LoginView() {
       password: ''
     },
     onSubmit(val, errors) {
-      login(val.values);
+      login(val.values).then(res => this.props.history.push('/home'));
     },
     validate(val) {
       const errors = {};
@@ -63,4 +64,4 @@ function LoginView() {
   );
 }
 
-export default LoginView;
+export default withRouter(LoginView);

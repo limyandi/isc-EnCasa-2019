@@ -13,7 +13,11 @@ export function register({ email, password, roles }) {
 }
 
 export function login({ email, password }) {
+  return axios.post('/api/user/userlogin', { email, password }, config);
+}
+
+export function getMyDeliveries(userId) {
   return axios
-    .post('/api/user/userlogin', { email, password }, config)
-    .then(res => console.log(res));
+    .get('/api/delivery/deliveries', { userId }, config)
+    .then(res => console.log(res.json()));
 }
