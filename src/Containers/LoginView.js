@@ -7,6 +7,8 @@ import {
   MyPaper
 } from '../Components';
 
+import { login } from '../utils/http';
+
 function LoginView() {
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
@@ -14,7 +16,7 @@ function LoginView() {
       password: ''
     },
     onSubmit(val, errors) {
-      alert(JSON.stringify({ val, errors }, null, 2));
+      login(val.values);
     },
     validate(val) {
       const errors = {};

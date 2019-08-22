@@ -7,9 +7,13 @@ const config = {
 };
 
 export function register({ email, password, roles }) {
-  return axios.post('/api/user/user', { email, password, roles }, config);
+  return axios
+    .post('/api/user/user', { email, password, roles }, config)
+    .then(res => console.log(res));
 }
 
-export function login() {
-  return 'haha';
+export function login({ email, password }) {
+  return axios
+    .post('/api/user/userlogin', { email, password }, config)
+    .then(res => console.log(res));
 }

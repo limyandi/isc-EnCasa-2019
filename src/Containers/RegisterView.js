@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import {
   MyTextField,
@@ -21,12 +20,10 @@ function RegisterView() {
     initialValues: {
       email: '',
       password: '',
-      // by default, has the role 1 = Customer
-      roles: [1]
+      driverChecked: false
     },
     onSubmit(val, errors) {
       // alert(JSON.stringify({ val, errors }, null, 2));
-      console.log(val, errors);
       // TODO: Fix this circular dependency.
       // eslint-disable-next-line no-use-before-define
       handleClickOpen();
@@ -67,8 +64,11 @@ function RegisterView() {
     // TODO: API CALL FOR REGISTER HERE.
     // alert(JSON.stringify({ val, errors }, null, 2));
     setOpen(false);
-
-    register(values);
+    const roles = [1];
+    if (values.driverChecked) {
+      roles.push(2);
+    }
+    register({ ...values, roles });
   }
 
   return (

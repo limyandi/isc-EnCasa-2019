@@ -8,17 +8,7 @@ function HomeView() {
   const [userMode, setUserMode] = React.useState('customer');
   console.log(userMode);
 
-  const axiosFetch = () =>
-    axios.get('/api/users').then(res => console.log(res));
-
-  return (
-    <div>
-      <button type="button" onClick={axiosFetch}>
-        Try Get Value
-      </button>
-      {userMode === 'customer' && CustomerView()}
-    </div>
-  );
+  return <div>{userMode === 'customer' && CustomerView()}</div>;
 }
 
 export default HomeView;
