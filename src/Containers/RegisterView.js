@@ -12,6 +12,9 @@ import {
   MyFormDialog
 } from '../Components';
 
+// TODO: Might not be good idea to use directly here ( use actions? )
+import { register } from '../utils/http';
+
 function RegisterView() {
   // hooks for simple email and password form
   const { values, handleChange, handleSubmit } = MyUseForm({
@@ -64,13 +67,8 @@ function RegisterView() {
     // TODO: API CALL FOR REGISTER HERE.
     // alert(JSON.stringify({ val, errors }, null, 2));
     setOpen(false);
-    const config = {
-      headers: {
-        Authorization: 'Basic bHZpY290cmk6ZGlnaXRhbA=='
-      }
-    };
 
-    axios.post('/api/user/user', values, config).then(res => console.log(res));
+    register(values);
   }
 
   return (
