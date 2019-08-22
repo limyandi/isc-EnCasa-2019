@@ -11,9 +11,11 @@ function App() {
       <Helmet>
         <style>{'body { background-color: #282c34; }'}</style>
       </Helmet>
-      <Router>
-        <Routes />
-      </Router>
+      <header className="App-header">
+        <Router>
+          <Routes />
+        </Router>
+      </header>
     </div>
   );
 }
