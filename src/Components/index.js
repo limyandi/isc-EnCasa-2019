@@ -7,6 +7,8 @@ import MyHyperlink from './Hyperlink';
 import MyPaper from './Paper';
 import MyTextField from './TextField';
 import MyUseForm from './UseForm';
+import MyFloatingActionButton from './FloatingActionButton';
+import MySwitch from './Switch';
 
 export {
   MyButton,
@@ -17,5 +19,7 @@ export {
   MyHyperlink,
   MyPaper,
   MyTextField,
-  MyUseForm
+  MyUseForm,
+  MyFloatingActionButton,
+  MySwitch
 };
