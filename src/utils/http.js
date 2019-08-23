@@ -17,7 +17,5 @@ export function login({ email, password }) {
 }
 
 export function getMyDeliveries(userId) {
-  return axios
-    .get('/api/delivery/deliveries', { userId }, config)
-    .then(res => console.log(res.json()));
+  return axios.get(`/api/delivery/deliveries/${userId}`, config);
 }
