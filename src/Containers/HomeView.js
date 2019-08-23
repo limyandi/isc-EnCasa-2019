@@ -8,15 +8,17 @@ function HomeView() {
   const [userMode, setUserMode] = React.useState('Customer');
 
   const switchUserMode = () => {
-    return userMode === 'Customer'
-      ? setUserMode('Driver')
-      : setUserMode('Customer');
+    if (userMode === 'Customer') {
+      setUserMode('Driver');
+    } else {
+      setUserMode('Customer');
+    }
   };
 
   return (
     <div>
       <MySwitch label={userMode} onChange={switchUserMode} />
-      {userMode === 'Customer' && CustomerView()}
+      {userMode === 'Customer' && <CustomerView />}
     </div>
   );
 }

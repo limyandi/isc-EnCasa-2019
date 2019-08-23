@@ -13,6 +13,7 @@ function CustomerView() {
 
   // Component did mount in stateful component
   useEffect(() => {
+    // TODO: Get the correct user id.
     getMyDeliveries(1).then(res => console.log(res));
   }, []);
 
