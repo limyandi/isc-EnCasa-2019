@@ -1,14 +1,24 @@
 import React from 'react';
 import axios from 'axios';
-import { MyHeader } from '../Components';
+import { MyHeader, MySwitch } from '../Components';
 import CustomerView from './CustomerView';
 
 function HomeView() {
   // TODO: or persist data
-  const [userMode, setUserMode] = React.useState('customer');
-  console.log(userMode);
+  const [userMode, setUserMode] = React.useState('Customer');
 
-  return <div>{userMode === 'customer' && CustomerView()}</div>;
+  const switchUserMode = () => {
+    return userMode === 'Customer'
+      ? setUserMode('Driver')
+      : setUserMode('Customer');
+  };
+
+  return (
+    <div>
+      <MySwitch label={userMode} onChange={switchUserMode} />
+      {userMode === 'Customer' && CustomerView()}
+    </div>
+  );
 }
 
 export default HomeView;

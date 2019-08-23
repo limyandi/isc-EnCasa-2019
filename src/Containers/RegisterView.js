@@ -56,20 +56,21 @@ function RegisterView() {
     setOpen(true);
   }
 
-  function handleClose() {
-    setOpen(false);
-  }
-
-  function handleConfirm() {
-    // TODO: API CALL FOR REGISTER HERE.
-    // alert(JSON.stringify({ val, errors }, null, 2));
-    setOpen(false);
-    const roles = [1];
-    if (values.driverChecked) {
-      roles.push(2);
+  const communityForm = {
+    dialogTitle: 'Community',
+    dialogText: 'Continue by selecting your community',
+    handleConfirm: () => {
+      setOpen(false);
+      const roles = [1];
+      if (values.driverChecked) {
+        roles.push(2);
+      }
+      register({ ...values, roles });
+    },
+    handleClose: () => {
+      setOpen(false);
     }
-    register({ ...values, roles });
-  }
+  };
 
   return (
     <div>
@@ -107,8 +108,10 @@ function RegisterView() {
             </MyButton>
             <MyFormDialog
               open={open}
-              handleClose={handleClose}
-              handleSubmit={handleConfirm}
+              handleClose={communityForm.handleClose}
+              handleSubmit={communityForm.handleConfirm}
+              dialogTitle={communityForm.dialogTitle}
+              dialogText={communityForm.dialogText}
             >
               <MyDropdown
                 value={suburb}
