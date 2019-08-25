@@ -21,13 +21,19 @@ export function getMyDeliveries(userId) {
 }
 
 export function addDelivery(deliveryObject) {
-  const { receivingAddress, date, time, pickupLocation } = deliveryObject;
+  const {
+    customerid,
+    fromaddress,
+    date,
+    time,
+    pickuplocation
+  } = deliveryObject;
 
-  if (!receivingAddress || !date || !time || !pickupLocation) {
+  if (!customerid || !fromaddress || !date || !time || !pickuplocation) {
     throw new Error('invalid delivery object');
   }
 
   // axios posting.
-  console.log(receivingAddress, date, time, pickupLocation);
-  return axios.post('api/delivery/delivery', config);
+  console.log(customerid, fromaddress, date, time, pickuplocation);
+  return axios.post('api/delivery/delivery', deliveryObject, config);
 }

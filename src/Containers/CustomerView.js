@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useGlobal } from 'reactn';
 import { TextField } from '@material-ui/core';
 import { Add as AddIcon, Edit as EditIcon } from '@material-ui/icons';
 import {
@@ -97,14 +97,15 @@ const PickupForm = () => {
 };
 
 const DeliveryForm = () => {
+  const [user, setUser] = useGlobal('user');
   const [open, setOpen] = React.useState(false);
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      receivingAddress: '',
+      fromaddress: '',
       date: '',
       time: '',
-      pickupLocation: ''
+      pickuplocation: ''
     },
 
     onSubmit(val, errors) {
@@ -114,7 +115,9 @@ const DeliveryForm = () => {
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
       if (!errors) {
-        addDelivery({ ...val.values, status: 0 }).then(res => console.log(res));
+        addDelivery({ ...val.values, status: 0, customerid: user.id }).then(
+          res => console.log(res)
+        );
       }
     },
 
@@ -157,7 +160,7 @@ const DeliveryForm = () => {
         <form>
           <TextField
             value={values.receivingAddress}
-            name="receivingAddress"
+            name="fromaddress"
             label="Address To"
             onChange={handleChange}
             autoFocus
@@ -176,7 +179,7 @@ const DeliveryForm = () => {
           />
           <TextField
             value={values.pickupLocation}
-            name="pickupLocation"
+            name="pickuplocation"
             label="Pickup Location"
             onChange={handleChange}
           />
@@ -187,15 +190,30 @@ const DeliveryForm = () => {
 };
 
 function CustomerView() {
+  const [deliveries, setDeliveries] = useGlobal('deliveries');
   // Component did mount in stateful component
   useEffect(() => {
     // TODO: Get the correct user id.
-    getMyDeliveries(1).then(res => console.log(res));
+    getMyDeliveries(1).then(async res => {
+      await setDeliveries(res.data);
+    });
   }, []);
+
+  const MyDeliveries = () => {
+    console.log(deliveries);
+    return (
+      <div>
+        {deliveries.map((delivery, index) => (
+          <div key={index}>{delivery.fromAddress}</div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div>
       <MyHeader>Your delivery - Customer View</MyHeader>
+      <MyDeliveries />
       <PickupForm />
       <DeliveryForm />
       <div />

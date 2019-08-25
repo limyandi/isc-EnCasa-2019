@@ -5,6 +5,7 @@ import { setGlobal } from 'reactn';
 // Mock up Initial data.
 export default function configureStore() {
   const user = {
+    id: 1,
     username: 'limyandi@gmail.com',
     email: 'limyandi@gmail.com',
     roles: ['Customer', 'Driver'],
@@ -12,10 +13,7 @@ export default function configureStore() {
     role: 'Customer'
   };
 
-  const delivery = {
-    toAddress: '383 Kent St',
-    fromAddress: '34 George St'
-  };
+  const deliveries = [];
 
-  setGlobal({ user, delivery });
+  setGlobal({ user, deliveries });
 }
