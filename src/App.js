@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'reactn';
 import { Helmet } from 'react-helmet';
 import './App.css';
 import { BrowserRouter as Router } from 'react-router-dom';
