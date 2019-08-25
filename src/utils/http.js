@@ -19,3 +19,12 @@ export function login({ email, password }) {
 export function getMyDeliveries(userId) {
   return axios.get(`/api/delivery/deliveries/${userId}`, config);
 }
+
+export function addDelivery(deliveryObject) {
+  const { address, open, close } = deliveryObject;
+  if (!address || !open || !close) {
+    throw new Error('invalid delivery object');
+  }
+
+  return deliveryObject;
+}

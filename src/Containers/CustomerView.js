@@ -25,8 +25,8 @@ function CustomerView() {
       pickupLocation: ''
     },
 
-    // TODO: Send data to add delivery
     onSubmit(val, errors) {
+      // posting delivery here
       alert(JSON.stringify({ val, errors }, null, 2));
     },
 
