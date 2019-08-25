@@ -29,6 +29,5 @@ export function addDelivery(deliveryObject) {
 
   // axios posting.
   console.log(receivingAddress, date, time, pickupLocation);
-  // return axios.post('');
-  return deliveryObject;
+  return axios.post('api/delivery/delivery', config);
 }

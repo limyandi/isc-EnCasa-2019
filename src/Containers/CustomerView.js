@@ -114,7 +114,7 @@ const DeliveryForm = () => {
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
       if (!errors) {
-        const newDeliveryData = addDelivery({ ...val.values, status: 0 });
+        addDelivery({ ...val.values, status: 0 }).then(res => console.log(res));
       }
     },
 
