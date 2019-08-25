@@ -1,33 +1,33 @@
 import React, { useGlobal } from 'reactn';
-import axios from 'axios';
-import { MyHeader, MySwitch } from '../Components';
+import { MySwitch } from '../Components';
 import CustomerView from './CustomerView';
+import DriverView from './DriverView';
 
 function HomeView() {
   // Get user global state data.
   const [user, setUser] = useGlobal('user');
 
   // by default, set user mode to customer
-  const [userMode, setUserMode] = React.useState('Customer');
 
   const userHasDriverRole = user.roles.includes('Driver');
 
   const switchUserMode = () => {
-    if (userMode === 'Customer') {
-      setUserMode('Driver');
+    if (user.role === 'Customer') {
+      setUser({ ...user, role: 'Driver' });
     } else {
-      setUserMode('Customer');
+      setUser({ ...user, role: 'Customer' });
     }
   };
 
   return (
     <div>
       <MySwitch
-        label={userMode}
+        label={user.role}
         onChange={switchUserMode}
         visible={userHasDriverRole}
       />
-      {userMode === 'Customer' && <CustomerView />}
+      {user.role === 'Customer' && <CustomerView />}
+      {user.role === 'Driver' && <DriverView />}
     </div>
   );
 }

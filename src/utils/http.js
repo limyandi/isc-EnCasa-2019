@@ -21,10 +21,14 @@ export function getMyDeliveries(userId) {
 }
 
 export function addDelivery(deliveryObject) {
-  const { address, open, close } = deliveryObject;
-  if (!address || !open || !close) {
+  const { receivingAddress, date, time, pickupLocation } = deliveryObject;
+
+  if (!receivingAddress || !date || !time || !pickupLocation) {
     throw new Error('invalid delivery object');
   }
 
+  // axios posting.
+  console.log(receivingAddress, date, time, pickupLocation);
+  // return axios.post('');
   return deliveryObject;
 }

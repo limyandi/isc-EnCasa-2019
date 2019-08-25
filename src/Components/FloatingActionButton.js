@@ -1,7 +1,6 @@
 import { Fab } from '@material-ui/core';
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
@@ -13,7 +12,7 @@ const useStyles = makeStyles(theme => ({
 const FloatingActionButton = props => {
   const classes = useStyles();
   // the button type if needed for form submission
-  const { color, ariaLabel, onClick } = props;
+  const { color, ariaLabel, onClick, children } = props;
 
   return (
     <div>
@@ -23,7 +22,7 @@ const FloatingActionButton = props => {
         className={classes.fab}
         onClick={onClick}
       >
-        <AddIcon />
+        {children}
       </Fab>
     </div>
   );

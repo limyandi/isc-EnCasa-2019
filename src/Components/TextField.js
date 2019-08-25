@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MyTextField = props => {
-  const { onChange, label, value, name, type } = props;
+  const { onChange, label, value, name, type, autoFocus } = props;
 
   return (
     <div>
@@ -13,6 +13,7 @@ const MyTextField = props => {
         name={name}
         value={value}
         onChange={onChange}
+        autoFocus={autoFocus}
         {...props}
       />
     </div>
@@ -20,12 +21,14 @@ const MyTextField = props => {
 };
 
 MyTextField.defaultProps = {
-  type: 'text'
+  type: 'text',
+  autoFocus: false
 };
 
 MyTextField.propTypes = {
   label: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  autoFocus: PropTypes.bool,
   // TODO: Does not have to be string.
   value: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
