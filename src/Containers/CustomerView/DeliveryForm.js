@@ -1,22 +1,29 @@
 import React, { useGlobal } from 'reactn';
 import { TextField } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
+import moment from 'moment';
 import {
   MyFloatingActionButton,
   MyFormDialog,
-  MyUseForm
+  MyUseForm,
+  MyDatePicker,
+  MyTimePicker
 } from '../../Components';
 import { addDelivery } from '../../utils/http';
 
 const DeliveryForm = () => {
   const [user, setUser] = useGlobal('user');
   const [open, setOpen] = React.useState(false);
+  const [date, setDate] = React.useState(new Date());
+
+  // TODO: Set Date not working.
+  const handleDateChange = selectedDate => {
+    setDate(selectedDate);
+  };
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       fromaddress: '',
-      date: '',
-      time: '',
       pickuplocation: ''
     },
 
@@ -27,16 +34,20 @@ const DeliveryForm = () => {
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
       if (!errors) {
-        addDelivery({ ...val.values, status: 0, customerid: user.ID }).then(
-          res => console.log(res)
-        );
+        addDelivery({
+          ...val.values,
+          date: moment(date).format('MM-DD-YYYY'),
+          time: moment(date).format('HH:mm:ss'),
+          status: 0,
+          customerid: user.ID
+        }).then(res => console.log(res));
       }
     },
 
     validate(val) {
       const errors = {};
       if (val.fromaddress === '') {
-        errors.fromaddress = 'Please enter the receiving address';
+        errors.fromaddress = 'Please enter the from address';
       }
       return errors;
     }
@@ -77,18 +88,8 @@ const DeliveryForm = () => {
             onChange={handleChange}
             autoFocus
           />
-          <TextField
-            value={values.date}
-            name="date"
-            label="Date"
-            onChange={handleChange}
-          />
-          <TextField
-            value={values.time}
-            name="time"
-            label="Time"
-            onChange={handleChange}
-          />
+          <MyDatePicker name="date" value={date} onChange={handleDateChange} />
+          <MyTimePicker name="date" value={date} onChange={handleDateChange} />
           <TextField
             value={values.pickupLocation}
             name="pickuplocation"

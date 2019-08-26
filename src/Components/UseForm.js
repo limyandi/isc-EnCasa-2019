@@ -7,12 +7,15 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
 
   const handleChange = event => {
     const { target } = event;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const { name } = target;
-    setValues({
-      ...values,
-      [name]: value
-    });
+    console.log(target);
+    if (target) {
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const { name } = target;
+      setValues({
+        ...values,
+        [name]: value
+      });
+    }
   };
 
   const handleBlur = event => {

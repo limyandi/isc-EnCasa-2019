@@ -21,6 +21,7 @@ export function getMyDeliveries(userId) {
 }
 
 export function addDelivery(deliveryObject) {
+  console.log(deliveryObject);
   const {
     customerid,
     fromaddress,
