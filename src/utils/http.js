@@ -17,7 +17,7 @@ export function login({ email, password }) {
 }
 
 export function getMyDeliveries(userId) {
-  return axios.get(`/api/delivery/deliveries/${userId}`, config);
+  return axios.get(`/api/user/user/${userId}`, config);
 }
 
 export function addDelivery(deliveryObject) {
@@ -28,12 +28,12 @@ export function addDelivery(deliveryObject) {
     time,
     pickuplocation
   } = deliveryObject;
-
+  console.log(customerid, fromaddress, date, time, pickuplocation);
   if (!customerid || !fromaddress || !date || !time || !pickuplocation) {
     throw new Error('invalid delivery object');
   }
 
   // axios posting.
-  console.log(customerid, fromaddress, date, time, pickuplocation);
+
   return axios.post('api/delivery/delivery', deliveryObject, config);
 }

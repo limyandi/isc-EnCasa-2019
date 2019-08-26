@@ -5,20 +5,28 @@ import PickupForm from './PickupForm';
 import DeliveryForm from './DeliveryForm';
 
 function CustomerView() {
-  const [deliveries, setDeliveries] = useGlobal('deliveries');
+  const [user, setUser] = useGlobal('user');
   // Component did mount in stateful component
   useEffect(() => {
     // TODO: Get the correct user id.
     getMyDeliveries(1).then(async res => {
-      await setDeliveries(res.data);
+      await setUser({
+        ...res.data,
+        roles: ['Customer', 'Driver'],
+        role: 'Customer'
+      });
     });
   }, []);
 
   const MyDeliveries = () => {
-    if (deliveries.length !== 0 && deliveries) {
-      console.log(deliveries);
-      return <MyTable data={deliveries} />;
+    console.log(user);
+    if (user.Deliveries) {
+      if (user.Deliveries.length !== 0) {
+        console.log(user.Deliveries);
+        return <MyTable data={user.Deliveries} />;
+      }
     }
+    //
 
     return null;
   };

@@ -27,7 +27,7 @@ const DeliveryForm = () => {
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
       if (!errors) {
-        addDelivery({ ...val.values, status: 0, customerid: user.id }).then(
+        addDelivery({ ...val.values, status: 0, customerid: user.ID }).then(
           res => console.log(res)
         );
       }
@@ -35,8 +35,8 @@ const DeliveryForm = () => {
 
     validate(val) {
       const errors = {};
-      if (val.receivingAddress === '') {
-        errors.receivingAddress = 'Please enter the receiving address';
+      if (val.fromaddress === '') {
+        errors.fromaddress = 'Please enter the receiving address';
       }
       return errors;
     }
