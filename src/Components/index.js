@@ -9,6 +9,7 @@ import MyTextField from './TextField';
 import MyUseForm from './UseForm';
 import MyFloatingActionButton from './FloatingActionButton';
 import MySwitch from './Switch';
+import MyTable from './Table';
 
 export {
   MyButton,
@@ -21,5 +22,6 @@ export {
   MyTextField,
   MyUseForm,
   MyFloatingActionButton,
-  MySwitch
+  MySwitch,
+  MyTable
 };

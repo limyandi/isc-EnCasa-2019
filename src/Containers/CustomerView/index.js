@@ -1,5 +1,5 @@
 import React, { useEffect, useGlobal } from 'reactn';
-import { MyHeader } from '../../Components';
+import { MyHeader, MyTable } from '../../Components';
 import { getMyDeliveries } from '../../utils/http';
 import PickupForm from './PickupForm';
 import DeliveryForm from './DeliveryForm';
@@ -15,20 +15,19 @@ function CustomerView() {
   }, []);
 
   const MyDeliveries = () => {
-    console.log(deliveries);
-    return (
-      <div>
-        {deliveries.map((delivery, index) => (
-          <div key={index}>{delivery.fromAddress}</div>
-        ))}
-      </div>
-    );
+    if (deliveries.length !== 0 && deliveries) {
+      console.log(deliveries);
+      return <MyTable data={deliveries} />;
+    }
+
+    return null;
   };
 
   return (
     <div>
-      <MyHeader>Your delivery - Customer View</MyHeader>
+      <MyHeader>Your delivery</MyHeader>
       <MyDeliveries />
+      <MyHeader>Your pickup request</MyHeader>
       <PickupForm />
       <DeliveryForm />
       <div />
