@@ -2,6 +2,15 @@ import React, { useGlobal } from 'reactn';
 import { TextField } from '@material-ui/core';
 import { Edit as EditIcon } from '@material-ui/icons';
 import moment from 'moment';
+import 'date-fns';
+import Grid from '@material-ui/core/Grid';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+  KeyboardTimePicker
+} from '@material-ui/pickers';
+import { User } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
@@ -9,7 +18,6 @@ import {
   MyDatePicker,
   MyTimePicker
 } from '../../Components';
-import { User } from '../../utils/http';
 
 const DeliveryForm = () => {
   const [user, setUser] = useGlobal('user');
@@ -83,16 +91,46 @@ const DeliveryForm = () => {
         <form>
           <TextField
             value={values.receivingAddress}
-            name="fromaddress"
+            name="fromAddress"
             label="Address To"
             onChange={handleChange}
             autoFocus
           />
-          <MyDatePicker name="date" value={date} onChange={handleDateChange} />
-          <MyTimePicker name="date" value={date} onChange={handleDateChange} />
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardDatePicker
+                margin="normal"
+                id="date-picker-dialog"
+                label="Date picker dialog"
+                format="MM-dd-yyyy"
+                value={date}
+                //   inputProps={{ name: 'date' }}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change date'
+                }}
+                disablePast
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardTimePicker
+                margin="normal"
+                id="time-picker"
+                label="Time picker"
+                value={date}
+                minutesStep={15}
+                onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change time'
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
           <TextField
             value={values.pickupLocation}
-            name="pickuplocation"
+            name="pickupLocation"
             label="Pickup Location"
             onChange={handleChange}
           />
