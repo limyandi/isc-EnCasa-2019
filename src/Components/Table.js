@@ -69,9 +69,25 @@ const MyTable = props => {
                   {oneData[columnName]}
                 </StyledTableCell>
               ))} */}
-              {Object.keys(oneData).map(key => (
-                <StyledTableCell align="right">{oneData[key]}</StyledTableCell>
-              ))}
+              {Object.keys(oneData).map(key => {
+                console.log(oneData[key]);
+                if (key === 'status') {
+                  // if the status text is true or false (ternary operator)
+                  const statusText = oneData[key]
+                    ? 'Progressing'
+                    : 'Unassigned';
+                  return (
+                    <StyledTableCell align="right">
+                      {statusText}
+                    </StyledTableCell>
+                  );
+                }
+                return (
+                  <StyledTableCell align="right">
+                    {oneData[key]}
+                  </StyledTableCell>
+                );
+              })}
             </StyledTableRow>
           );
         })}

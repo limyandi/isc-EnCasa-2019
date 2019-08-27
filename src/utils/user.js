@@ -31,7 +31,7 @@ export default function User(axios, config) {
       time,
       pickupLocation
     } = deliveryObject;
-    console.log(customerId, fromAddress, date, time, pickupLocation);
+    console.log(deliveryObject);
     if (!customerId || !fromAddress || !date || !time || !pickupLocation) {
       throw new Error('invalid delivery object');
     }
