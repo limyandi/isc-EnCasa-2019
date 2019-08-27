@@ -5,7 +5,7 @@ import { setGlobal } from 'reactn';
 // Mock up Initial data.
 export default function configureStore() {
   const user = {
-    ID: 1,
+    id: 1,
     username: 'limyandi@gmail.com',
     email: 'limyandi@gmail.com',
     roles: ['Customer', 'Driver'],

@@ -9,7 +9,8 @@ function CustomerView() {
   // Component did mount in stateful component
   useEffect(() => {
     // TODO: Get the correct user id.
-    User.getMyDeliveries(user.ID).then(async res => {
+    User.getMyDeliveries(user.id).then(async res => {
+      console.log(res.data);
       await setUser({
         ...res.data,
         roles: ['Customer', 'Driver'],

@@ -8,5 +8,5 @@ const config = {
 };
 
 const User = MyUser(axios, config);
-console.log(User);
+
 export { User };
