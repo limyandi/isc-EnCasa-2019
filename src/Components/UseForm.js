@@ -7,7 +7,6 @@ const useForm = ({ initialValues, onSubmit, validate }) => {
 
   const handleChange = event => {
     const { target } = event;
-    console.log(target);
     if (target) {
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const { name } = target;

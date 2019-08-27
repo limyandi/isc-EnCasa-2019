@@ -21,10 +21,10 @@ function CustomerView() {
 
   const MyDeliveries = () => {
     console.log(user);
-    if (user.Deliveries) {
-      if (user.Deliveries.length !== 0) {
-        console.log(user.Deliveries);
-        return <MyTable data={user.Deliveries} />;
+    if (user.deliveries) {
+      if (user.deliveries.length !== 0) {
+        console.log(user.deliveries);
+        return <MyTable data={user.deliveries} />;
       }
     }
     //

@@ -9,7 +9,7 @@ function HomeView() {
 
   // by default, set user mode to customer
 
-  const userHasDriverRole = user.DriverDetails != null;
+  const userHasDriverRole = user.driverDetails != null;
 
   const switchUserMode = () => {
     if (user.role === 'Customer') {

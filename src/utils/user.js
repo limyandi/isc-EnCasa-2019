@@ -1,12 +1,21 @@
 export default function User(axios, config) {
-  const register = ({ email, password, roles }) => {
-    return axios
-      .post('/logistics/register', { email, password, roles }, config)
-      .then(res => console.log(res));
+  const register = registerObject => {
+    const { email, password, driverDetails } = registerObject;
+
+    if (!email || !password || !driverDetails) {
+      throw new Error('Invalid register object');
+    }
+    return axios.post('logistics/register', registerObject, config);
   };
 
-  const login = ({ email, password }) => {
-    return axios.post('/logistics/login', { email, password }, config);
+  const login = loginDetails => {
+    const { email, password } = loginDetails;
+
+    console.log(loginDetails);
+    if (!email || !password) {
+      throw new Error('invalid login details!');
+    }
+    return axios.post('logistics/login', loginDetails, config);
   };
 
   //   const getMyDeliveries = userId => {
@@ -16,14 +25,14 @@ export default function User(axios, config) {
   const addDelivery = deliveryObject => {
     console.log(deliveryObject);
     const {
-      customerid,
-      fromaddress,
+      customerId,
+      fromAddress,
       date,
       time,
-      pickuplocation
+      pickupLocation
     } = deliveryObject;
-    console.log(customerid, fromaddress, date, time, pickuplocation);
-    if (!customerid || !fromaddress || !date || !time || !pickuplocation) {
+    console.log(customerId, fromAddress, date, time, pickupLocation);
+    if (!customerId || !fromAddress || !date || !time || !pickupLocation) {
       throw new Error('invalid delivery object');
     }
 
@@ -31,5 +40,5 @@ export default function User(axios, config) {
     return axios.post('api/delivery/delivery', deliveryObject, config);
   };
 
-  return { register, login, getMyDeliveries, addDelivery };
+  return { register, login, addDelivery };
 }

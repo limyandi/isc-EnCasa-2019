@@ -11,7 +11,7 @@ import { User } from '../utils/http';
 
 // import { login } from '../utils/http';
 
-function LoginView() {
+function LoginView(props) {
   const [user, setUser] = useGlobal('user');
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
@@ -19,14 +19,16 @@ function LoginView() {
       password: ''
     },
     onSubmit(val, errors) {
-      User.login(val.values).then(res => {
-        setUser({
-          ...res.data,
-          // default role is customer
-          role: 'Customer'
-        });
-        this.props.history.push('/home');
-      });
+      User.login(val.values)
+        .then(res => {
+          setUser({
+            ...res.data,
+            // default role is customer
+            role: 'Customer'
+          });
+          props.history.push('/');
+        })
+        .catch(() => console.log('failed to login'));
     },
     validate(val) {
       const errors = {};

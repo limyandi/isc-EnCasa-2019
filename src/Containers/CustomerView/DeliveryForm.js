@@ -39,7 +39,7 @@ const DeliveryForm = () => {
           date: moment(date).format('MM-DD-YYYY'),
           time: moment(date).format('HH:mm:ss'),
           status: 0,
-          customerid: user.ID
+          customerId: user.ID
         }).then(res => console.log(res));
       }
     },

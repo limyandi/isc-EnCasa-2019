@@ -1,5 +1,5 @@
-import React from 'react';
-
+import React, { useGlobal } from 'reactn';
+import { withRouter } from 'react-router-dom';
 import {
   MyTextField,
   MyButton,
@@ -12,7 +12,8 @@ import {
 } from '../Components';
 import { User } from '../utils/http';
 
-function RegisterView() {
+function RegisterView(props) {
+  const [user, setUser] = useGlobal('user');
   // hooks for simple email and password form
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
@@ -59,11 +60,18 @@ function RegisterView() {
     dialogText: 'Continue by selecting your community',
     handleConfirm: () => {
       setOpen(false);
-      const roles = [1];
+      const driverDetails = {};
       if (values.driverChecked) {
-        roles.push(2);
+        // TODO: Basic Driver Details
+        driverDetails.Availability = 'Always';
+        driverDetails.Notification = true;
       }
-      User.register({ ...values, roles });
+      console.log(values);
+      User.register({ ...values, driverDetails }).then(res => {
+        // default role is customer
+        setUser({ ...res.data, role: 'Customer' });
+        props.history.push('/');
+      });
     },
     handleClose: () => {
       setOpen(false);
@@ -127,4 +135,4 @@ function RegisterView() {
   );
 }
 
-export default RegisterView;
+export default withRouter(RegisterView);
