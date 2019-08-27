@@ -23,7 +23,7 @@ function LoginView(props) {
         .then(res => {
           setUser({
             ...res.data,
-            // default role is customer
+            // initial default role is customer
             role: 'Customer'
           });
           props.history.push('/');

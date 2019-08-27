@@ -1,14 +1,5 @@
 import React, { useGlobal } from 'reactn';
 import { withRouter } from 'react-router-dom';
-
-import 'date-fns';
-import Grid from '@material-ui/core/Grid';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker
-} from '@material-ui/pickers';
-import { User } from '../utils/http';
 import {
   MyTextField,
   MyButton,
@@ -19,6 +10,8 @@ import {
   MyCheckbox,
   MyFormDialog
 } from '../Components';
+import { User } from '../utils/http';
+
 
 function RegisterView(props) {
   const [user, setUser] = useGlobal('user');
