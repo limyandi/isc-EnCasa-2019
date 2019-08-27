@@ -1,6 +1,6 @@
 import React, { useEffect, useGlobal } from 'reactn';
 import { MyHeader, MyTable } from '../../Components';
-import { getMyDeliveries } from '../../utils/http';
+import { User } from '../../utils/http';
 import PickupForm from './PickupForm';
 import DeliveryForm from './DeliveryForm';
 
@@ -9,7 +9,7 @@ function CustomerView() {
   // Component did mount in stateful component
   useEffect(() => {
     // TODO: Get the correct user id.
-    getMyDeliveries(1).then(async res => {
+    User.getMyDeliveries(user.ID).then(async res => {
       await setUser({
         ...res.data,
         roles: ['Customer', 'Driver'],

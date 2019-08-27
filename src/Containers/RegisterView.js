@@ -10,9 +10,7 @@ import {
   MyCheckbox,
   MyFormDialog
 } from '../Components';
-
-// TODO: Might not be good idea to use directly here ( use actions? )
-import { register } from '../utils/http';
+import { User } from '../utils/http';
 
 function RegisterView() {
   // hooks for simple email and password form
@@ -65,7 +63,7 @@ function RegisterView() {
       if (values.driverChecked) {
         roles.push(2);
       }
-      register({ ...values, roles });
+      User.register({ ...values, roles });
     },
     handleClose: () => {
       setOpen(false);

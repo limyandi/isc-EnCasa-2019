@@ -9,7 +9,9 @@ import {
   MyDatePicker,
   MyTimePicker
 } from '../../Components';
-import { addDelivery } from '../../utils/http';
+import { User } from '../../utils/http';
+
+console.log(User);
 
 const DeliveryForm = () => {
   const [user, setUser] = useGlobal('user');
@@ -34,13 +36,13 @@ const DeliveryForm = () => {
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
       if (!errors) {
-        addDelivery({
-          ...val.values,
-          date: moment(date).format('MM-DD-YYYY'),
-          time: moment(date).format('HH:mm:ss'),
-          status: 0,
-          customerid: user.ID
-        }).then(res => console.log(res));
+        // addDelivery({
+        //   ...val.values,
+        //   date: moment(date).format('MM-DD-YYYY'),
+        //   time: moment(date).format('HH:mm:ss'),
+        //   status: 0,
+        //   customerid: user.ID
+        // }).then(res => console.log(res));
       }
     },
 

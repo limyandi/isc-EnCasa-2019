@@ -1,4 +1,5 @@
 import axios from 'axios';
+import MyUser from './user';
 
 const config = {
   headers: {
@@ -6,35 +7,6 @@ const config = {
   }
 };
 
-export function register({ email, password, roles }) {
-  return axios
-    .post('/api/user/user', { email, password, roles }, config)
-    .then(res => console.log(res));
-}
-
-export function login({ email, password }) {
-  return axios.post('/api/user/userlogin', { email, password }, config);
-}
-
-export function getMyDeliveries(userId) {
-  return axios.get(`/api/user/user/${userId}`, config);
-}
-
-export function addDelivery(deliveryObject) {
-  console.log(deliveryObject);
-  const {
-    customerid,
-    fromaddress,
-    date,
-    time,
-    pickuplocation
-  } = deliveryObject;
-  console.log(customerid, fromaddress, date, time, pickuplocation);
-  if (!customerid || !fromaddress || !date || !time || !pickuplocation) {
-    throw new Error('invalid delivery object');
-  }
-
-  // axios posting.
-
-  return axios.post('api/delivery/delivery', deliveryObject, config);
-}
+const User = MyUser(axios, config);
+console.log(User);
+export { User };

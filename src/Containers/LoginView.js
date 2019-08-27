@@ -7,8 +7,9 @@ import {
   MyUseForm,
   MyPaper
 } from '../Components';
+import { User } from '../utils/http';
 
-import { login } from '../utils/http';
+// import { login } from '../utils/http';
 
 function LoginView() {
   const { values, handleChange, handleSubmit } = MyUseForm({
@@ -17,7 +18,7 @@ function LoginView() {
       password: ''
     },
     onSubmit(val, errors) {
-      login(val.values).then(res => this.props.history.push('/home'));
+      User.login(val.values).then(res => this.props.history.push('/home'));
     },
     validate(val) {
       const errors = {};
