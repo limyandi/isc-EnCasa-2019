@@ -23,7 +23,7 @@ export default function User(axios, config) {
   //   };
 
   const addDelivery = deliveryObject => {
-    console.log(deliveryObject);
+    // also need to add status
     const {
       customerId,
       fromAddress,
@@ -37,7 +37,7 @@ export default function User(axios, config) {
     }
 
     // axios posting.
-    return axios.post('api/delivery/delivery', deliveryObject, config);
+    return axios.post('logistics/delivery', deliveryObject, config);
   };
 
   return { register, login, addDelivery };
