@@ -23,8 +23,8 @@ const DeliveryForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      fromaddress: '',
-      pickuplocation: ''
+      fromAddress: '',
+      pickupLocation: ''
     },
 
     onSubmit(val, errors) {
@@ -36,18 +36,24 @@ const DeliveryForm = () => {
       if (!errors) {
         User.addDelivery({
           ...val.values,
-          date: moment(date).format('MM-DD-YYYY'),
+          date: moment(date).format('YYYY-MM-DD'),
           time: moment(date).format('HH:mm:ss'),
-          status: 0,
+          status: false,
           customerId: user.ID
-        }).then(res => console.log(res));
+        }).then(res => {
+          console.log(user);
+          setUser({
+            ...user,
+            deliveries: [...user.deliveries, { ...res.data }]
+          });
+        });
       }
     },
 
     validate(val) {
       const errors = {};
-      if (val.fromaddress === '') {
-        errors.fromaddress = 'Please enter the from address';
+      if (val.fromAddress === '') {
+        errors.fromAddress = 'Please enter the from address';
       }
       return errors;
     }
@@ -83,7 +89,7 @@ const DeliveryForm = () => {
         <form>
           <TextField
             value={values.receivingAddress}
-            name="fromaddress"
+            name="fromAddress"
             label="Address To"
             onChange={handleChange}
             autoFocus
@@ -92,7 +98,7 @@ const DeliveryForm = () => {
           <MyTimePicker name="date" value={date} onChange={handleDateChange} />
           <TextField
             value={values.pickupLocation}
-            name="pickuplocation"
+            name="pickupLocation"
             label="Pickup Location"
             onChange={handleChange}
           />
