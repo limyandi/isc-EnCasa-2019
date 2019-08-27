@@ -1,17 +1,17 @@
 export default function User(axios, config) {
   const register = ({ email, password, roles }) => {
     return axios
-      .post('/api/user/user', { email, password, roles }, config)
+      .post('/logistics/register', { email, password, roles }, config)
       .then(res => console.log(res));
   };
 
   const login = ({ email, password }) => {
-    return axios.post('/api/user/userlogin', { email, password }, config);
+    return axios.post('/logistics/login', { email, password }, config);
   };
 
-  const getMyDeliveries = userId => {
-    return axios.get(`/api/user/user/${userId}`, config);
-  };
+  //   const getMyDeliveries = userId => {
+  //     return axios.get(`/api/user/user/${userId}`, config);
+  //   };
 
   const addDelivery = deliveryObject => {
     console.log(deliveryObject);

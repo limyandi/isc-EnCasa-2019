@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useGlobal } from 'reactn';
 import { withRouter } from 'react-router-dom';
 import {
   MyTextField,
@@ -12,13 +12,21 @@ import { User } from '../utils/http';
 // import { login } from '../utils/http';
 
 function LoginView() {
+  const [user, setUser] = useGlobal('user');
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
       password: ''
     },
     onSubmit(val, errors) {
-      User.login(val.values).then(res => this.props.history.push('/home'));
+      User.login(val.values).then(res => {
+        setUser({
+          ...res.data,
+          // default role is customer
+          role: 'Customer'
+        });
+        this.props.history.push('/home');
+      });
     },
     validate(val) {
       const errors = {};
