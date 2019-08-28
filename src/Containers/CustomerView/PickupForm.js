@@ -4,7 +4,8 @@ import { Add as AddIcon } from '@material-ui/icons';
 import {
   MyFloatingActionButton,
   MyFormDialog,
-  MyUseForm
+  MyUseForm,
+  MyCheckbox
 } from '../../Components';
 
 const PickupForm = () => {
@@ -12,10 +13,10 @@ const PickupForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      deliverySlip: '',
       date: '',
       time: '',
-      pickupLocation: ''
+      pickupLocation: '',
+      agreement: ''
     },
 
     onSubmit(val, errors) {
@@ -64,17 +65,11 @@ const PickupForm = () => {
       >
         <form>
           <TextField
-            value={values.deliverySlip}
-            name="deliverySlip"
-            label="Delivery Slip"
-            onChange={handleChange}
-            autoFocus
-          />
-          <TextField
             value={values.date}
             name="date"
             label="Date"
             onChange={handleChange}
+            autoFocus
           />
           <TextField
             value={values.time}
@@ -87,6 +82,12 @@ const PickupForm = () => {
             name="pickupLocation"
             label="Pickup Location"
             onChange={handleChange}
+          />
+          <MyCheckbox
+            name="agreement"
+            onChange={handleChange}
+            value={values.agreement}
+            label="By clicking confirm, you agreed to provide authority for us to pickup the item"
           />
         </form>
       </MyFormDialog>

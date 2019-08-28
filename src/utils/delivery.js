@@ -6,9 +6,18 @@ export default function Delivery(axios, config) {
       fromAddress,
       date,
       time,
+      timeTo,
       pickupLocation
     } = deliveryObject;
-    if (!customerId || !fromAddress || !date || !time || !pickupLocation) {
+    console.log(deliveryObject);
+    if (
+      !customerId ||
+      !fromAddress ||
+      !date ||
+      !time ||
+      !timeTo ||
+      !pickupLocation
+    ) {
       throw new Error('invalid delivery object');
     }
 

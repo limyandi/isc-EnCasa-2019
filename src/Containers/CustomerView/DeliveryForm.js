@@ -21,10 +21,19 @@ const DeliveryForm = () => {
   const [user, setUser] = useGlobal('user');
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
+  const [dateTo, setDateTo] = React.useState(date);
 
   // TODO: Set Date not working.
   const handleDateChange = selectedDate => {
     setDate(selectedDate);
+    setDateTo(selectedDate);
+  };
+
+  const handleDateToChange = selectedDate => {
+    // only change the time if the selected date is later than the date.
+    if (selectedDate > date) {
+      setDateTo(selectedDate);
+    }
   };
 
   const { values, handleChange, handleSubmit } = MyUseForm({
@@ -44,6 +53,7 @@ const DeliveryForm = () => {
           ...val.values,
           date: moment(date).format('YYYY-MM-DD'),
           time: moment(date).format('HH:mm:ss'),
+          timeTo: moment(dateTo).format('HH:mm:ss'),
           status: false,
           customerId: user.ID
         }).then(res => {
@@ -122,11 +132,26 @@ const DeliveryForm = () => {
             <Grid container justify="space-around">
               <KeyboardTimePicker
                 margin="normal"
-                id="time-picker"
-                label="Time picker"
+                id="time-from"
+                label="Time from"
                 value={date}
                 minutesStep={15}
                 onChange={handleDateChange}
+                KeyboardButtonProps={{
+                  'aria-label': 'change time'
+                }}
+              />
+            </Grid>
+          </MuiPickersUtilsProvider>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Grid container justify="space-around">
+              <KeyboardTimePicker
+                margin="normal"
+                id="time-to"
+                label="Time to"
+                value={dateTo}
+                minutesStep={15}
+                onChange={handleDateToChange}
                 KeyboardButtonProps={{
                   'aria-label': 'change time'
                 }}
