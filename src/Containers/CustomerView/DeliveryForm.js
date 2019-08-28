@@ -10,13 +10,11 @@ import {
   KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
-import { User } from '../../utils/http';
+import { User, Delivery } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
-  MyUseForm,
-  MyDatePicker,
-  MyTimePicker
+  MyUseForm
 } from '../../Components';
 
 const DeliveryForm = () => {
@@ -42,17 +40,18 @@ const DeliveryForm = () => {
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
       if (!errors) {
-        User.addDelivery({
+        Delivery.addDelivery({
           ...val.values,
           date: moment(date).format('YYYY-MM-DD'),
           time: moment(date).format('HH:mm:ss'),
           status: false,
           customerId: user.ID
         }).then(res => {
-          console.log(user);
           setUser({
             ...user,
-            deliveries: [...user.deliveries, { ...res.data }]
+            deliveries: user.deliveries
+              ? [...user.deliveries, { ...res.data }]
+              : [res.data]
           });
         });
       }

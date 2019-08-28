@@ -17,7 +17,6 @@ function RegisterView(props) {
   useEffect(() => {
     Community.getCommunities().then(res => {
       setCommunities(res.data);
-      console.log(communities);
     });
   }, []);
   const [user, setUser] = useGlobal('user');
@@ -44,7 +43,7 @@ function RegisterView(props) {
   });
 
   const [open, setOpen] = React.useState(false);
-  const [suburb, setSuburbs] = React.useState([]);
+  const [selectedCommunities, setSelectedCommunities] = React.useState([]);
 
   const suburbLists = [
     { name: 'CBD', id: 1 },
@@ -54,9 +53,9 @@ function RegisterView(props) {
     { name: 'Hurstville', id: 5 }
   ];
 
-  function handleAddSuburb(event) {
+  function handleSelectedCommunities(event) {
     console.log(event.target);
-    setSuburbs(event.target.value);
+    setSelectedCommunities(event.target.value);
   }
 
   function handleClickOpen() {
@@ -71,11 +70,18 @@ function RegisterView(props) {
       const driverDetails = {};
       if (values.driverChecked) {
         // TODO: Basic Driver Details
-        driverDetails.Availability = 'Always';
-        driverDetails.Notification = true;
+        driverDetails.availability = 'Always';
+        driverDetails.notification = true;
       }
-      console.log(values);
-      User.register({ ...values, driverDetails }).then(res => {
+      const myCommunities = selectedCommunities.map(
+        selectedCommunity => selectedCommunity.id
+      );
+
+      User.register({
+        ...values,
+        driverDetails,
+        ...{ communities: myCommunities }
+      }).then(res => {
         // default role is customer
         setUser({ ...res.data, role: 'Customer' });
         props.history.push('/');
@@ -128,9 +134,9 @@ function RegisterView(props) {
               dialogText={communityForm.dialogText}
             >
               <MyDropdown
-                value={suburb}
-                onChange={handleAddSuburb}
-                valueLists={suburbLists}
+                value={selectedCommunities}
+                onChange={handleSelectedCommunities}
+                valueLists={communities.communities}
               />
             </MyFormDialog>
             <MyHyperlink to="/login">

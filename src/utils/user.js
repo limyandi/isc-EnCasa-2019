@@ -1,8 +1,8 @@
 export default function User(axios, config) {
   const register = registerObject => {
-    const { email, password, driverDetails } = registerObject;
+    const { email, password, driverDetails, communities } = registerObject;
 
-    if (!email || !password || !driverDetails) {
+    if (!email || !password || !driverDetails || !communities) {
       throw new Error('Invalid register object');
     }
     return axios.post('logistics/register', registerObject, config);
