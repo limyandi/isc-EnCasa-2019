@@ -1,13 +1,13 @@
 import React, { useGlobal } from 'reactn';
+import { Redirect } from 'react';
 import { MySwitch } from '../Components';
 import CustomerView from './CustomerView';
 import DriverView from './DriverView';
 
-function HomeView() {
+function HomeView(props) {
+  console.log(props);
   // Get user global state data.
   const [user, setUser] = useGlobal('user');
-
-  // by default, set user mode to customer
 
   const userHasDriverRole = user.driverDetails != null;
 
@@ -26,8 +26,10 @@ function HomeView() {
         onChange={switchUserMode}
         visible={userHasDriverRole}
       />
-      {user.role === 'Customer' && <CustomerView />}
-      {user.role === 'Driver' && <DriverView />}
+      {/* <Route path="/driver" component={DriverView} />
+      <Route path="/customer" component={CustomerView} /> */}
+      {user.role === 'Customer' && <CustomerView props={props} />}
+      {user.role === 'Driver' && <DriverView props={props} />}
     </div>
   );
 }

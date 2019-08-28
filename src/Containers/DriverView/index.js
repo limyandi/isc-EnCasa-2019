@@ -1,8 +1,9 @@
 import React, { useEffect, useGlobal } from 'reactn';
 import { Delivery } from '../../utils/http';
 import { MyHeader, MyTable } from '../../Components';
+import MyHyperLink from '../../Components/Hyperlink';
 
-function DriverView() {
+function DriverView(props) {
   const [user, setUser] = useGlobal('user');
 
   const [unassignedDeliveries, setUnassignedDeliveries] = React.useState([]);
@@ -22,6 +23,9 @@ function DriverView() {
       {unassignedDeliveries.length !== 0 && (
         <MyTable data={unassignedDeliveries} />
       )}
+      <MyHyperLink to={`${props.match.url}/settings`}>
+        Already have an account? Login!
+      </MyHyperLink>
     </div>
   );
 }

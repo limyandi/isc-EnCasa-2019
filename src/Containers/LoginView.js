@@ -12,6 +12,7 @@ import { User } from '../utils/http';
 // import { login } from '../utils/http';
 
 function LoginView(props) {
+  console.log(props);
   const [user, setUser] = useGlobal('user');
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {

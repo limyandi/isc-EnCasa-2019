@@ -14,7 +14,8 @@ export default function configureStore() {
       {
         ID: 4,
         date: '1992-08-09',
-        time: '10:11:53Z',
+        time: '10:00',
+        timeTo: '12:00',
         fromAddress: 'G5856',
         pickupLocation: 'M3342',
         status: true
