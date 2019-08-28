@@ -5,7 +5,6 @@ import PickupForm from './PickupForm';
 import DeliveryForm from './DeliveryForm';
 
 function CustomerView(props) {
-  console.log(props);
   const [user, setUser] = useGlobal('user');
   // Component did mount in stateful component
   useEffect(() => {

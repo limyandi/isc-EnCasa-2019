@@ -10,7 +10,7 @@ import {
   KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
-import { User, Delivery } from '../../utils/http';
+import { Delivery } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,

@@ -12,8 +12,6 @@ export default function routes() {
       <Route exact path="/" component={HomeView} />
       <Route path="/login" component={LoginView} />
       <Route path="/register" component={RegisterView} />
-      <Route path="/driver" component={DriverView} />
-      <Route path="/customer" component={CustomerView} />
     </Switch>
   );
 }
