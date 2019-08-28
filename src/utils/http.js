@@ -1,5 +1,7 @@
 import axios from 'axios';
 import MyUser from './user';
+import MyDelivery from './delivery';
+import MyCommunity from './community';
 
 const config = {
   headers: {
@@ -8,5 +10,6 @@ const config = {
 };
 
 const User = MyUser(axios, config);
-
-export { User };
+const Delivery = MyDelivery(axios, config);
+const Community = MyCommunity(axios, config);
+export { User, Delivery, Community };

@@ -7,6 +7,7 @@ export default function configureStore() {
   // mock user data.
   // TODO: Delete later
   const user = {
+    isAuthenticated: false,
     ID: 2,
     email: 'Y6896',
     deliveries: [

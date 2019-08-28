@@ -18,27 +18,5 @@ export default function User(axios, config) {
     return axios.post('logistics/login', loginDetails, config);
   };
 
-  //   const getMyDeliveries = userId => {
-  //     return axios.get(`/api/user/user/${userId}`, config);
-  //   };
-
-  const addDelivery = deliveryObject => {
-    // also need to add status
-    const {
-      customerId,
-      fromAddress,
-      date,
-      time,
-      pickupLocation
-    } = deliveryObject;
-    console.log(deliveryObject);
-    if (!customerId || !fromAddress || !date || !time || !pickupLocation) {
-      throw new Error('invalid delivery object');
-    }
-
-    // axios posting.
-    return axios.post('logistics/delivery', deliveryObject, config);
-  };
-
-  return { register, login, addDelivery };
+  return { register, login };
 }

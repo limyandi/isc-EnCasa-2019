@@ -1,4 +1,4 @@
-import React, { useGlobal } from 'reactn';
+import React, { useGlobal, useEffect } from 'reactn';
 import { withRouter } from 'react-router-dom';
 import {
   MyTextField,
@@ -10,10 +10,16 @@ import {
   MyCheckbox,
   MyFormDialog
 } from '../Components';
-import { User } from '../utils/http';
-
+import { User, Community } from '../utils/http';
 
 function RegisterView(props) {
+  const [communities, setCommunities] = React.useState([]);
+  useEffect(() => {
+    Community.getCommunities().then(res => {
+      setCommunities(res.data);
+      console.log(communities);
+    });
+  }, []);
   const [user, setUser] = useGlobal('user');
   // hooks for simple email and password form
   const { values, handleChange, handleSubmit } = MyUseForm({
