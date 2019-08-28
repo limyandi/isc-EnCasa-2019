@@ -1,14 +1,18 @@
-import React, { useEffect } from 'reactn';
+import React, { useEffect, useGlobal } from 'reactn';
 import { Delivery } from '../utils/http';
 import { MyHeader, MyTable } from '../Components';
 
 function DriverView() {
+  const [user, setUser] = useGlobal('user');
   const [unassignedDeliveries, setUnassignedDeliveries] = React.useState([]);
   useEffect(() => {
-    Delivery.getUnassignedDeliveries().then(res => {
-      setUnassignedDeliveries(res.data);
+    Delivery.getUnassignedDeliveries(user.ID).then(res => {
+      console.log(res.data);
+      setUnassignedDeliveries(res.data.deliveries);
     });
   }, []);
+
+  console.log(unassignedDeliveries);
 
   return (
     <div>

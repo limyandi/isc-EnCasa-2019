@@ -70,7 +70,6 @@ const MyTable = props => {
                 </StyledTableCell>
               ))} */}
               {Object.keys(oneData).map(key => {
-                console.log(oneData[key]);
                 if (key === 'status') {
                   // if the status text is true or false (ternary operator)
                   const statusText = oneData[key]

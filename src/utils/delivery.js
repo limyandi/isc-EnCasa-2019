@@ -45,15 +45,15 @@ export default function Delivery(axios, config) {
       throw new Error('invalid delivery object');
     }
 
-    return axios.delete(`logistics/delivery/${deliveryId}`);
+    return axios.delete(`logistics/delivery/${deliveryId}`, config);
   };
 
   const getDelivery = deliveryId => {
-    return axios.get(`logistics/delivery/${deliveryId}`);
+    return axios.get(`logistics/delivery/${deliveryId}`, config);
   };
 
-  const getUnassignedDeliveries = () => {
-    return axios.get('logistics/deliveries');
+  const getUnassignedDeliveries = driverId => {
+    return axios.get(`logistics/deliveries/${driverId}`, config);
   };
 
   return {
