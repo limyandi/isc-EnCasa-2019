@@ -54,15 +54,23 @@ const MyDropdown = props => {
         value={value}
         onChange={onChange}
         input={<Input id="select-multiple-checkbox" />}
-        renderValue={selected => selected.join(', ')}
+        renderValue={selected => {
+          let renderValue = '';
+          selected.map(s => {
+            renderValue += `${s.name}, `;
+          });
+          return renderValue;
+        }}
         MenuProps={MenuProps}
       >
-        {valueLists.map(val => (
-          <MenuItem key={val} value={val}>
-            <Checkbox checked={value.indexOf(val) > -1} />
-            <ListItemText primary={val} />
-          </MenuItem>
-        ))}
+        {valueLists.map(val => {
+          return (
+            <MenuItem key={val.id} value={val}>
+              <Checkbox checked={value.findIndex(i => i.id === val.id) > -1} />
+              <ListItemText primary={val.name} />
+            </MenuItem>
+          );
+        })}
       </Select>
     </FormControl>
   );

@@ -47,14 +47,15 @@ function RegisterView(props) {
   const [suburb, setSuburbs] = React.useState([]);
 
   const suburbLists = [
-    'CBD',
-    'Mascot',
-    'Surry Hills',
-    'Hurstville',
-    'Glensville'
+    { name: 'CBD', id: 1 },
+    { name: 'Mascot', id: 2 },
+    { name: 'Surry Hills', id: 3 },
+    { name: 'Glensville', id: 4 },
+    { name: 'Hurstville', id: 5 }
   ];
 
   function handleAddSuburb(event) {
+    console.log(event.target);
     setSuburbs(event.target.value);
   }
 
