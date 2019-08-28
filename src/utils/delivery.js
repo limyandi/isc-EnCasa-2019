@@ -52,5 +52,15 @@ export default function Delivery(axios, config) {
     return axios.get(`logistics/delivery/${deliveryId}`);
   };
 
-  return { addDelivery, updateDelivery, deleteDelivery, getDelivery };
+  const getUnassignedDeliveries = () => {
+    return axios.get('logistics/deliveries');
+  };
+
+  return {
+    addDelivery,
+    updateDelivery,
+    deleteDelivery,
+    getDelivery,
+    getUnassignedDeliveries
+  };
 }
