@@ -9,7 +9,6 @@ export default function Delivery(axios, config) {
       timeTo,
       pickupLocation
     } = deliveryObject;
-    console.log(deliveryObject);
     if (
       !customerId ||
       !fromAddress ||

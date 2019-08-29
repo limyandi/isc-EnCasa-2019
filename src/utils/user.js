@@ -11,7 +11,6 @@ export default function User(axios, config) {
   const login = loginDetails => {
     const { email, password } = loginDetails;
 
-    console.log(loginDetails);
     if (!email || !password) {
       throw new Error('invalid login details!');
     }
