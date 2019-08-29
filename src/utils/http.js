@@ -2,6 +2,7 @@ import axios from 'axios';
 import MyUser from './user';
 import MyDelivery from './delivery';
 import MyCommunity from './community';
+import MyJob from './job';
 
 const config = {
   headers: {
@@ -12,4 +13,5 @@ const config = {
 const User = MyUser(axios, config);
 const Delivery = MyDelivery(axios, config);
 const Community = MyCommunity(axios, config);
-export { User, Delivery, Community };
+const Job = MyJob(axios, config);
+export { User, Delivery, Community, Job };

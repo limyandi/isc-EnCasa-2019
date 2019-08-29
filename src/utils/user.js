@@ -18,5 +18,10 @@ export default function User(axios, config) {
     return axios.post('logistics/login', loginDetails, config);
   };
 
-  return { register, login };
+  // get jobs only available for driver
+  const getMyJobs = driverId => {
+    return axios.get(`logistics/driver/${driverId}/jobs`, config);
+  };
+
+  return { register, login, getMyJobs };
 }

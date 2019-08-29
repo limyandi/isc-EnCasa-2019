@@ -3,14 +3,15 @@
 
 // export default function MaterialTableDemo() {
 // }
-import React from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import React from 'react';
+import MyButton from './Button';
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -44,7 +45,7 @@ const useStyles = makeStyles(theme => ({
 const MyTable = props => {
   const classes = useStyles();
 
-  const { data } = props;
+  const { data, addable, addOnClick } = props;
 
   const MyTableHeader = () => {
     return (
@@ -87,6 +88,9 @@ const MyTable = props => {
                   </StyledTableCell>
                 );
               })}
+              {addable && (
+                <MyButton onClick={() => addOnClick(oneData)}>Add</MyButton>
+              )}
             </StyledTableRow>
           );
         })}
