@@ -5,6 +5,7 @@ import LoginView from './LoginView';
 import RegisterView from './RegisterView';
 import DriverView from './DriverView/index';
 import CustomerView from './CustomerView';
+import DriverSetting from './DriverView/settings';
 
 const routesDefinition = [
   {
@@ -27,11 +28,17 @@ const routesDefinition = [
   },
   {
     path: '/customer',
+    exact: true,
     main: () => <CustomerView />
   },
   {
     path: '/driver',
+    exact: true,
     main: () => <DriverView />
+  },
+  {
+    path: '/driver/setting',
+    main: () => <DriverSetting />
   }
 ];
 
@@ -49,7 +56,6 @@ function Routes(props) {
       props.history.push('/customer');
     }
   };
-  console.log(user);
   return (
     <div>
       <Switch>

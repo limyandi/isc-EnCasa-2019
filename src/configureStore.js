@@ -7,39 +7,54 @@ export default function configureStore() {
   // mock user data.
   // TODO: Delete later
   const user = {
-    isAuthenticated: false,
-    ID: 2,
-    email: 'Y6896',
-    deliveries: [
-      {
-        ID: 4,
-        date: '1992-08-09',
-        time: '10:00',
-        timeTo: '12:00',
-        fromAddress: 'G5856',
-        pickupLocation: 'M3342',
-        status: true
-      }
-    ],
+    ID: 10,
+    email: 'I4943',
     communities: [
       {
-        dispatchCentres: ['8', '1', '11', '3', '17', '19', '18', '10']
+        ID: 16,
+        name: 'Ueckert,Dan K.'
       },
       {
-        dispatchCentres: ['11', '7', '4', '7', '15', '14']
+        ID: 9,
+        name: 'Mastrolito,Brenda J.'
       },
       {
-        dispatchCentres: ['10', '17', '20', '14', '9', '17', '4']
+        ID: 4,
+        name: 'Hanson,Lydia X.',
+        dispatchCentres: ['12', '2', '6', '3', '17', '19', '20', '15']
       },
       {
-        dispatchCentres: ['9', '9', '10']
+        ID: 15,
+        name: "O'Brien,Lisa H.",
+        dispatchCentres: ['2']
+      },
+      {
+        ID: 19,
+        name: 'Zevon,Joshua M.',
+        dispatchCentres: ['4', '18', '17', '7']
+      },
+      {
+        ID: 4,
+        name: 'Hanson,Lydia X.',
+        dispatchCentres: ['12', '2', '6', '3', '17', '19', '20', '15']
+      },
+      {
+        ID: 6,
+        name: 'Sverdlov,Buzz E.',
+        dispatchCentres: ['8', '9', '19', '10', '12', '13', '14', '5', '4']
+      },
+      {
+        ID: 12,
+        name: 'Xavier,Jane Q.',
+        dispatchCentres: ['16', '12', '18']
       }
     ],
     driverDetails: {
       availability: 'Specific Times',
-      notifcation: true
-    },
-    role: 'Customer'
+      appNotification: true,
+      emailNotification: false,
+      smsNotification: true
+    }
   };
 
   const deliveries = [];

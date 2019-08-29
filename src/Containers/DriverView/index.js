@@ -1,16 +1,16 @@
 import React, { useEffect, useGlobal } from 'reactn';
+import { withRouter } from 'react-router-dom';
 import { Delivery, Job, User } from '../../utils/http';
 import { MyHeader, MyTable } from '../../Components';
 import MyHyperLink from '../../Components/Hyperlink';
 
-function DriverView(props) {
+function DriverView({ match }) {
   const [user, setUser] = useGlobal('user');
 
   const [myJobs, setMyJobs] = React.useState([]);
   const [unassignedDeliveries, setUnassignedDeliveries] = React.useState([]);
   useEffect(() => {
     Delivery.getUnassignedDeliveries(user.ID).then(res => {
-      console.log(res.data);
       setUnassignedDeliveries(res.data.deliveries);
     });
     User.getMyJobs(user.ID).then(res => {
@@ -18,11 +18,10 @@ function DriverView(props) {
       // check if the jobs exist
       if (res.data.jobs) {
         const jobs = [...res.data.jobs.map(job => job.delivery)];
-        console.log(jobs);
         setMyJobs(jobs);
       }
     });
-  }, []);
+  }, [user.ID]);
 
   const handleAddOnClick = data => {
     Job.addJob({ deliveryId: data.ID, driverId: user.ID }).then(res => {
@@ -48,11 +47,9 @@ function DriverView(props) {
           data={unassignedDeliveries}
         />
       )}
-      {/* <MyHyperLink to={`${props.match.url}/settings`}>
-        Already have an account? Login!
-      </MyHyperLink> */}
+      <MyHyperLink to={`${match.url}/setting`}>Settings</MyHyperLink>
     </div>
   );
 }
 
-export default DriverView;
+export default withRouter(DriverView);
