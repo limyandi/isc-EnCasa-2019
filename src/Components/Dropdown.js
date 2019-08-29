@@ -56,9 +56,8 @@ const MyDropdown = props => {
         input={<Input id="select-multiple-checkbox" />}
         renderValue={selected => {
           let renderValue = '';
-          selected.map(s => {
-            renderValue += `${s.name}, `;
-          });
+          // eslint-disable-next-line no-return-assign
+          selected.map(s => (renderValue += `${s.name}, `));
           return renderValue;
         }}
         MenuProps={MenuProps}

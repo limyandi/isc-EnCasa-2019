@@ -45,16 +45,7 @@ function RegisterView(props) {
   const [open, setOpen] = React.useState(false);
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
 
-  const suburbLists = [
-    { name: 'CBD', id: 1 },
-    { name: 'Mascot', id: 2 },
-    { name: 'Surry Hills', id: 3 },
-    { name: 'Glensville', id: 4 },
-    { name: 'Hurstville', id: 5 }
-  ];
-
   function handleSelectedCommunities(event) {
-    console.log(event.target);
     setSelectedCommunities(event.target.value);
   }
 
