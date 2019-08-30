@@ -3,6 +3,7 @@ import MyUser from './user';
 import MyDelivery from './delivery';
 import MyCommunity from './community';
 import MyJob from './job';
+import MyPickup from './pickup';
 
 const config = {
   headers: {
@@ -14,4 +15,5 @@ const User = MyUser(axios, config);
 const Delivery = MyDelivery(axios, config);
 const Community = MyCommunity(axios, config);
 const Job = MyJob(axios, config);
-export { User, Delivery, Community, Job };
+const Pickup = MyPickup(axios, config);
+export { User, Delivery, Community, Job, Pickup };

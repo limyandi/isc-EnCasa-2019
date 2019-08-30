@@ -24,6 +24,7 @@ function RegisterView(props) {
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
+      name: '',
       password: '',
       driverChecked: false
     },
@@ -61,8 +62,39 @@ function RegisterView(props) {
       const driverDetails = {};
       if (values.driverChecked) {
         // TODO: Basic Driver Details
-        driverDetails.availability = 'Always';
-        driverDetails.notification = true;
+        driverDetails.availabilities = {
+          Monday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          },
+          Tuesday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          },
+          Wednesday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          },
+          Thursday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          },
+          Friday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          },
+          Saturday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          },
+          Sunday: {
+            from: '08:30:00Z',
+            to: '20:00:00Z'
+          }
+        };
+        driverDetails.appNotification = true;
+        driverDetails.smsNotification = false;
+        driverDetails.emailNotification = false;
       }
       const myCommunities = selectedCommunities.map(
         selectedCommunity => selectedCommunity.id
@@ -91,15 +123,22 @@ function RegisterView(props) {
             <MyTextField
               style={{ marginBottom: 10 }}
               name="email"
-              label="email"
+              label="Email"
               value={values.email}
+              onChange={handleChange}
+            />
+            <MyTextField
+              style={{ marginBottom: 10 }}
+              name="name"
+              label="Name"
+              value={values.name}
               onChange={handleChange}
             />
             <MyTextField
               style={{ marginBottom: 10 }}
               name="password"
               label="password"
-              type="password"
+              type="Password"
               value={values.password}
               onChange={handleChange}
             />

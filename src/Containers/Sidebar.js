@@ -59,7 +59,7 @@ function Routes(props) {
 
   const [user, setUser] = useGlobal('user');
 
-  const userHasDriverRole = user.driverDetails != null;
+  const userHasDriverRole = user.driverDetails !== undefined;
 
   const activeRoute = routeName => {
     return props.location.pathname.indexOf(routeName) > -1;

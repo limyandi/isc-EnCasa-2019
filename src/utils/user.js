@@ -22,5 +22,17 @@ export default function User(axios, config) {
     return axios.get(`logistics/driver/${driverId}/jobs`, config);
   };
 
-  return { register, login, getMyJobs };
+  const getDriversByAvailability = availabilityDetails => {
+    const { day, timeFrom, timeTo } = availabilityDetails;
+
+    if (!day || !timeFrom || !timeTo)
+      throw new Error('invalid availability details');
+    console.log(config.headers);
+    return axios.get('logistics/driver/findByAvailability', {
+      params: availabilityDetails,
+      headers: config.headers
+    });
+  };
+
+  return { register, login, getMyJobs, getDriversByAvailability };
 }

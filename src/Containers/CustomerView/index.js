@@ -13,8 +13,16 @@ function CustomerView(props) {
         return <MyTable data={user.deliveries} />;
       }
     }
-    //
 
+    return null;
+  };
+
+  const MyPickupRequest = () => {
+    if (user.pickups) {
+      if (user.pickups.length !== 0) {
+        return <MyTable data={user.pickups} />;
+      }
+    }
     return null;
   };
 
@@ -23,6 +31,7 @@ function CustomerView(props) {
       <MyHeader>Your delivery</MyHeader>
       <MyDeliveries />
       <MyHeader>Your pickup request</MyHeader>
+      <MyPickupRequest />
       <PickupForm />
       <DeliveryForm />
       <div />

@@ -5,7 +5,6 @@ import CustomerView from './CustomerView';
 import DriverView from './DriverView';
 
 function HomeView(props) {
-  console.log(props);
   // Get user global state data.
   const [user, setUser] = useGlobal('user');
 

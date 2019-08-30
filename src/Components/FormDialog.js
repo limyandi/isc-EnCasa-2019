@@ -16,7 +16,8 @@ const FormDialog = props => {
     open,
     children,
     cancelText,
-    confirmText
+    confirmText,
+    disableConfirmButton
   } = props;
   //   const [open, setOpen] = React.useState(false);
 
@@ -44,7 +45,11 @@ const FormDialog = props => {
           <Button onClick={handleClose} color="primary">
             {cancelText}
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button
+            disabled={disableConfirmButton}
+            onClick={handleSubmit}
+            color="primary"
+          >
             {confirmText}
           </Button>
         </DialogActions>

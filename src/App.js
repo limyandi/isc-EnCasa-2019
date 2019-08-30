@@ -52,7 +52,6 @@ const routesDefinition = [
 
 function App() {
   const [user, setUser] = useGlobal('user');
-
   return (
     <div className="App">
       <Helmet>
