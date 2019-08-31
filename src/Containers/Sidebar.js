@@ -1,5 +1,5 @@
 import React, { useGlobal } from 'reactn';
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,23 +9,35 @@ import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import { ListItemText, MenuItem } from '@material-ui/core';
-import RegisterView from './RegisterView';
-import LoginView from './LoginView';
+import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
+import SettingIcon from '@material-ui/icons/Build';
+import HomeIcon from '@material-ui/icons/Home';
+// import RegisterView from './RegisterView';
+// import LoginView from './LoginView';
 import { MySwitch } from '../Components';
+import DriverSetting from './DriverView/settings';
 
 const renderRoute = [
   {
-    path: '/login',
-    component: <LoginView />,
-    name: 'Login',
-    sidebarName: 'Login'
+    path: user => '/',
+    main: user =>
+      user.role === 'Customer' ? (
+        <Redirect to="/customer" />
+      ) : (
+        <Redirect to="/driver" />
+      ),
+    name: 'Home',
+    sidebarName: 'Home',
+    icon: <HomeIcon />
   },
   {
-    path: '/register',
-    component: <RegisterView />,
-    name: 'Register',
-    sidebarName: 'Register'
+    path: user => `/${user.role}/setting`,
+    component: user => (user.role === 'Driver' ? <DriverSetting /> : null),
+    name: 'Setting',
+    sidebarName: 'Setting',
+    icon: <SettingIcon />
   }
 ];
 
@@ -46,7 +58,10 @@ const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: drawerWidth
   },
-  toolbar: theme.mixins.toolbar,
+  toolbar: {
+    fontSize: 16,
+    ...theme.mixins.toolbar
+  },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
@@ -58,7 +73,7 @@ function Routes(props) {
   const classes = useStyles();
 
   const [user, setUser] = useGlobal('user');
-  const [isAuthenticated] = useGlobal('isAuthenticated');
+  const [isAuthenticated, setIsAuthenticated] = useGlobal('isAuthenticated');
 
   const userHasDriverRole = user.driverDetails !== undefined;
 
@@ -77,7 +92,7 @@ function Routes(props) {
   };
 
   const Sidebar = () => (
-    <div>
+    <div className={classes}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
@@ -94,26 +109,44 @@ function Routes(props) {
         }}
         anchor="left"
       >
-        <div className={classes.toolbar}>{user.email}</div>
+        <div style={{ marginTop: 10 }} className={classes.toolbar}>
+          {user.name}
+        </div>
         <Divider />
         <List>
-          <ListItem button key="SwitchMode">
+          <MenuItem button key="SwitchMode">
             <MySwitch
-              label={user.role}
+              checked={user.role !== 'Customer'}
+              label={`${user.role} view`}
               onChange={switchUserMode}
               visible={userHasDriverRole}
             />
-          </ListItem>
+          </MenuItem>
           {renderRoute.map(route => (
-            <Link to={route.path} key={route.name}>
-              <MenuItem selected={activeRoute(route.path)}>
-                {/* <ListItemIcon>
-                  <prop.icon />
-                </ListItemIcon> */}
+            <Link
+              style={{ textDecoration: 'none', color: 'black' }}
+              to={route.path(user)}
+              key={route.name}
+            >
+              <MenuItem selected={activeRoute(route.path(user))}>
+                <ListItemIcon>{route.icon}</ListItemIcon>
                 <ListItemText primary={route.sidebarName} />
               </MenuItem>
             </Link>
           ))}
+        </List>
+        <Divider />
+        <List>
+          <MenuItem
+            button
+            key="logout"
+            onClick={() => setIsAuthenticated(false)}
+          >
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText>Logout</ListItemText>
+          </MenuItem>
         </List>
         <Divider />
       </Drawer>

@@ -11,6 +11,7 @@ export default function configureStore() {
     ID: 12,
     email: 'limyandi.com',
     name: 'Sorenson,Dan K.',
+    role: 'Customer',
     deliveries: [
       {
         ID: 1,
@@ -99,7 +100,5 @@ export default function configureStore() {
     }
   };
 
-  const deliveries = [];
-
-  setGlobal({ user, deliveries, isAuthenticated });
+  setGlobal({ user, isAuthenticated });
 }
