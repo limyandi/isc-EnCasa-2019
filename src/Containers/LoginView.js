@@ -42,37 +42,35 @@ function LoginView(props) {
 
   return (
     <div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <MyPaper>
-            <MyHeader>Login</MyHeader>
-            <MyTextField
-              style={{ marginBottom: 10 }}
-              name="email"
-              label="email"
-              value={values.email}
-              onChange={handleChange}
-            />
-            <MyTextField
-              style={{ marginBottom: 10 }}
-              name="password"
-              label="password"
-              type="password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            <MyButton
-              style={{ marginTop: 15, marginBottom: 10 }}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Login
-            </MyButton>
-            <MyHyperlink to="/register">No account? Register!</MyHyperlink>
-          </MyPaper>
-        </form>
-      </div>
+      <form onSubmit={handleSubmit}>
+        <MyPaper>
+          <MyHeader>Login</MyHeader>
+          <MyTextField
+            style={{ marginBottom: 10 }}
+            name="email"
+            label="email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          <MyTextField
+            style={{ marginBottom: 10 }}
+            name="password"
+            label="password"
+            type="password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          <MyButton
+            style={{ marginTop: 15, marginBottom: 10 }}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Login
+          </MyButton>
+          <MyHyperlink to="/register">No account? Register!</MyHyperlink>
+        </MyPaper>
+      </form>
     </div>
   );
 }

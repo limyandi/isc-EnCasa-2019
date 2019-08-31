@@ -36,7 +36,6 @@ function DriverView({ match }) {
 
   return (
     <div>
-      <div>Driver view!</div>
       <MyHeader>My Job</MyHeader>
       {myJobs.length !== 0 && <MyTable data={myJobs} />}
       <MyHeader>Unassigned Job</MyHeader>

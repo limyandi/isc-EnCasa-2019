@@ -1,5 +1,5 @@
 import React, { useGlobal } from 'reactn';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, withRouter, Redirect, Switch, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -25,6 +25,11 @@ import HomeIcon from '@material-ui/icons/Home';
 // import LoginView from './LoginView';
 import { MySwitch } from '../Components';
 import DriverSetting from './DriverView/settings';
+import PrivateRoute from './PrivateRoute';
+import LoginView from './LoginView';
+import RegisterView from './RegisterView';
+import CustomerView from './CustomerView';
+import DriverView from './DriverView';
 
 const renderRoute = [
   {
@@ -81,7 +86,6 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
     padding: theme.spacing(3)
   }
 }));
@@ -174,33 +178,35 @@ function Routes(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Hidden mdUp implementation="css">
-        <Drawer
-          variant="temporary"
-          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          ModalProps={{
-            keepMounted: true // Better open performance on mobile.
-          }}
-        >
-          <Sidebar />
-        </Drawer>
-      </Hidden>
-      <Hidden xsDown implementation="css">
-        <Drawer
-          classes={{
-            paper: classes.drawerPaper
-          }}
-          variant="permanent"
-          open
-        >
-          <Sidebar />
-        </Drawer>
-      </Hidden>
+      <nav className={classes.drawer} aria-label="logistics sidebar">
+        <Hidden mdUp implementation="css">
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            ModalProps={{
+              keepMounted: true // Better open performance on mobile.
+            }}
+          >
+            <Sidebar />
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper
+            }}
+            variant="permanent"
+            open
+          >
+            <Sidebar />
+          </Drawer>
+        </Hidden>
+      </nav>
     </div>
   );
 

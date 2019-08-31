@@ -15,7 +15,8 @@ import {
   MyFormDialog,
   MyUseForm,
   MyCheckbox,
-  MyTable
+  MyTable,
+  MyHeader
 } from '../../Components';
 import { Pickup, User } from '../../utils/http';
 
@@ -120,7 +121,8 @@ const PickupForm = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <MyHeader>Your pickup request</MyHeader>
       <MyFloatingActionButton onClick={openPickupForm}>
         <AddIcon />
       </MyFloatingActionButton>

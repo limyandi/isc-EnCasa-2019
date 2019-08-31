@@ -1,6 +1,6 @@
 import React, { useGlobal } from 'reactn';
 import { TextField } from '@material-ui/core';
-import { Edit as EditIcon } from '@material-ui/icons';
+import { Add as AddIcon } from '@material-ui/icons';
 import moment from 'moment';
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +14,8 @@ import { Delivery } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
-  MyUseForm
+  MyUseForm,
+  MyHeader
 } from '../../Components';
 
 const DeliveryForm = () => {
@@ -92,9 +93,10 @@ const DeliveryForm = () => {
     }
   };
   return (
-    <div>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <MyHeader>Your delivery</MyHeader>
       <MyFloatingActionButton onClick={openDeliveryForm}>
-        <EditIcon />
+        <AddIcon />
       </MyFloatingActionButton>
       <MyFormDialog
         open={open}

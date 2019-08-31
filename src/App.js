@@ -2,28 +2,20 @@ import React, { useGlobal } from 'reactn';
 import { Helmet } from 'react-helmet';
 import {
   BrowserRouter as Router,
-  Redirect,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import './App.css';
 import Sidebar from './Containers/Sidebar';
 import 'typeface-roboto';
+import PrivateRoute from './Containers/PrivateRoute';
 import LoginView from './Containers/LoginView';
 import RegisterView from './Containers/RegisterView';
 import CustomerView from './Containers/CustomerView';
 import DriverView from './Containers/DriverView';
 import DriverSetting from './Containers/DriverView/settings';
-import PrivateRoute from './Containers/PrivateRoute';
-
-const useStyles = makeStyles(theme => ({
-  toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  }
-}));
 
 const routesDefinition = [
   {
@@ -63,6 +55,16 @@ const routesDefinition = [
     main: () => <DriverSetting />
   }
 ];
+
+const useStyles = makeStyles(theme => ({
+  toolbar: {
+    fontSize: 16,
+    ...theme.mixins.toolbar
+  },
+  content: {
+    padding: theme.spacing(3)
+  }
+}));
 
 function App() {
   const classes = useStyles();

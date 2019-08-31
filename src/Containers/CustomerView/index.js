@@ -28,12 +28,11 @@ function CustomerView(props) {
 
   return (
     <div>
-      <MyHeader>Your delivery</MyHeader>
-      <MyDeliveries />
-      <MyHeader>Your pickup request</MyHeader>
-      <MyPickupRequest />
-      <PickupForm />
       <DeliveryForm />
+      <MyDeliveries />
+      <div style={{ margin: 20 }} />
+      <PickupForm />
+      <MyPickupRequest />
       <div />
     </div>
   );

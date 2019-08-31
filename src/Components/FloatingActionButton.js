@@ -12,11 +12,12 @@ const useStyles = makeStyles(theme => ({
 const FloatingActionButton = props => {
   const classes = useStyles();
   // the button type if needed for form submission
-  const { color, ariaLabel, onClick, children } = props;
+  const { color, ariaLabel, onClick, children, style } = props;
 
   return (
     <div>
       <Fab
+        style={{ marginLeft: 20, ...style }}
         color={color}
         aria-label={ariaLabel}
         className={classes.fab}
