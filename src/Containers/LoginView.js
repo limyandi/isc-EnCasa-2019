@@ -5,7 +5,8 @@ import {
   MyButton,
   MyHyperlink,
   MyUseForm,
-  MyPaper
+  MyPaper,
+  MyHeader
 } from '../Components';
 import { User } from '../utils/http';
 
@@ -44,6 +45,7 @@ function LoginView(props) {
       <div>
         <form onSubmit={handleSubmit}>
           <MyPaper>
+            <MyHeader>Login</MyHeader>
             <MyTextField
               style={{ marginBottom: 10 }}
               name="email"
