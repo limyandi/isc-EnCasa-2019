@@ -10,7 +10,14 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import { ListItemText, MenuItem } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
+import {
+  ListItemText,
+  MenuItem,
+  IconButton,
+  useTheme,
+  Hidden
+} from '@material-ui/core';
 import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
 import SettingIcon from '@material-ui/icons/Build';
 import HomeIcon from '@material-ui/icons/Home';
@@ -48,12 +55,22 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    },
     marginLeft: drawerWidth
   },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none'
+    }
+  },
   drawer: {
-    width: drawerWidth,
-    flexShrink: 0
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+      flexShrink: 0
+    }
   },
   drawerPaper: {
     width: drawerWidth
@@ -71,6 +88,7 @@ const useStyles = makeStyles(theme => ({
 
 function Routes(props) {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [user, setUser] = useGlobal('user');
   const [isAuthenticated, setIsAuthenticated] = useGlobal('isAuthenticated');
@@ -80,6 +98,12 @@ function Routes(props) {
   const activeRoute = routeName => {
     return props.location.pathname.indexOf(routeName) > -1;
   };
+
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  function handleDrawerToggle() {
+    setMobileOpen(!mobileOpen);
+  }
 
   const switchUserMode = () => {
     if (user.role === 'Customer') {
@@ -92,68 +116,95 @@ function Routes(props) {
   };
 
   const Sidebar = () => (
-    <div className={classes}>
+    <div>
+      <div style={{ marginTop: 10 }} className={classes.toolbar}>
+        {user.name}
+      </div>
+      <Divider />
+      <List>
+        <MenuItem button key="SwitchMode">
+          <MySwitch
+            checked={user.role !== 'Customer'}
+            label={`${user.role} view`}
+            onChange={switchUserMode}
+            visible={userHasDriverRole}
+          />
+        </MenuItem>
+        {renderRoute.map(route => (
+          <Link
+            style={{ textDecoration: 'none', color: 'black' }}
+            to={route.path(user)}
+            key={route.name}
+          >
+            <MenuItem selected={activeRoute(route.path(user))}>
+              <ListItemIcon>{route.icon}</ListItemIcon>
+              <ListItemText primary={route.sidebarName} />
+            </MenuItem>
+          </Link>
+        ))}
+        <Divider />
+      </List>
+      <List>
+        <MenuItem button key="logout" onClick={() => setIsAuthenticated(false)}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText>Logout</ListItemText>
+        </MenuItem>
+      </List>
+    </div>
+  );
+
+  const Main = () => (
+    <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
+      <AppBar position="absolute" className={classes.appBar}>
         <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            className={classes.menuButton}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" noWrap>
             Community Logistics
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper
-        }}
-        anchor="left"
-      >
-        <div style={{ marginTop: 10 }} className={classes.toolbar}>
-          {user.name}
-        </div>
-        <Divider />
-        <List>
-          <MenuItem button key="SwitchMode">
-            <MySwitch
-              checked={user.role !== 'Customer'}
-              label={`${user.role} view`}
-              onChange={switchUserMode}
-              visible={userHasDriverRole}
-            />
-          </MenuItem>
-          {renderRoute.map(route => (
-            <Link
-              style={{ textDecoration: 'none', color: 'black' }}
-              to={route.path(user)}
-              key={route.name}
-            >
-              <MenuItem selected={activeRoute(route.path(user))}>
-                <ListItemIcon>{route.icon}</ListItemIcon>
-                <ListItemText primary={route.sidebarName} />
-              </MenuItem>
-            </Link>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          <MenuItem
-            button
-            key="logout"
-            onClick={() => setIsAuthenticated(false)}
-          >
-            <ListItemIcon>
-              <LogoutIcon />
-            </ListItemIcon>
-            <ListItemText>Logout</ListItemText>
-          </MenuItem>
-        </List>
-        <Divider />
-      </Drawer>
+      <Hidden mdUp implementation="css">
+        <Drawer
+          variant="temporary"
+          anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          ModalProps={{
+            keepMounted: true // Better open performance on mobile.
+          }}
+        >
+          <Sidebar />
+        </Drawer>
+      </Hidden>
+      <Hidden xsDown implementation="css">
+        <Drawer
+          classes={{
+            paper: classes.drawerPaper
+          }}
+          variant="permanent"
+          open
+        >
+          <Sidebar />
+        </Drawer>
+      </Hidden>
     </div>
   );
 
-  return <div>{isAuthenticated && <Sidebar />}</div>;
+  return <div>{isAuthenticated && <Main />}</div>;
 }
 
 export default withRouter(Routes);

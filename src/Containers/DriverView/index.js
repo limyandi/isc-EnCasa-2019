@@ -47,7 +47,6 @@ function DriverView({ match }) {
           data={unassignedDeliveries}
         />
       )}
-      <MyHyperLink to={`${match.url}/setting`}>Settings</MyHyperLink>
     </div>
   );
 }
