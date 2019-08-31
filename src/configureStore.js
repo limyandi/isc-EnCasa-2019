@@ -6,6 +6,7 @@ import { setGlobal } from 'reactn';
 export default function configureStore() {
   // mock user data.
   // TODO: Delete later
+  const isAuthenticated = true;
   const user = {
     ID: 12,
     email: 'limyandi.com',
@@ -100,5 +101,5 @@ export default function configureStore() {
 
   const deliveries = [];
 
-  setGlobal({ user, deliveries });
+  setGlobal({ user, deliveries, isAuthenticated });
 }

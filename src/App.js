@@ -14,11 +14,13 @@ import RegisterView from './Containers/RegisterView';
 import CustomerView from './Containers/CustomerView';
 import DriverView from './Containers/DriverView';
 import DriverSetting from './Containers/DriverView/settings';
+import PrivateRoute from './Containers/PrivateRoute';
 
 const routesDefinition = [
   {
     path: '/',
     exact: true,
+    private: true,
     main: user =>
       user.role === 'Customer' ? (
         <Redirect to="/customer" />
@@ -37,15 +39,18 @@ const routesDefinition = [
   {
     path: '/customer',
     exact: true,
+    private: true,
     main: () => <CustomerView />
   },
   {
     path: '/driver',
     exact: true,
+    private: true,
     main: () => <DriverView />
   },
   {
     path: '/driver/setting',
+    private: true,
     main: () => <DriverSetting />
   }
 ];
@@ -61,14 +66,23 @@ function App() {
         <Router>
           <Sidebar />
           <Switch>
-            {routesDefinition.map(route => (
-              <Route
-                key={route.path}
-                path={route.path}
-                exact={route.exact}
-                component={() => route.main(user)}
-              />
-            ))}
+            {routesDefinition.map(route =>
+              route.private ? (
+                <PrivateRoute
+                  key={route.path}
+                  path={route.path}
+                  exact={route.exact}
+                  component={() => route.main(user)}
+                />
+              ) : (
+                <Route
+                  key={route.path}
+                  path={route.path}
+                  exact={route.exact}
+                  component={() => route.main(user)}
+                />
+              )
+            )}
           </Switch>
         </Router>
       </header>

@@ -58,6 +58,7 @@ function Routes(props) {
   const classes = useStyles();
 
   const [user, setUser] = useGlobal('user');
+  const [isAuthenticated] = useGlobal('isAuthenticated');
 
   const userHasDriverRole = user.driverDetails !== undefined;
 
@@ -75,7 +76,7 @@ function Routes(props) {
     }
   };
 
-  return (
+  const Sidebar = () => (
     <div>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -118,6 +119,8 @@ function Routes(props) {
       </Drawer>
     </div>
   );
+
+  return <div>{isAuthenticated && <Sidebar />}</div>;
 }
 
 export default withRouter(Routes);
