@@ -8,9 +8,11 @@ import {
   MyPaper,
   MyDropdown,
   MyCheckbox,
-  MyFormDialog
+  MyFormDialog,
+  MyHeader
 } from '../Components';
 import { User, Community } from '../utils/http';
+import MyErrorText from '../Components/ErrorText';
 
 function RegisterView(props) {
   const [communities, setCommunities] = React.useState([]);
@@ -19,9 +21,16 @@ function RegisterView(props) {
       setCommunities(res.data);
     });
   }, []);
-  const [user, setUser] = useGlobal('user');
+  const [, setUser] = useGlobal('user');
   // hooks for simple email and password form
-  const { values, handleChange, handleSubmit } = MyUseForm({
+  const {
+    values,
+    touchedValues,
+    errors,
+    handleChange,
+    handleSubmit,
+    handleBlur
+  } = MyUseForm({
     initialValues: {
       email: '',
       name: '',
@@ -29,16 +38,28 @@ function RegisterView(props) {
       driverChecked: false
     },
     onSubmit(val, errors) {
-      // alert(JSON.stringify({ val, errors }, null, 2));
-      // TODO: Fix this circular dependency.
       // eslint-disable-next-line no-use-before-define
-      handleClickOpen();
+      if (Object.keys(val.e).length === 0) handleClickOpen();
     },
     validate(val) {
       const errors = {};
-      if (val.email === '') {
-        errors.name = 'Please enter an email';
+      if (!val.email) {
+        errors.email = 'Please enter an email';
+      } else if (!/\S+@\S+\.\S+/.test(val.email)) {
+        errors.email = 'Email address is invalid';
       }
+
+      if (!/^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/.test(val.name)) {
+        errors.name = 'Name is in invalid format';
+      }
+
+      if (
+        !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(val.password)
+      ) {
+        errors.password =
+          'Password must at least contain one digit, one lower case, one upper case and 8 words long';
+      }
+
       return errors;
     }
   });
@@ -117,64 +138,67 @@ function RegisterView(props) {
 
   return (
     <div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <MyPaper>
-            <MyTextField
-              style={{ marginBottom: 10 }}
-              name="email"
-              label="Email"
-              value={values.email}
-              onChange={handleChange}
+      <form onSubmit={handleSubmit}>
+        <MyPaper>
+          <MyHeader>Register</MyHeader>
+          <MyTextField
+            required
+            style={{ marginBottom: 10 }}
+            name="email"
+            label="Email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          {errors.email && <MyErrorText>{errors.email}</MyErrorText>}
+          <MyTextField
+            required
+            style={{ marginBottom: 10 }}
+            name="name"
+            label="Name"
+            value={values.name}
+            onChange={handleChange}
+          />
+          {errors.name && <MyErrorText>{errors.name}</MyErrorText>}
+          <MyTextField
+            required
+            style={{ marginBottom: 10 }}
+            name="password"
+            label="Password"
+            type="Password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          {errors.password && <MyErrorText>{errors.password}</MyErrorText>}
+          <MyCheckbox
+            checked={values.driverChecked}
+            onChange={handleChange}
+            name="driverChecked"
+            label="Register as Driver"
+          />
+          <MyButton
+            style={{ marginTop: 15, marginBottom: 10 }}
+            variant="contained"
+            color="primary"
+            type="submit"
+          >
+            Register
+          </MyButton>
+          <MyFormDialog
+            open={open}
+            handleClose={communityForm.handleClose}
+            handleSubmit={communityForm.handleConfirm}
+            dialogTitle={communityForm.dialogTitle}
+            dialogText={communityForm.dialogText}
+          >
+            <MyDropdown
+              value={selectedCommunities}
+              onChange={handleSelectedCommunities}
+              valueLists={communities.communities}
             />
-            <MyTextField
-              style={{ marginBottom: 10 }}
-              name="name"
-              label="Name"
-              value={values.name}
-              onChange={handleChange}
-            />
-            <MyTextField
-              style={{ marginBottom: 10 }}
-              name="password"
-              label="password"
-              type="Password"
-              value={values.password}
-              onChange={handleChange}
-            />
-            <MyCheckbox
-              checked={values.driverChecked}
-              onChange={handleChange}
-              name="driverChecked"
-              label="Register as Driver"
-            />
-            <MyButton
-              style={{ marginTop: 15, marginBottom: 10 }}
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Register
-            </MyButton>
-            <MyFormDialog
-              open={open}
-              handleClose={communityForm.handleClose}
-              handleSubmit={communityForm.handleConfirm}
-              dialogTitle={communityForm.dialogTitle}
-              dialogText={communityForm.dialogText}
-            >
-              <MyDropdown
-                value={selectedCommunities}
-                onChange={handleSelectedCommunities}
-                valueLists={communities.communities}
-              />
-            </MyFormDialog>
-            <MyHyperlink to="/login">
-              Already have an account? Login!
-            </MyHyperlink>
-          </MyPaper>
-        </form>
-      </div>
+          </MyFormDialog>
+          <MyHyperlink to="/login">Already have an account? Login!</MyHyperlink>
+        </MyPaper>
+      </form>
     </div>
   );
 }

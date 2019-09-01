@@ -3,11 +3,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MyTextField = props => {
-  const { onChange, label, value, name, type, autoFocus } = props;
+  const { onChange, label, value, name, type, autoFocus, required } = props;
 
   return (
     <div>
       <TextField
+        required={required}
         type={type}
         label={label}
         name={name}
