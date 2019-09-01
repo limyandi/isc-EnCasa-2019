@@ -10,7 +10,7 @@ import {
   KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
-import { Delivery, User } from '../../utils/http';
+import { Delivery, User, sendEmail } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
@@ -66,6 +66,10 @@ const DeliveryForm = () => {
           });
           User.getDriversSubscriptedEmail().then(data => {
             console.log(data.emails);
+            sendEmail.sendNewJobNotification({
+              emails: data.emails,
+              textBody: 'hahaha'
+            });
           });
         });
       }
