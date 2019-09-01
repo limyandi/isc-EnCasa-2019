@@ -10,7 +10,7 @@ import {
   KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
-import { Delivery } from '../../utils/http';
+import { Delivery, User } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
@@ -63,6 +63,9 @@ const DeliveryForm = () => {
             deliveries: user.deliveries
               ? [...user.deliveries, { ...res.data }]
               : [res.data]
+          });
+          User.getDriversSubscriptedEmail().then(data => {
+            console.log(data.emails);
           });
         });
       }

@@ -38,6 +38,7 @@ function RegisterView(props) {
       driverChecked: false
     },
     onSubmit(val, errors) {
+      // if there is no error.
       // eslint-disable-next-line no-use-before-define
       if (Object.keys(val.e).length === 0) handleClickOpen();
     },

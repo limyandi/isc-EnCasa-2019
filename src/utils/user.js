@@ -34,5 +34,15 @@ export default function User(axios, config) {
     });
   };
 
-  return { register, login, getMyJobs, getDriversByAvailability };
+  const getDriversSubscriptedEmail = () => {
+    return axios.get('logistics/driver/subscriptEmail', config);
+  };
+
+  return {
+    register,
+    login,
+    getMyJobs,
+    getDriversByAvailability,
+    getDriversSubscriptedEmail
+  };
 }
