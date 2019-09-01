@@ -16,6 +16,7 @@ import RegisterView from './Containers/RegisterView';
 import CustomerView from './Containers/CustomerView';
 import DriverView from './Containers/DriverView';
 import DriverSetting from './Containers/DriverView/settings';
+import CustomerSetting from './Containers/CustomerView/settings';
 
 const routesDefinition = [
   {
@@ -53,6 +54,11 @@ const routesDefinition = [
     path: '/driver/setting',
     private: true,
     main: () => <DriverSetting />
+  },
+  {
+    path: '/customer/setting',
+    private: true,
+    main: () => <CustomerSetting />
   }
 ];
 

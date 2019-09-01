@@ -25,15 +25,11 @@ import HomeIcon from '@material-ui/icons/Home';
 // import LoginView from './LoginView';
 import { MySwitch } from '../Components';
 import DriverSetting from './DriverView/settings';
-import PrivateRoute from './PrivateRoute';
-import LoginView from './LoginView';
-import RegisterView from './RegisterView';
-import CustomerView from './CustomerView';
-import DriverView from './DriverView';
+import CustomerSetting from './CustomerView/settings';
 
 const renderRoute = [
   {
-    path: user => '/',
+    path: user => (user.role === 'Customer' ? '/customer' : '/driver'),
     main: user =>
       user.role === 'Customer' ? (
         <Redirect to="/customer" />
@@ -46,7 +42,8 @@ const renderRoute = [
   },
   {
     path: user => `/${user.role}/setting`,
-    component: user => (user.role === 'Driver' ? <DriverSetting /> : null),
+    component: user =>
+      user.role === 'Driver' ? <DriverSetting /> : <CustomerSetting />,
     name: 'Setting',
     sidebarName: 'Setting',
     icon: <SettingIcon />
@@ -78,7 +75,9 @@ const useStyles = makeStyles(theme => ({
     }
   },
   drawerPaper: {
-    width: drawerWidth
+    width: drawerWidth,
+    background: '#3F51B5',
+    color: 'white'
   },
   toolbar: {
     fontSize: 16,
@@ -86,7 +85,11 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
+    color: 'white'
+  },
+  listItemIcon: {
+    color: 'white'
   }
 }));
 
@@ -121,8 +124,12 @@ function Routes(props) {
 
   const Sidebar = () => (
     <div>
-      <div style={{ marginTop: 10 }} className={classes.toolbar}>
-        {user.name}
+      <div
+        style={{ margin: 10, textAlign: 'center' }}
+        className={classes.toolbar}
+      >
+        <div>{user.name}</div>
+        <div>{user.email}</div>
       </div>
       <Divider />
       <List>
@@ -136,12 +143,14 @@ function Routes(props) {
         </MenuItem>
         {renderRoute.map(route => (
           <Link
-            style={{ textDecoration: 'none', color: 'black' }}
+            style={{ textDecoration: 'none', color: 'white' }}
             to={route.path(user)}
             key={route.name}
           >
             <MenuItem selected={activeRoute(route.path(user))}>
-              <ListItemIcon>{route.icon}</ListItemIcon>
+              <ListItemIcon className={classes.listItemIcon}>
+                {route.icon}
+              </ListItemIcon>
               <ListItemText primary={route.sidebarName} />
             </MenuItem>
           </Link>
@@ -150,7 +159,7 @@ function Routes(props) {
       </List>
       <List>
         <MenuItem button key="logout" onClick={() => setIsAuthenticated(false)}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.listItemIcon}>
             <LogoutIcon />
           </ListItemIcon>
           <ListItemText>Logout</ListItemText>
@@ -162,7 +171,7 @@ function Routes(props) {
   const Main = () => (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={classes.appBar}>
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -173,9 +182,6 @@ function Routes(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
-            Community Logistics
-          </Typography>
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="logistics sidebar">

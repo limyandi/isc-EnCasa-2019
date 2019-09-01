@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'auto'
   },
   table: {
-    minWidth: 500,
+    minWidth: 600,
     maxWidth: 800
   }
 }));
@@ -46,7 +46,8 @@ const useStyles = makeStyles(theme => ({
 const MyTable = props => {
   const classes = useStyles();
 
-  const { data, addable, addOnClick } = props;
+  // either just pass in data directly or pass in table header and table body from parents
+  const { data, addable, addOnClick, tableHeader, tableBody } = props;
 
   const MyTableHeader = () => {
     return (
@@ -102,8 +103,28 @@ const MyTable = props => {
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
-        <MyTableHeader />
-        <MyTableBody />
+        {!tableHeader && <MyTableHeader />}
+        {tableHeader && (
+          <TableHead>
+            <TableRow>
+              {tableHeader.map(columnHeader => (
+                <StyledTableCell>{columnHeader}</StyledTableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+        )}
+        {!tableBody && <MyTableBody />}
+        {tableBody && (
+          <TableBody>
+            {tableBody.map(oneData => {
+              return (
+                <StyledTableCell align="right">
+                  {Object.values(oneData)}
+                </StyledTableCell>
+              );
+            })}
+          </TableBody>
+        )}
       </Table>
     </Paper>
   );

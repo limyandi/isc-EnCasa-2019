@@ -10,40 +10,15 @@ import {
 
 function DriverSetting() {
   const [user, setUser] = useGlobal('user');
-  console.log(user.driverDetails.availabilities);
-
-  const availabilitiesTableHeader = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
-  ];
-
-  const availabilitiesTableBody = Object.keys(
-    user.driverDetails.availabilities
-  ).map(day => {
-    const timeFrom = moment(
-      `"${user.driverDetails.availabilities[day].from}"`,
-      'HH:mm'
-    ).format('HH:mm');
-    const timeTo = moment(
-      `"${user.driverDetails.availabilities[day].to}"`,
-      'HH:mm'
-    ).format('HH:mm');
-    return {
-      [day]: `${timeFrom}-${timeTo}`
-    };
-  });
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       emailNotification: user.driverDetails.emailNotification,
       smsNotification: user.driverDetails.smsNotification
     },
-    onSubmit(val, errors) {},
+    onSubmit(val, errors) {
+      // TODO: handle save setting functionality
+    },
     validate(val) {
       const errors = {};
       return errors;
@@ -55,12 +30,7 @@ function DriverSetting() {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <MyHeader>Driver Setting</MyHeader>
-        <div>Availability Settings</div>
-        <MyTable
-          tableHeader={availabilitiesTableHeader}
-          tableBody={availabilitiesTableBody}
-        />
+        <MyHeader>Customer Setting</MyHeader>
         <div>Notification Settings</div>
         <MyCheckbox
           checked={values.emailNotification}
