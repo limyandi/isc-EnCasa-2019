@@ -27,7 +27,7 @@ function LoginView(props) {
             // initial default role is customer
             role: 'Customer'
           });
-          props.history.push('/');
+          props.history.push('/customer');
         })
         .catch(() => console.log('failed to login'));
     },

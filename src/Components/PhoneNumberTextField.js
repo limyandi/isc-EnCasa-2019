@@ -1,6 +1,5 @@
 import MuiPhoneNumber from 'material-ui-phone-number';
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const MyPhoneNumberTextField = props => {
   const { onChange, value, label, name, required, style } = props;
@@ -19,6 +18,7 @@ const MyPhoneNumberTextField = props => {
         value={value}
         label={label}
         name={name}
+        {...props}
       />
     </div>
   );

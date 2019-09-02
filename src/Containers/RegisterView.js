@@ -24,19 +24,12 @@ function RegisterView(props) {
   }, []);
   const [, setUser] = useGlobal('user');
   // hooks for simple email and password form
-  const {
-    values,
-    touchedValues,
-    errors,
-    handleChange,
-    handleSubmit,
-    handleBlur
-  } = MyUseForm({
+  const { values, errors, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
       name: '',
       password: '',
-      phoneNumber: '',
+      phone: '',
       driverChecked: false
     },
     onSubmit(val, errors) {
@@ -131,7 +124,7 @@ function RegisterView(props) {
       }).then(res => {
         // default role is customer
         setUser({ ...res.data, role: 'Customer' });
-        props.history.push('/');
+        props.history.push('/customer');
       });
     },
     handleClose: () => {
@@ -174,11 +167,10 @@ function RegisterView(props) {
           {errors.password && <MyErrorText>{errors.password}</MyErrorText>}
           <MyPhoneNumberTextField
             required
-            name="phoneNumber"
-            label="Phone Number"
-            type="phoneNumber"
-            value={values.phoneNumber}
             onChange={handleChange}
+            name="phone"
+            label="Phone Number"
+            value={values.phone}
           />
           <MyCheckbox
             checked={values.driverChecked}
