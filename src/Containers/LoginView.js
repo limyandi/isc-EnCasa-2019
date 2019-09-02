@@ -50,14 +50,14 @@ function LoginView(props) {
           <MyTextField
             style={{ marginBottom: 10 }}
             name="email"
-            label="email"
+            label="Email"
             value={values.email}
             onChange={handleChange}
           />
           <MyTextField
             style={{ marginBottom: 10 }}
             name="password"
-            label="password"
+            label="Password"
             type="password"
             value={values.password}
             onChange={handleChange}

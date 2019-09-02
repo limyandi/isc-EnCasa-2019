@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default */
 import React, { useGlobal } from 'reactn';
 import { Helmet } from 'react-helmet';
 import {
@@ -11,6 +12,7 @@ import './App.css';
 import Sidebar from './Containers/Sidebar';
 import 'typeface-roboto';
 import PrivateRoute from './Containers/PrivateRoute';
+import PublicRoute from './Containers/PublicRoute';
 import LoginView from './Containers/LoginView';
 import RegisterView from './Containers/RegisterView';
 import CustomerView from './Containers/CustomerView';
@@ -95,7 +97,7 @@ function App() {
                     component={() => route.main(user)}
                   />
                 ) : (
-                  <Route
+                  <PublicRoute
                     key={route.path}
                     path={route.path}
                     exact={route.exact}

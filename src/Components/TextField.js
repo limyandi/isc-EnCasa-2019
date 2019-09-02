@@ -3,10 +3,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const MyTextField = props => {
-  const { onChange, label, value, name, type, autoFocus, required } = props;
-
+  const {
+    onChange,
+    label,
+    value,
+    name,
+    type,
+    autoFocus,
+    required,
+    style
+  } = props;
+  const rootStyle = {
+    marginBottom: 10,
+    ...style
+  };
   return (
-    <div>
+    <div style={rootStyle}>
       <TextField
         required={required}
         type={type}

@@ -1,5 +1,6 @@
 import React, { useGlobal, useEffect } from 'reactn';
 import { withRouter } from 'react-router-dom';
+import MuiPhoneNumber from 'material-ui-phone-number';
 import {
   MyTextField,
   MyButton,
@@ -16,6 +17,7 @@ import { User, Community } from '../utils/http';
 import MyErrorText from '../Components/ErrorText';
 
 function RegisterView(props) {
+  const [phoneNumber, setPhoneNumber] = React.useState('');
   const [communities, setCommunities] = React.useState([]);
   const [, setIsAuthenticated] = useGlobal('isAuthenticated');
   useEffect(() => {
@@ -30,7 +32,6 @@ function RegisterView(props) {
       email: '',
       name: '',
       password: '',
-      phoneNumber: '0427399979',
       driverChecked: false
     },
     onSubmit(val, errors) {
@@ -120,6 +121,7 @@ function RegisterView(props) {
 
       User.register({
         ...values,
+        phoneNumber,
         driverDetails,
         ...{ communities: myCommunities }
       }).then(res => {
@@ -167,12 +169,14 @@ function RegisterView(props) {
             onChange={handleChange}
           />
           {errors.password && <MyErrorText>{errors.password}</MyErrorText>}
-          <MyPhoneNumberTextField
+          <MuiPhoneNumber
             required
-            name="phoneNumber"
+            defaultCountry="au"
+            onlyCountries={['au']}
+            onChange={val => setPhoneNumber(val)}
+            value={phoneNumber}
             label="Phone Number"
-            onChange={handleChange}
-            value={values.phoneNumber}
+            name="phoneNumber"
           />
           <MyCheckbox
             checked={values.driverChecked}
