@@ -14,6 +14,7 @@ import { User } from '../utils/http';
 
 function LoginView(props) {
   const [user, setUser] = useGlobal('user');
+  const [, setIsAuthenticated] = useGlobal('isAuthenticated');
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
@@ -27,7 +28,8 @@ function LoginView(props) {
             // initial default role is customer
             role: 'Customer'
           });
-          props.history.push('/customer');
+          setIsAuthenticated(true);
+          props.history.push('/');
         })
         .catch(() => console.log('failed to login'));
     },

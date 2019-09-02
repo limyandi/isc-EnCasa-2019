@@ -20,7 +20,6 @@ export default function configureStore() {
         timeTo: '08:45:01Z',
         status: true,
         pickupLocation: 'S2593',
-
         fromAddress: 'M1905'
       },
       {

@@ -17,6 +17,7 @@ import MyErrorText from '../Components/ErrorText';
 
 function RegisterView(props) {
   const [communities, setCommunities] = React.useState([]);
+  const [, setIsAuthenticated] = useGlobal('isAuthenticated');
   useEffect(() => {
     Community.getCommunities().then(res => {
       setCommunities(res.data);
@@ -29,7 +30,7 @@ function RegisterView(props) {
       email: '',
       name: '',
       password: '',
-      phone: '',
+      phoneNumber: '0427399979',
       driverChecked: false
     },
     onSubmit(val, errors) {
@@ -124,7 +125,8 @@ function RegisterView(props) {
       }).then(res => {
         // default role is customer
         setUser({ ...res.data, role: 'Customer' });
-        props.history.push('/customer');
+        setIsAuthenticated(true);
+        props.history.push('/');
       });
     },
     handleClose: () => {
@@ -167,10 +169,10 @@ function RegisterView(props) {
           {errors.password && <MyErrorText>{errors.password}</MyErrorText>}
           <MyPhoneNumberTextField
             required
-            name="phone"
+            name="phoneNumber"
             label="Phone Number"
             onChange={handleChange}
-            value={values.phone}
+            value={values.phoneNumber}
           />
           <MyCheckbox
             checked={values.driverChecked}
