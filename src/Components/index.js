@@ -12,6 +12,7 @@ import MySwitch from './Switch';
 import MyTable from './Table';
 import MyErrorText from './ErrorText';
 import MyPhoneNumberTextField from './PhoneNumberTextField';
+import MySingleDropdown from './SingleDropdown';
 
 export {
   MyButton,
@@ -27,5 +28,6 @@ export {
   MySwitch,
   MyTable,
   MyErrorText,
-  MyPhoneNumberTextField
+  MyPhoneNumberTextField,
+  MySingleDropdown
 };

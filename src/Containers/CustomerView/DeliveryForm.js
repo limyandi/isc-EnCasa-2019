@@ -15,7 +15,8 @@ import {
   MyFloatingActionButton,
   MyFormDialog,
   MyUseForm,
-  MyHeader
+  MyHeader,
+  MySingleDropdown
 } from '../../Components';
 
 const DeliveryForm = () => {
@@ -40,7 +41,9 @@ const DeliveryForm = () => {
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       fromAddress: '',
-      pickupLocation: ''
+      pickupLocation: '',
+      communityID: null,
+      dispatchCentreID: null
     },
 
     onSubmit(val, errors) {
@@ -67,7 +70,6 @@ const DeliveryForm = () => {
               : [res.data]
           });
           User.getDriversSubscriptedEmail().then(result => {
-            console.log(result.data.emails);
             sendEmail.sendNewJobNotification({
               destinations: result.data.emails,
               textBody: `A new delivery has been posted: customer: ${user.name} is available at ${date} from ${time}-${timeTo}`
@@ -118,9 +120,15 @@ const DeliveryForm = () => {
           <TextField
             value={values.receivingAddress}
             name="fromAddress"
-            label="Address To"
+            label="Item Delivery Address"
             onChange={handleChange}
             autoFocus
+          />
+          <TextField
+            value={values.pickupLocation}
+            name="pickupLocation"
+            label="Item Pickup Address"
+            onChange={handleChange}
           />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
@@ -169,10 +177,8 @@ const DeliveryForm = () => {
               />
             </Grid>
           </MuiPickersUtilsProvider>
-          <TextField
-            value={values.pickupLocation}
-            name="pickupLocation"
-            label="Pickup Location"
+          <MySingleDropdown
+            value={values.communityID}
             onChange={handleChange}
           />
         </form>
