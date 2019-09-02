@@ -9,7 +9,8 @@ import {
   MyDropdown,
   MyCheckbox,
   MyFormDialog,
-  MyHeader
+  MyHeader,
+  MyPhoneNumberTextField
 } from '../Components';
 import { User, Community } from '../utils/http';
 import MyErrorText from '../Components/ErrorText';
@@ -35,6 +36,7 @@ function RegisterView(props) {
       email: '',
       name: '',
       password: '',
+      phoneNumber: '',
       driverChecked: false
     },
     onSubmit(val, errors) {
@@ -170,6 +172,14 @@ function RegisterView(props) {
             onChange={handleChange}
           />
           {errors.password && <MyErrorText>{errors.password}</MyErrorText>}
+          <MyPhoneNumberTextField
+            required
+            name="phoneNumber"
+            label="Phone Number"
+            type="phoneNumber"
+            value={values.phoneNumber}
+            onChange={handleChange}
+          />
           <MyCheckbox
             checked={values.driverChecked}
             onChange={handleChange}

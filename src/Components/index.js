@@ -10,7 +10,8 @@ import MyUseForm from './UseForm';
 import MyFloatingActionButton from './FloatingActionButton';
 import MySwitch from './Switch';
 import MyTable from './Table';
-import MyErroText from './ErrorText';
+import MyErrorText from './ErrorText';
+import MyPhoneNumberTextField from './PhoneNumberTextField';
 
 export {
   MyButton,
@@ -25,5 +26,6 @@ export {
   MyFloatingActionButton,
   MySwitch,
   MyTable,
-  MyErroText
+  MyErrorText,
+  MyPhoneNumberTextField
 };

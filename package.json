@@ -12,6 +12,7 @@
     "eslint-plugin-flowtype": "^4.2.0",
     "http-proxy-middleware": "^0.19.1",
     "material-table": "^1.50.0",
+    "material-ui-phone-number": "^2.1.0",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",

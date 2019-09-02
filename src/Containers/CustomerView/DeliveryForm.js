@@ -49,12 +49,14 @@ const DeliveryForm = () => {
       // posting delivery here
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
+      const time = moment(date).format('HH:mm:ss');
+      const timeTo = moment(dateTo).format('HH:mm:ss');
       if (!errors) {
         Delivery.addDelivery({
           ...val.values,
           date: moment(date).format('YYYY-MM-DD'),
-          time: moment(date).format('HH:mm:ss'),
-          timeTo: moment(dateTo).format('HH:mm:ss'),
+          time,
+          timeTo,
           status: false,
           customerId: user.ID
         }).then(res => {
@@ -68,7 +70,7 @@ const DeliveryForm = () => {
             console.log(data.emails);
             sendEmail.sendNewJobNotification({
               emails: data.emails,
-              textBody: 'hahaha'
+              textBody: `A new delivery has been posted: customer: ${user.name} is available at ${date} from ${time}-${timeTo}`
             });
           });
         });
