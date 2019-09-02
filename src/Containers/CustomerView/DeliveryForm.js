@@ -66,10 +66,10 @@ const DeliveryForm = () => {
               ? [...user.deliveries, { ...res.data }]
               : [res.data]
           });
-          User.getDriversSubscriptedEmail().then(data => {
-            console.log(data.emails);
+          User.getDriversSubscriptedEmail().then(result => {
+            console.log(result.data.emails);
             sendEmail.sendNewJobNotification({
-              emails: data.emails,
+              destinations: result.data.emails,
               textBody: `A new delivery has been posted: customer: ${user.name} is available at ${date} from ${time}-${timeTo}`
             });
           });
@@ -127,7 +127,7 @@ const DeliveryForm = () => {
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
-                label="Date picker dialog"
+                label="Date Available"
                 format="MM-dd-yyyy"
                 value={date}
                 //   inputProps={{ name: 'date' }}

@@ -176,7 +176,6 @@ function RegisterView(props) {
             required
             name="phoneNumber"
             label="Phone Number"
-            type="phoneNumber"
             value={values.phoneNumber}
             onChange={handleChange}
           />
