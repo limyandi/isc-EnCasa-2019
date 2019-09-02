@@ -167,9 +167,9 @@ function RegisterView(props) {
           {errors.password && <MyErrorText>{errors.password}</MyErrorText>}
           <MyPhoneNumberTextField
             required
-            onChange={handleChange}
             name="phone"
             label="Phone Number"
+            onChange={handleChange}
             value={values.phone}
           />
           <MyCheckbox
