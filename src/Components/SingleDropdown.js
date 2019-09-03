@@ -5,27 +5,19 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2)
-  }
-}));
-
 const SingleDropdown = props => {
-  const { value, onChange, label, name, data } = props;
-  const classes = useStyles();
+  const { value, onChange, label, name, data, withAddress, style } = props;
+
+  const rootStyle = {
+    marginBottom: 10,
+    display: 'flex',
+    flexWrap: 'wrap',
+    ...style
+  };
 
   return (
-    <div className={classes.root}>
-      <FormControl className={classes.formControl}>
+    <div style={rootStyle}>
+      <FormControl style={{ minWidth: 150 }}>
         <InputLabel htmlFor="age-simple">{label}</InputLabel>
         <Select
           value={value}
@@ -36,12 +28,20 @@ const SingleDropdown = props => {
         >
           {data &&
             data.map(oneData => {
-              return <MenuItem value={oneData.ID}>{oneData.name}</MenuItem>;
+              return (
+                <MenuItem value={oneData.ID}>
+                  {oneData.name} {withAddress ? oneData.address : null}
+                </MenuItem>
+              );
             })}
         </Select>
       </FormControl>
     </div>
   );
+};
+
+SingleDropdown.defaultProps = {
+  withAddress: false
 };
 
 export default SingleDropdown;

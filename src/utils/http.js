@@ -5,6 +5,7 @@ import MyCommunity from './community';
 import MyJob from './job';
 import MyPickup from './pickup';
 import MySendEmail from './sendEmail';
+import MyDispatchCentre from './dispatchCentre';
 
 const config = {
   headers: {
@@ -13,9 +14,11 @@ const config = {
 };
 
 const User = MyUser(axios, config);
+const DispatchCentre = MyDispatchCentre(axios, config);
 const Delivery = MyDelivery(axios, config);
 const Community = MyCommunity(axios, config);
 const Job = MyJob(axios, config);
 const Pickup = MyPickup(axios, config);
 const sendEmail = MySendEmail(axios, config);
-export { User, Delivery, Community, Job, Pickup, sendEmail };
+
+export { User, DispatchCentre, Delivery, Community, Job, Pickup, sendEmail };

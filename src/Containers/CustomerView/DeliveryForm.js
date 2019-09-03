@@ -10,7 +10,7 @@ import {
   KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
-import { Delivery, User, sendEmail } from '../../utils/http';
+import { Delivery, User, sendEmail, DispatchCentre } from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
@@ -42,8 +42,8 @@ const DeliveryForm = () => {
     initialValues: {
       fromAddress: '',
       pickupLocation: '',
-      communityID: null,
-      dispatchCentreID: null
+      communityID: undefined,
+      dispatchCentreID: undefined
     },
 
     onSubmit(val, errors) {
@@ -103,6 +103,18 @@ const DeliveryForm = () => {
       setOpen(false);
     }
   };
+
+  const [
+    communityDispatchCentres,
+    setCommunityDispatchCentres
+  ] = React.useState([]);
+  const setDispatchCentre = communityID => {
+    // reset the dispatchcentreID
+    values.dispatchCentreID = undefined;
+    DispatchCentre.getByCommunity(communityID).then(res => {
+      setCommunityDispatchCentres(res.data.dispatchCentres);
+    });
+  };
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MyHeader>Your delivery</MyHeader>
@@ -117,25 +129,29 @@ const DeliveryForm = () => {
         dialogText={deliveryForm.dialogText}
       >
         <form>
-          <TextField
-            value={values.receivingAddress}
-            name="fromAddress"
-            label="Item Delivery Address"
-            onChange={handleChange}
-            autoFocus
-          />
-          <TextField
-            value={values.pickupLocation}
-            name="pickupLocation"
-            label="Item Pickup Address"
-            onChange={handleChange}
-          />
+          <div>
+            <TextField
+              value={values.receivingAddress}
+              name="fromAddress"
+              label="Item Delivery Address"
+              onChange={handleChange}
+              autoFocus
+            />
+          </div>
+          <div>
+            <TextField
+              value={values.pickupLocation}
+              name="pickupLocation"
+              label="Item Pickup Address"
+              onChange={handleChange}
+            />
+          </div>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
-                label="Date Available"
+                label="Item Pickup Date"
                 format="MM-dd-yyyy"
                 value={date}
                 //   inputProps={{ name: 'date' }}
@@ -178,9 +194,27 @@ const DeliveryForm = () => {
             </Grid>
           </MuiPickersUtilsProvider>
           <MySingleDropdown
+            data={user.communities}
+            name="communityID"
+            label="Community"
             value={values.communityID}
-            onChange={handleChange}
+            onChange={e => {
+              handleChange(e);
+              // e.target.value to use because sometimes
+              // handleChange is not done before setDispatchCentre
+              setDispatchCentre(e.target.value);
+            }}
           />
+          {values.communityID && (
+            <MySingleDropdown
+              data={communityDispatchCentres}
+              name="dispatchCentreID"
+              label="Dispatch Centre"
+              value={values.dispatchCentreID}
+              onChange={handleChange}
+              withAddress
+            />
+          )}
         </form>
       </MyFormDialog>
     </div>

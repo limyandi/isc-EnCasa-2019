@@ -13,8 +13,8 @@ function DriverSetting() {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      emailNotification: user.driverDetails.emailNotification,
-      smsNotification: user.driverDetails.smsNotification
+      emailNotification: user.emailNotification,
+      smsNotification: user.smsNotification
     },
     onSubmit(val, errors) {
       // TODO: handle save setting functionality

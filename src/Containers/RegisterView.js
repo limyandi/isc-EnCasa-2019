@@ -119,9 +119,17 @@ function RegisterView(props) {
         selectedCommunity => selectedCommunity.id
       );
 
+      // this is for user, the previous one is for driver
+      const userNotificationDetails = {
+        appNotification: true,
+        emailNotification: false,
+        smsNotification: false
+      };
+      console.log({ ...userNotificationDetails });
       User.register({
         ...values,
         phoneNumber,
+        ...{ ...userNotificationDetails },
         driverDetails,
         ...{ communities: myCommunities }
       }).then(res => {

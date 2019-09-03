@@ -99,9 +99,8 @@ const PickupForm = () => {
     dialogTitle: 'Pickup Form',
     dialogText: 'Add the pickup details!',
     handleConfirm: e => {
-      handleSubmit(e);
+      handleSubmit(e).then(() => setListDriverFormOpen(true));
       setOpen(false);
-      setListDriverFormOpen(true);
     },
     handleClose: () => {
       setOpen(false);
@@ -112,11 +111,11 @@ const PickupForm = () => {
     dialogTitle: 'These Drivers are available for this time',
     dialogText: 'List of Drivers',
     handleConfirm: e => {
-      handleSubmit(e);
-      setListDriverFormOpen(false);
+      // handleSubmit(e);
+      // setListDriverFormOpen(false);
     },
     handleClose: () => {
-      setListDriverFormOpen(false);
+      // setListDriverFormOpen(false);
     }
   };
 
