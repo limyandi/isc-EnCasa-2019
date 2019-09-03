@@ -19,34 +19,54 @@ import {
 import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
 import SettingIcon from '@material-ui/icons/Build';
 import HomeIcon from '@material-ui/icons/Home';
+import { Add as AddIcon } from '@material-ui/icons';
 // import RegisterView from './RegisterView';
 // import LoginView from './LoginView';
 import { MySwitch } from '../Components';
 import DriverSetting from './DriverView/settings';
 import CustomerSetting from './CustomerView/settings';
+import AddJobView from './DriverView/jobsList';
 
-const renderRoute = [
-  {
-    path: user => (user.role === 'Customer' ? '/customer' : '/driver'),
-    main: user =>
-      user.role === 'Customer' ? (
-        <Redirect to="/customer" />
-      ) : (
-        <Redirect to="/driver" />
-      ),
-    name: 'Home',
-    sidebarName: 'Home',
-    icon: <HomeIcon />
-  },
-  {
-    path: user => `/${user.role}/setting`,
-    component: user =>
-      user.role === 'Driver' ? <DriverSetting /> : <CustomerSetting />,
-    name: 'Setting',
-    sidebarName: 'Setting',
-    icon: <SettingIcon />
-  }
-];
+const customerOnlyRoute = {};
+
+const driverOnlyRoute = {
+  path: () => '/driver/addJob',
+  main: () => <AddJobView />,
+  name: 'Jobs',
+  sidebarName: 'Jobs',
+  icon: <AddIcon />
+};
+
+const renderRoute = user => {
+  // console.log(...[...driverOnlyRoute]);
+  return [
+    {
+      path: () => (user.role === 'Customer' ? '/customer' : '/driver'),
+      main: () =>
+        user.role === 'Customer' ? (
+          <Redirect to="/customer" />
+        ) : (
+          <Redirect to="/driver" />
+        ),
+      name: 'Home',
+      sidebarName: 'Home',
+      icon: <HomeIcon />
+    },
+    {
+      path: () => `/${user.role}/setting`,
+      component: () =>
+        user.role === 'Driver' ? <DriverSetting /> : <CustomerSetting />,
+      name: 'Setting',
+      sidebarName: 'Setting',
+      icon: <SettingIcon />
+    },
+    user.role === 'Driver'
+      ? {
+          ...driverOnlyRoute
+        }
+      : { ...customerOnlyRoute }
+  ];
+};
 
 const drawerWidth = 240;
 
@@ -139,20 +159,24 @@ function Routes(props) {
             visible={userHasDriverRole}
           />
         </MenuItem>
-        {renderRoute.map(route => (
-          <Link
-            style={{ textDecoration: 'none', color: 'white' }}
-            to={route.path(user)}
-            key={route.name}
-          >
-            <MenuItem selected={activeRoute(route.path(user))}>
-              <ListItemIcon className={classes.listItemIcon}>
-                {route.icon}
-              </ListItemIcon>
-              <ListItemText primary={route.sidebarName} />
-            </MenuItem>
-          </Link>
-        ))}
+        {renderRoute(user).map(
+          route =>
+            Object.keys(route).length !== 0 &&
+            route.constructor === Object && (
+              <Link
+                style={{ textDecoration: 'none', color: 'white' }}
+                to={route.path()}
+                key={route.name}
+              >
+                <MenuItem selected={activeRoute(route.path())}>
+                  <ListItemIcon className={classes.listItemIcon}>
+                    {route.icon}
+                  </ListItemIcon>
+                  <ListItemText primary={route.sidebarName} />
+                </MenuItem>
+              </Link>
+            )
+        )}
         <Divider />
       </List>
       <List>

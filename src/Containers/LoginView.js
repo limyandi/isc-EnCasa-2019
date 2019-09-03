@@ -15,12 +15,12 @@ import { User } from '../utils/http';
 function LoginView(props) {
   const [user, setUser] = useGlobal('user');
   const [, setIsAuthenticated] = useGlobal('isAuthenticated');
-  const { values, handleChange, handleSubmit } = MyUseForm({
+  const { values, errors, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
       password: ''
     },
-    onSubmit(val, errors) {
+    onSubmit(val) {
       User.login(val.values)
         .then(res => {
           setUser({
@@ -31,7 +31,7 @@ function LoginView(props) {
           setIsAuthenticated(true);
           props.history.push('/');
         })
-        .catch(() => console.log('failed to login'));
+        .catch(res => console.log(res));
     },
     validate(val) {
       const errors = {};

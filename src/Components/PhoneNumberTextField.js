@@ -10,7 +10,7 @@ const MyPhoneNumberTextField = props => {
     ...style
   };
   return (
-    <div className={rootStyle}>
+    <div style={rootStyle}>
       <MuiPhoneNumber
         defaultCountry="au"
         onlyCountries={['au']}
