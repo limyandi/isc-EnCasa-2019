@@ -34,7 +34,6 @@ export default function User(axios, config) {
 
     if (!day || !timeFrom || !timeTo)
       throw new Error('invalid availability details');
-    console.log(config.headers);
     return axios.get('logistics/driver/findByAvailability', {
       params: availabilityDetails,
       headers: config.headers
@@ -45,11 +44,27 @@ export default function User(axios, config) {
     return axios.get('logistics/driver/subscriptEmail', config);
   };
 
+  const updateDriverDetails = (driverDetails, userId) => {
+    return axios.put(
+      `/logistics/user/driverDetails/${userId}`,
+      { driverDetails },
+      config
+    );
+  };
+
+  const updateCustomerDetails = (customerDetails, userId) => {
+    console.log(customerDetails);
+    // console.log({ customerDetails });
+    return axios.put(`/logistics/user/${userId}`, customerDetails, config);
+  };
+
   return {
     register,
     login,
     getMyJobs,
     getDriversByAvailability,
-    getDriversSubscriptedEmail
+    getDriversSubscriptedEmail,
+    updateDriverDetails,
+    updateCustomerDetails
   };
 }

@@ -7,10 +7,10 @@ import {
   MyButton,
   MyTable
 } from '../../Components';
+import { User } from '../../utils/http';
 
 function DriverSetting() {
   const [user, setUser] = useGlobal('user');
-  console.log(user.driverDetails.availabilities);
 
   const availabilitiesTableHeader = [
     'Monday',
@@ -43,7 +43,12 @@ function DriverSetting() {
       emailNotification: user.driverDetails.emailNotification,
       smsNotification: user.driverDetails.smsNotification
     },
-    onSubmit(val, errors) {},
+    onSubmit(val, errors) {
+      const driverDetails = { ...user.driverDetails, ...val.values };
+      User.updateDriverDetails(driverDetails, user.ID).then(res =>
+        setUser({ ...res.data, role: 'Driver' })
+      );
+    },
     validate(val) {
       const errors = {};
       return errors;

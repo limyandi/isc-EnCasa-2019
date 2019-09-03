@@ -18,14 +18,16 @@ import MyErrorText from '../Components/ErrorText';
 
 function RegisterView(props) {
   const [phoneNumber, setPhoneNumber] = React.useState('');
-  const [communities, setCommunities] = React.useState([]);
   const [, setIsAuthenticated] = useGlobal('isAuthenticated');
+  const [, setUser] = useGlobal('user');
+  const [communities, setCommunities] = React.useState([]);
+
   useEffect(() => {
     Community.getCommunities().then(res => {
       setCommunities(res.data);
     });
-  }, []);
-  const [, setUser] = useGlobal('user');
+  }, [setCommunities]);
+
   // hooks for simple email and password form
   const { values, errors, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
@@ -64,6 +66,7 @@ function RegisterView(props) {
 
   const [open, setOpen] = React.useState(false);
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
+  console.log(selectedCommunities);
 
   function handleSelectedCommunities(event) {
     setSelectedCommunities(event.target.value);
@@ -79,6 +82,7 @@ function RegisterView(props) {
     handleConfirm: () => {
       setOpen(false);
       const driverDetails = {};
+
       if (values.driverChecked) {
         // TODO: Basic Driver Details
         driverDetails.availabilities = {
@@ -115,8 +119,9 @@ function RegisterView(props) {
         driverDetails.smsNotification = false;
         driverDetails.emailNotification = false;
       }
+
       const myCommunities = selectedCommunities.map(
-        selectedCommunity => selectedCommunity.id
+        selectedCommunity => selectedCommunity.ID
       );
 
       // this is for user, the previous one is for driver
@@ -125,7 +130,6 @@ function RegisterView(props) {
         emailNotification: false,
         smsNotification: false
       };
-      console.log({ ...userNotificationDetails });
       User.register({
         ...values,
         phoneNumber,

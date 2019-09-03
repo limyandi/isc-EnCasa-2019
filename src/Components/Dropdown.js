@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 import React from 'react';
 import Select from '@material-ui/core/Select';
 import {
@@ -64,8 +65,8 @@ const MyDropdown = props => {
       >
         {valueLists.map(val => {
           return (
-            <MenuItem key={val.id} value={val}>
-              <Checkbox checked={value.findIndex(i => i.id === val.id) > -1} />
+            <MenuItem key={val.ID} value={val}>
+              <Checkbox checked={value.findIndex(i => i.ID == val.ID) > -1} />
               <ListItemText primary={val.name} />
             </MenuItem>
           );

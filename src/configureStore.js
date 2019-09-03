@@ -99,5 +99,7 @@ export default function configureStore() {
     }
   };
 
-  setGlobal({ user, isAuthenticated });
+  const communities = [];
+
+  setGlobal({ user, isAuthenticated, communities });
 }

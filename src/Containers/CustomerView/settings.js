@@ -5,11 +5,23 @@ import {
   MyCheckbox,
   MyUseForm,
   MyButton,
-  MyTable
+  MyTable,
+  MyDropdown
 } from '../../Components';
+import { User, Community } from '../../utils/http';
 
-function DriverSetting() {
+function CustomerSetting() {
   const [user, setUser] = useGlobal('user');
+  const [communities, setCommunities] = React.useState(undefined);
+  const [selectedCommunities, setSelectedCommunities] = React.useState(
+    user.communities
+  );
+
+  React.useEffect(() => {
+    Community.getCommunities().then(res => {
+      setCommunities(res.data);
+    });
+  }, [setCommunities]);
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
@@ -17,7 +29,18 @@ function DriverSetting() {
       smsNotification: user.smsNotification
     },
     onSubmit(val, errors) {
-      // TODO: handle save setting functionality
+      const customerDetails = val.values;
+      const myCommunities = selectedCommunities.map(
+        selectedCommunity => selectedCommunity.ID
+      );
+
+      User.updateCustomerDetails(customerDetails, user.ID).then(res =>
+        setUser({
+          ...res.data,
+          ...{ communities: myCommunities },
+          role: 'Customer'
+        })
+      );
     },
     validate(val) {
       const errors = {};
@@ -25,12 +48,22 @@ function DriverSetting() {
     }
   });
 
-  // TODO: Availability Settings - Time Range
-  // TODO: Notification settings - with checkbox
+  function handleSelectedCommunities(event) {
+    setSelectedCommunities(event.target.value);
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <MyHeader>Customer Setting</MyHeader>
+        <div>Edit Communities</div>
+        {communities && (
+          <MyDropdown
+            value={selectedCommunities}
+            onChange={handleSelectedCommunities}
+            valueLists={communities.communities}
+          />
+        )}
         <div>Notification Settings</div>
         <MyCheckbox
           checked={values.emailNotification}
@@ -57,4 +90,4 @@ function DriverSetting() {
   );
 }
 
-export default DriverSetting;
+export default CustomerSetting;

@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     overflowX: 'auto'
   },
   table: {
-    minWidth: 600,
+    minWidth: 200,
     maxWidth: 800
   }
 }));
@@ -47,7 +47,14 @@ const MyTable = props => {
   const classes = useStyles();
 
   // either just pass in data directly or pass in table header and table body from parents
-  const { data, addable, addOnClick, tableHeader, tableBody } = props;
+  const {
+    data,
+    addable,
+    addOnClick,
+    tableHeader,
+    tableBody,
+    rowOnClick
+  } = props;
 
   const MyTableHeader = () => {
     return (
@@ -66,7 +73,13 @@ const MyTable = props => {
       <TableBody>
         {data.map(oneData => {
           return (
-            <StyledTableRow>
+            <StyledTableRow
+              onClick={
+                rowOnClick
+                  ? () => rowOnClick(oneData.ID)
+                  : () => console.log('no click function')
+              }
+            >
               {/* {oneData.map(columnName => (
                 <StyledTableCell align="right">
                   {oneData[columnName]}
@@ -79,15 +92,11 @@ const MyTable = props => {
                     ? 'Progressing'
                     : 'Unassigned';
                   return (
-                    <StyledTableCell align="right">
-                      {statusText}
-                    </StyledTableCell>
+                    <StyledTableCell align="left">{statusText}</StyledTableCell>
                   );
                 }
                 return (
-                  <StyledTableCell align="right">
-                    {oneData[key]}
-                  </StyledTableCell>
+                  <StyledTableCell align="left">{oneData[key]}</StyledTableCell>
                 );
               })}
               {addable && (

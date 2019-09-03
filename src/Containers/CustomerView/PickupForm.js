@@ -25,7 +25,6 @@ const PickupForm = () => {
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
   const [dateTo, setDateTo] = React.useState(date);
-  const [availableDrivers, setAvailableDrivers] = React.useState(null);
 
   const handleDateChange = selectedDate => {
     setDate(selectedDate);
@@ -60,25 +59,6 @@ const PickupForm = () => {
             : [res.data]
         });
       });
-
-      const dayOfWeek = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wednesday',
-        'Thursday',
-        'Friday',
-        'Saturday'
-      ];
-      const availabilityDetails = {
-        day: dayOfWeek[moment(date).day()],
-        timeFrom: moment(date).format('HH:mm'),
-        timeTo: moment(dateTo).format('HH:mm')
-      };
-      // User.getDriversByAvailability(availabilityDetails).then(res => {
-      //   // setAvailableDrivers(res.data.drivers);
-      //   console.log(res.data);
-      // });
     },
 
     validate(val) {
@@ -90,8 +70,6 @@ const PickupForm = () => {
     }
   });
 
-  const [listDriverFormOpen, setListDriverFormOpen] = React.useState(false);
-
   const openPickupForm = () => {
     setOpen(true);
   };
@@ -99,23 +77,11 @@ const PickupForm = () => {
     dialogTitle: 'Pickup Form',
     dialogText: 'Add the pickup details!',
     handleConfirm: e => {
-      handleSubmit(e).then(() => setListDriverFormOpen(true));
+      handleSubmit(e);
       setOpen(false);
     },
     handleClose: () => {
       setOpen(false);
-    }
-  };
-
-  const listDriverForm = {
-    dialogTitle: 'These Drivers are available for this time',
-    dialogText: 'List of Drivers',
-    handleConfirm: e => {
-      // handleSubmit(e);
-      // setListDriverFormOpen(false);
-    },
-    handleClose: () => {
-      // setListDriverFormOpen(false);
     }
   };
 
@@ -195,15 +161,6 @@ const PickupForm = () => {
             label="By clicking confirm, you provided us the authority to pickup the item"
           />
         </form>
-      </MyFormDialog>
-      <MyFormDialog
-        open={listDriverFormOpen}
-        handleClose={listDriverForm.handleClose}
-        handleSubmit={listDriverForm.handleConfirm}
-        dialogTitle={listDriverForm.dialogTitle}
-        dialogText={listDriverForm.dialogText}
-      >
-        <div>AHHA</div>
       </MyFormDialog>
     </div>
   );

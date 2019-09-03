@@ -8,6 +8,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Community } from './utils/http';
 import './App.css';
 import Sidebar from './Containers/Sidebar';
 import 'typeface-roboto';
@@ -76,6 +77,12 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const classes = useStyles();
+  const [, setCommunities] = useGlobal('communities');
+  // React.useEffect(() => {
+  //   Community.getCommunities().then(res => {
+  //     setCommunities(res.data.communities);
+  //   });
+  // }, [setCommunities]);
   const [user] = useGlobal('user');
   return (
     <div className="App">
