@@ -24,6 +24,11 @@ import {
   MyHeader,
   MySingleDropdown
 } from '../../Components';
+import {
+  newDeliveryTextBody,
+  newDeliveryEmailSubject,
+  textSMSSenderId
+} from '../../helper/textMessage';
 
 const DeliveryForm = () => {
   const [user, setUser] = useGlobal('user');
@@ -53,11 +58,6 @@ const DeliveryForm = () => {
     },
 
     onSubmit(val, errors) {
-      // alert(JSON.stringify({ val, errors }, null, 2));
-      // console.log(val.values);
-      // posting delivery here
-      // Create a new delivery with a status = 0,
-      // the delivery is unassigned to any driver
       const time = moment(date).format('HH:mm');
       const timeTo = moment(dateTo).format('HH:mm');
       if (!errors) {
@@ -75,23 +75,19 @@ const DeliveryForm = () => {
               ? [...user.deliveries, { ...res.data }]
               : [res.data]
           });
+
           User.getDriversSubscriptedEmail(val.values.communityID).then(
             result => {
-              const textBody = `A new delivery has been posted: customer: ${
-                user.name
-              } is available at ${moment(date).format(
-                'YYYY-MM'
-              )} from ${time}-${timeTo}`;
-
               sendEmail.sendJobNotification({
                 destinations: result.data.emails,
-                subject: 'New delivery has been posted',
-                textBody
+                subject: newDeliveryEmailSubject,
+                textBody: newDeliveryTextBody(user, date, time, timeTo)
               });
               sendSMS.sendJobNotification({
+                // TODO: Dynamic get phone number
                 to: ['61427399979'],
-                senderId: 'CLP',
-                messageText: textBody
+                senderId: textSMSSenderId,
+                messageText: newDeliveryTextBody(user, date, time, timeTo)
               });
             }
           );
