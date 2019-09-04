@@ -1,13 +1,13 @@
-export default function sendEmail(axios, config) {
+export default function sendSMS(axios, config) {
   const sendJobNotification = jobNotificationDetails => {
-    const { destinations, textBody } = jobNotificationDetails;
+    const { to, senderId, messageText } = jobNotificationDetails;
 
-    if (!destinations || !textBody) {
+    if (!to || !senderId || !messageText) {
       throw new Error('invalid job notification details data');
     }
 
     return axios.post(
-      '/notif/email/sendJobNotification',
+      '/notif/sms/sendJobNotification',
       jobNotificationDetails,
       config
     );

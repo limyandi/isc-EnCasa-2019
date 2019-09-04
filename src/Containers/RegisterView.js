@@ -66,7 +66,6 @@ function RegisterView(props) {
 
   const [open, setOpen] = React.useState(false);
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
-  console.log(selectedCommunities);
 
   function handleSelectedCommunities(event) {
     setSelectedCommunities(event.target.value);

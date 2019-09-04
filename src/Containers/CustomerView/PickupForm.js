@@ -87,7 +87,7 @@ const PickupForm = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <MyHeader>Your pickup request</MyHeader>
+      <MyHeader>Your Pickup request</MyHeader>
       <MyFloatingActionButton onClick={openPickupForm}>
         <AddIcon />
       </MyFloatingActionButton>

@@ -25,13 +25,13 @@ import { Add as AddIcon } from '@material-ui/icons';
 import { MySwitch } from '../Components';
 import DriverSetting from './DriverView/settings';
 import CustomerSetting from './CustomerView/settings';
-import AddJobView from './DriverView/jobsList';
+import JobsList from './DriverView/jobsList';
 
 const customerOnlyRoute = {};
 
 const driverOnlyRoute = {
-  path: () => '/driver/addJob',
-  main: () => <AddJobView />,
+  path: () => '/driver/jobs',
+  main: () => <JobsList />,
   name: 'Jobs',
   sidebarName: 'Jobs',
   icon: <AddIcon />

@@ -8,95 +8,124 @@ export default function configureStore() {
   // TODO: Delete later
   const isAuthenticated = true;
   const user = {
-    ID: 12,
-    email: 'limyandi.com',
-    name: 'Sorenson,Dan K.',
-    role: 'Customer',
+    ID: 11,
+    email: 'V812',
+    name: 'Tweed,Zelda D.',
+    phoneNumber: 'G8209',
+    appNotification: false,
+    emailNotification: false,
+    smsNotification: true,
     deliveries: [
       {
-        ID: 1,
-        date: '1985-06-24',
-        time: '03:35:17Z',
-        timeTo: '08:45:01Z',
-        status: true,
-        pickupLocation: 'S2593',
-        fromAddress: 'M1905'
-      },
-      {
-        ID: 8,
-        date: '1948-06-05',
-        time: '09:56:09Z',
-        timeTo: '21:49:45Z',
-        status: true,
-        pickupLocation: 'S6282',
-        fromAddress: 'T4642'
-      },
-      {
-        ID: 15,
-        date: '1943-01-28',
-        time: '06:05:24Z',
-        timeTo: '15:14:44Z',
+        ID: 3,
+        date: '1944-11-02',
+        time: '14:38:18Z',
+        timeTo: '22:29:15Z',
         status: false,
-        pickupLocation: 'P380',
-        fromAddress: 'H2268'
+        pickupAddress: 'M9363',
+        deliveryAddress: 'I7346'
       }
     ],
     pickups: [
       {
-        ID: 17,
-        date: '1995-02-26',
-        time: '13:20:08Z',
-        timeTo: '02:27:07Z',
+        ID: 6,
+        date: '2007-07-07',
+        time: '10:06:48Z',
+        timeTo: '17:33:26Z',
         status: false,
-        pickupLocation: 'G4768'
+        pickupAddress: 'S511'
       }
     ],
     communities: [
       {
-        ID: 20,
-        name: 'Mastrolito,Andrew D.',
-        dispatchCentres: ['6']
+        ID: 3,
+        name: 'West,Filomena D.',
+        dispatchCentres: ['20', '7', '9', '3', '5', '11', '14', '20', '17']
       },
       {
-        ID: 8,
-        name: 'Kovalev,Martin W.'
+        ID: 12,
+        name: 'Gomez,Maria A.'
       }
     ],
     driverDetails: {
       availabilities: {
         Monday: {
-          from: '11:42:33Z',
-          to: '18:49:12Z'
+          from: '08:48:28Z',
+          to: '20:44:00Z'
         },
         Tuesday: {
-          from: '11:36:42Z',
-          to: '13:16:54Z'
+          from: '10:28:59Z',
+          to: '16:28:29Z'
         },
         Wednesday: {
-          from: '09:28:06Z',
-          to: '15:37:49Z'
+          from: '07:01:27Z',
+          to: '22:44:37Z'
         },
         Thursday: {
-          from: '11:06:15Z',
-          to: '14:32:06Z'
+          from: '06:35:47Z',
+          to: '20:20:48Z'
         },
         Friday: {
-          from: '11:41:57Z',
-          to: '15:39:17Z'
+          from: '06:40:39Z',
+          to: '13:38:01Z'
         },
         Saturday: {
-          from: '07:25:21Z',
-          to: '17:25:53Z'
+          from: '11:43:16Z',
+          to: '16:31:58Z'
         },
         Sunday: {
-          from: '08:09:53Z',
-          to: '20:54:51Z'
+          from: '06:19:43Z',
+          to: '18:21:39Z'
         }
       },
       appNotification: true,
       emailNotification: true,
-      smsNotification: false
-    }
+      smsNotification: false,
+      communities: [
+        {
+          ID: 16,
+          name: 'Smyth,Quigley Y.',
+          dispatchCentres: ['1', '2', '12', '7', '19', '20']
+        },
+        {
+          ID: 10,
+          name: 'Ragon,Chris U.'
+        },
+        {
+          ID: 17,
+          name: 'Quigley,Quigley K.'
+        },
+        {
+          ID: 16,
+          name: 'Smyth,Quigley Y.',
+          dispatchCentres: ['1', '2', '12', '7', '19', '20']
+        },
+        {
+          ID: 19,
+          name: 'Tesla,Nellie W.',
+          dispatchCentres: ['4', '13', '4', '15', '3', '18', '16', '10', '8']
+        },
+        {
+          ID: 7,
+          name: 'Ironhorse,Alfred I.',
+          dispatchCentres: ['15']
+        },
+        {
+          ID: 6,
+          name: 'Wells,Alice C.',
+          dispatchCentres: ['16', '5', '10', '7', '14', '12', '5', '7']
+        },
+        {
+          ID: 17,
+          name: 'Quigley,Quigley K.'
+        },
+        {
+          ID: 17,
+          name: 'Quigley,Quigley K.'
+        }
+      ]
+    },
+    role: 'Customer'
   };
 
   const communities = [];

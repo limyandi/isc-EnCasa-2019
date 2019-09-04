@@ -8,11 +8,11 @@ export default function Pickup(axios, config) {
     }
 
     // axios posting.
-    return axios.post('logistics/pickup', pickupObject, config);
+    return axios.post('/logistics/pickup', pickupObject, config);
   };
 
   const getUnassignedPickups = driverId => {
-    return axios.get(`logistics/pickups/${driverId}`, config);
+    return axios.get(`/logistics/pickups/${driverId}`, config);
   };
 
   return {

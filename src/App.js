@@ -8,7 +8,7 @@ import {
   Redirect
 } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Community } from './utils/http';
+
 import './App.css';
 import Sidebar from './Containers/Sidebar';
 import 'typeface-roboto';
@@ -20,6 +20,7 @@ import CustomerView from './Containers/CustomerView';
 import DriverView from './Containers/DriverView';
 import DriverSetting from './Containers/DriverView/settings';
 import CustomerSetting from './Containers/CustomerView/settings';
+import JobsList from './Containers/DriverView/jobsList';
 
 const routesDefinition = [
   {
@@ -59,6 +60,11 @@ const routesDefinition = [
     main: () => <DriverSetting />
   },
   {
+    path: '/driver/jobs',
+    private: true,
+    main: () => <JobsList />
+  },
+  {
     path: '/customer/setting',
     private: true,
     main: () => <CustomerSetting />
@@ -77,12 +83,7 @@ const useStyles = makeStyles(theme => ({
 
 function App() {
   const classes = useStyles();
-  const [, setCommunities] = useGlobal('communities');
-  // React.useEffect(() => {
-  //   Community.getCommunities().then(res => {
-  //     setCommunities(res.data.communities);
-  //   });
-  // }, [setCommunities]);
+
   const [user] = useGlobal('user');
   return (
     <div className="App">

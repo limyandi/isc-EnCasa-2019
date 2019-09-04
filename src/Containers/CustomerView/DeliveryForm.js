@@ -10,7 +10,13 @@ import {
   KeyboardDatePicker,
   KeyboardTimePicker
 } from '@material-ui/pickers';
-import { Delivery, User, sendEmail, DispatchCentre } from '../../utils/http';
+import {
+  Delivery,
+  User,
+  sendEmail,
+  DispatchCentre,
+  sendSMS
+} from '../../utils/http';
 import {
   MyFloatingActionButton,
   MyFormDialog,
@@ -40,8 +46,8 @@ const DeliveryForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      fromAddress: '',
-      pickupLocation: '',
+      deliveryAddress: '',
+      pickupAddress: '',
       communityID: undefined,
       dispatchCentreID: undefined
     },
@@ -76,9 +82,16 @@ const DeliveryForm = () => {
               } is available at ${moment(date).format(
                 'YYYY-MM'
               )} from ${time}-${timeTo}`;
-              sendEmail.sendNewJobNotification({
+
+              sendEmail.sendJobNotification({
                 destinations: result.data.emails,
+                subject: 'New delivery has been posted',
                 textBody
+              });
+              sendSMS.sendJobNotification({
+                to: ['61427399979'],
+                senderId: 'CLP',
+                messageText: textBody
               });
             }
           );
@@ -124,10 +137,11 @@ const DeliveryForm = () => {
   };
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <MyHeader>Your delivery</MyHeader>
+      <MyHeader>Your Delivery Request</MyHeader>
       <MyFloatingActionButton onClick={openDeliveryForm}>
         <AddIcon />
       </MyFloatingActionButton>
+
       <MyFormDialog
         open={open}
         handleClose={deliveryForm.handleClose}
@@ -138,8 +152,8 @@ const DeliveryForm = () => {
         <form>
           <div>
             <TextField
-              value={values.receivingAddress}
-              name="fromAddress"
+              value={values.deliveryAddress}
+              name="deliveryAddress"
               label="Item Delivery Address"
               onChange={handleChange}
               autoFocus
@@ -147,12 +161,34 @@ const DeliveryForm = () => {
           </div>
           <div>
             <TextField
-              value={values.pickupLocation}
-              name="pickupLocation"
+              value={values.pickupAddress}
+              name="pickupAddress"
               label="Item Pickup Address"
               onChange={handleChange}
             />
           </div>
+          <MySingleDropdown
+            data={user.communities}
+            name="communityID"
+            label="Community"
+            value={values.communityID}
+            onChange={e => {
+              handleChange(e);
+              // e.target.value to use because sometimes
+              // handleChange is not done before setDispatchCentre
+              setDispatchCentre(e.target.value);
+            }}
+          />
+          {/* {values.communityID && (
+            <MySingleDropdown
+              data={communityDispatchCentres}
+              name="dispatchCentreID"
+              label="Dispatch Centre"
+              value={values.dispatchCentreID}
+              onChange={handleChange}
+              withAddress
+            />
+          )} */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container justify="space-around">
               <KeyboardDatePicker
@@ -200,28 +236,6 @@ const DeliveryForm = () => {
               />
             </Grid>
           </MuiPickersUtilsProvider>
-          <MySingleDropdown
-            data={user.communities}
-            name="communityID"
-            label="Community"
-            value={values.communityID}
-            onChange={e => {
-              handleChange(e);
-              // e.target.value to use because sometimes
-              // handleChange is not done before setDispatchCentre
-              setDispatchCentre(e.target.value);
-            }}
-          />
-          {values.communityID && (
-            <MySingleDropdown
-              data={communityDispatchCentres}
-              name="dispatchCentreID"
-              label="Dispatch Centre"
-              value={values.dispatchCentreID}
-              onChange={handleChange}
-              withAddress
-            />
-          )}
         </form>
       </MyFormDialog>
     </div>

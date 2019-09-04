@@ -3,37 +3,37 @@ export default function Delivery(axios, config) {
     // also need to add status
     const {
       customerId,
-      fromAddress,
+      deliveryAddress,
       date,
       time,
       timeTo,
-      pickupLocation
+      pickupAddress
     } = deliveryObject;
     if (
       !customerId ||
-      !fromAddress ||
+      !deliveryAddress ||
       !date ||
       !time ||
       !timeTo ||
-      !pickupLocation
+      !pickupAddress
     ) {
       throw new Error('invalid delivery object');
     }
 
     // axios posting.
-    return axios.post('logistics/delivery', deliveryObject, config);
+    return axios.post('/logistics/delivery', deliveryObject, config);
   };
 
   const updateDelivery = (deliveryId, deliveryObject) => {
     const {
       customerId,
-      fromAddress,
+      deliveryAddress,
       date,
       time,
-      pickupLocation
+      pickupAddress
     } = deliveryObject;
 
-    if (!customerId || !fromAddress || !date || !time || !pickupLocation) {
+    if (!customerId || !deliveryAddress || !date || !time || !pickupAddress) {
       throw new Error('invalid delivery object');
     }
 
@@ -43,13 +43,13 @@ export default function Delivery(axios, config) {
   const deleteDelivery = (deliveryId, deliveryObject) => {
     const {
       customerId,
-      fromAddress,
+      deliveryAddress,
       date,
       time,
-      pickupLocation
+      pickupAddress
     } = deliveryObject;
 
-    if (!customerId || !fromAddress || !date || !time || !pickupLocation) {
+    if (!customerId || !deliveryAddress || !date || !time || !pickupAddress) {
       throw new Error('invalid delivery object');
     }
 
@@ -61,7 +61,7 @@ export default function Delivery(axios, config) {
   };
 
   const getUnassignedDeliveries = driverId => {
-    return axios.get(`logistics/deliveries/${driverId}`, config);
+    return axios.get(`/logistics/deliveries/${driverId}`, config);
   };
 
   return {

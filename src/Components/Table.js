@@ -61,7 +61,9 @@ const MyTable = props => {
       <TableHead>
         <TableRow>
           {Object.keys(data[0]).map(columnHeader => (
-            <StyledTableCell>{columnHeader}</StyledTableCell>
+            <StyledTableCell style={{ textTransform: 'capitalize' }}>
+              {columnHeader}
+            </StyledTableCell>
           ))}
         </TableRow>
       </TableHead>

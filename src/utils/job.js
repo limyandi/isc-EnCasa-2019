@@ -5,7 +5,7 @@ export default function Job(axios, config) {
     if ((!deliveryId && !pickupId) || !driverId) {
       throw new Error('invalid job object');
     }
-    return axios.post(`logistics/job`, jobObject, config);
+    return axios.post(`/logistics/job`, jobObject, config);
   };
 
   return { addJob };
