@@ -66,6 +66,7 @@ function RegisterView(props) {
 
   const [open, setOpen] = React.useState(false);
   const [selectedCommunities, setSelectedCommunities] = React.useState([]);
+  const [emailExistsError, setEmailExistsError] = React.useState('');
 
   function handleSelectedCommunities(event) {
     setSelectedCommunities(event.target.value);
@@ -135,12 +136,20 @@ function RegisterView(props) {
         ...{ ...userNotificationDetails },
         driverDetails,
         ...{ communities: myCommunities }
-      }).then(res => {
-        // default role is customer
-        setUser({ ...res.data, role: 'Customer' });
-        setIsAuthenticated(true);
-        props.history.push('/');
-      });
+      })
+        .then(res => {
+          // default role is customer
+          setUser({ ...res.data, role: 'Customer' });
+          setIsAuthenticated(true);
+          props.history.push('/');
+        })
+        .catch(err => {
+          setEmailExistsError(
+            'The email you used is already existing, try to use another email'
+          );
+          setOpen(false);
+          return err;
+        });
     },
     handleClose: () => {
       setOpen(false);
@@ -195,6 +204,7 @@ function RegisterView(props) {
             name="driverChecked"
             label="Register as Driver"
           />
+          {emailExistsError && <MyErrorText>{emailExistsError}</MyErrorText>}
           <MyButton
             style={{ marginTop: 15, marginBottom: 10 }}
             variant="contained"
