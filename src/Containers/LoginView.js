@@ -6,7 +6,8 @@ import {
   MyHyperlink,
   MyUseForm,
   MyPaper,
-  MyHeader
+  MyHeader,
+  MyErrorText
 } from '../Components';
 import { User } from '../utils/http';
 
@@ -15,26 +16,29 @@ import { User } from '../utils/http';
 function LoginView(props) {
   const [user, setUser] = useGlobal('user');
   const [, setIsAuthenticated] = useGlobal('isAuthenticated');
+  const [loginError, setLoginError] = React.useState('');
   const { values, errors, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       email: '',
       password: ''
     },
     onSubmit(val) {
-      User.login(val.values)
-        .then(res => {
-          setUser({
-            ...res.data,
-            // initial default role is customer
-            role: 'Customer'
-          });
-          setIsAuthenticated(true);
-          props.history.push('/');
-        })
-        .catch(res => console.log(res));
+      User.login(val.values).then(res => {
+        // TODO: Move all this logic to reducers
+        if (res.status !== 200) {
+          setLoginError(res.data.message);
+          return;
+        }
+        setUser({
+          ...res.data,
+          // initial default role is customer
+          role: 'Customer'
+        });
+        setIsAuthenticated(true);
+        props.history.push('/');
+      });
     },
     validate(val) {
-      const errors = {};
       if (val.email === '') {
         errors.name = 'Please enter an email';
       }
@@ -62,6 +66,7 @@ function LoginView(props) {
             value={values.password}
             onChange={handleChange}
           />
+          {loginError && <MyErrorText>{loginError}</MyErrorText>}
           <MyButton
             style={{ marginTop: 15, marginBottom: 10 }}
             variant="contained"

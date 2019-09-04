@@ -8,7 +8,6 @@ export default function User(axios, config) {
       communities
     } = registerObject;
 
-    console.log(registerObject);
     if (!email || !password || !phoneNumber || !driverDetails || !communities) {
       throw new Error('Invalid register object');
     }
@@ -21,7 +20,15 @@ export default function User(axios, config) {
     if (!email || !password) {
       throw new Error('invalid login details!');
     }
-    return axios.post('logistics/login', loginDetails, config);
+    return axios
+      .post('logistics/login', loginDetails, config)
+      .then(response => {
+        return response;
+      })
+      .catch(err => {
+        console.log(err.response);
+        return err.response;
+      });
   };
 
   // get jobs only available for driver
@@ -40,8 +47,8 @@ export default function User(axios, config) {
     });
   };
 
-  const getDriversSubscriptedEmail = () => {
-    return axios.get('logistics/driver/subscriptEmail', config);
+  const getDriversSubscriptedEmail = communityId => {
+    return axios.get(`logistics/driver/subscriptEmail/${communityId}`, config);
   };
 
   const updateDriverDetails = (driverDetails, userId) => {

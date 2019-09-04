@@ -23,12 +23,12 @@ const DeliveryForm = () => {
   const [user, setUser] = useGlobal('user');
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
-  const [dateTo, setDateTo] = React.useState(date);
+  const [dateTo, setDateTo] = React.useState(moment(date).add(1, 'hours'));
 
   // TODO: Set Date not working.
   const handleDateChange = selectedDate => {
     setDate(selectedDate);
-    setDateTo(selectedDate);
+    setDateTo(moment(selectedDate).add(1, 'hours'));
   };
 
   const handleDateToChange = selectedDate => {
@@ -52,8 +52,8 @@ const DeliveryForm = () => {
       // posting delivery here
       // Create a new delivery with a status = 0,
       // the delivery is unassigned to any driver
-      const time = moment(date).format('HH:mm:ss');
-      const timeTo = moment(dateTo).format('HH:mm:ss');
+      const time = moment(date).format('HH:mm');
+      const timeTo = moment(dateTo).format('HH:mm');
       if (!errors) {
         Delivery.addDelivery({
           ...val.values,
@@ -69,12 +69,19 @@ const DeliveryForm = () => {
               ? [...user.deliveries, { ...res.data }]
               : [res.data]
           });
-          User.getDriversSubscriptedEmail().then(result => {
-            sendEmail.sendNewJobNotification({
-              destinations: result.data.emails,
-              textBody: `A new delivery has been posted: customer: ${user.name} is available at ${date} from ${time}-${timeTo}`
-            });
-          });
+          User.getDriversSubscriptedEmail(val.values.communityID).then(
+            result => {
+              const textBody = `A new delivery has been posted: customer: ${
+                user.name
+              } is available at ${moment(date).format(
+                'YYYY-MM'
+              )} from ${time}-${timeTo}`;
+              sendEmail.sendNewJobNotification({
+                destinations: result.data.emails,
+                textBody
+              });
+            }
+          );
         });
       }
     },
