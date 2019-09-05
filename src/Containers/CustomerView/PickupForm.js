@@ -15,10 +15,14 @@ import {
   MyFormDialog,
   MyUseForm,
   MyCheckbox,
-  MyTable,
   MyHeader
 } from '../../Components';
-import { Pickup, User } from '../../utils/http';
+import { Pickup, User, sendEmail, sendSMS } from '../../utils/http';
+import {
+  textSMSSenderId,
+  newPickupTextBody,
+  newPickupEmailSubject
+} from '../../helper/textMessage';
 
 const PickupForm = () => {
   const [user, setUser] = useGlobal('user');
@@ -43,13 +47,15 @@ const PickupForm = () => {
       agreement: ''
     },
 
-    onSubmit(val, errors) {
+    onSubmit(val) {
       // and add a new driverDetails object to pickup
+      const time = moment(date).format('HH:mm');
+      const timeTo = moment(dateTo).format('HH:mm');
       Pickup.addPickup({
         ...val.values,
         date: moment(date).format('YYYY-MM-DD'),
-        time: moment(date).format('HH:mm:ss'),
-        timeTo: moment(dateTo).format('HH:mm:ss'),
+        time,
+        timeTo,
         customerId: user.ID
       }).then(res => {
         setUser({
@@ -58,6 +64,24 @@ const PickupForm = () => {
             ? [...user.pickups, { ...res.data }]
             : [res.data]
         });
+        User.getDriversSubscriptedEmail(val.values.communityID, user.ID).then(
+          result => {
+            sendEmail.sendJobNotification({
+              destinations: result.data.emails,
+              subject: newPickupEmailSubject,
+              textBody: newPickupTextBody(user, date, time, timeTo)
+            });
+          }
+        );
+        User.getDriversSubscriptedSMS(val.values.communityID, user.ID).then(
+          result => {
+            sendSMS.sendJobNotification({
+              to: result.data.phoneNumber,
+              senderId: textSMSSenderId,
+              messageText: newPickupTextBody(user, date, time, timeTo)
+            });
+          }
+        );
       });
     },
 
