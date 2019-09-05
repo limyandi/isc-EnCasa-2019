@@ -76,16 +76,20 @@ const DeliveryForm = () => {
               : [res.data]
           });
 
-          User.getDriversSubscriptedEmail(val.values.communityID).then(
+          User.getDriversSubscriptedEmail(val.values.communityID, user.ID).then(
             result => {
               sendEmail.sendJobNotification({
                 destinations: result.data.emails,
                 subject: newDeliveryEmailSubject,
                 textBody: newDeliveryTextBody(user, date, time, timeTo)
               });
+            }
+          );
+          User.getDriversSubscriptedSMS(val.values.communityID, user.ID).then(
+            result => {
               sendSMS.sendJobNotification({
                 // TODO: Dynamic get phone number
-                to: ['61427399979'],
+                to: result.data.phoneNumber,
                 senderId: textSMSSenderId,
                 messageText: newDeliveryTextBody(user, date, time, timeTo)
               });

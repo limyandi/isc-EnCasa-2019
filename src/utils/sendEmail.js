@@ -6,6 +6,8 @@ export default function sendEmail(axios, config) {
       throw new Error('invalid job notification details data');
     }
 
+    console.log(jobNotificationDetails);
+
     return axios.post(
       '/notif/email/sendJobNotification',
       jobNotificationDetails,

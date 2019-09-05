@@ -1,11 +1,9 @@
 import React, { useGlobal } from 'reactn';
-import moment from 'moment';
 import {
   MyHeader,
   MyCheckbox,
   MyUseForm,
   MyButton,
-  MyTable,
   MyDropdown
 } from '../../Components';
 import { User, Community } from '../../utils/http';
@@ -29,18 +27,17 @@ function CustomerSetting() {
       smsNotification: user.smsNotification
     },
     onSubmit(val, errors) {
-      const customerDetails = val.values;
-      const myCommunities = selectedCommunities.map(
-        selectedCommunity => selectedCommunity.ID
-      );
+      const customerDetails = {
+        ...val.values,
+        communities: selectedCommunities.map(community => community.ID)
+      };
 
-      User.updateCustomerDetails(customerDetails, user.ID).then(res =>
+      User.updateCustomerDetails(customerDetails, user.ID).then(res => {
         setUser({
           ...res.data,
-          ...{ communities: myCommunities },
           role: 'Customer'
-        })
-      );
+        });
+      });
     },
     validate(val) {
       const errors = {};
@@ -49,6 +46,17 @@ function CustomerSetting() {
   });
 
   function handleSelectedCommunities(event) {
+    const result = [];
+    const map = new Map();
+    // for (const item of event.target.value) {
+    //   if (!map.has(item.ID)) {
+    //     map.set(item.ID, true); // set any value to Map
+    //     result.push({
+    //       ID: item.ID,
+    //       name: item.name
+    //     });
+    //   }
+    // }
     setSelectedCommunities(event.target.value);
   }
 

@@ -1,4 +1,5 @@
 export default function User(axios, config) {
+  /** User Driver Utility Here */
   const register = registerObject => {
     const {
       email,
@@ -26,12 +27,18 @@ export default function User(axios, config) {
         return response;
       })
       .catch(err => {
-        console.log(err.response);
         return err.response;
       });
   };
 
-  // get jobs only available for driver
+  /** Customer(User) Utility Here */
+  const updateCustomerDetails = (customerDetails, userId) => {
+    console.log(customerDetails);
+    // console.log({ customerDetails });
+    return axios.put(`/logistics/user/${userId}`, customerDetails, config);
+  };
+
+  /** Driver Utility Here */
   const getMyJobs = driverId => {
     return axios.get(`logistics/driver/${driverId}/jobs`, config);
   };
@@ -47,10 +54,6 @@ export default function User(axios, config) {
     });
   };
 
-  const getDriversSubscriptedEmail = communityId => {
-    return axios.get(`logistics/driver/subscriptEmail/${communityId}`, config);
-  };
-
   const updateDriverDetails = (driverDetails, userId) => {
     return axios.put(
       `/logistics/user/driverDetails/${userId}`,
@@ -59,19 +62,28 @@ export default function User(axios, config) {
     );
   };
 
-  const updateCustomerDetails = (customerDetails, userId) => {
-    console.log(customerDetails);
-    // console.log({ customerDetails });
-    return axios.put(`/logistics/user/${userId}`, customerDetails, config);
+  const getDriversSubscriptedEmail = (communityId, requesterId) => {
+    return axios.get(`logistics/driver/subscriptEmail`, {
+      params: { communityId, requesterId },
+      headers: config.headers
+    });
+  };
+
+  const getDriversSubscriptedSMS = (communityId, requesterId) => {
+    return axios.get(`logistics/driver/subscriptSMS`, {
+      params: { communityId, requesterId },
+      headers: config.headers
+    });
   };
 
   return {
     register,
     login,
+    updateCustomerDetails,
     getMyJobs,
     getDriversByAvailability,
-    getDriversSubscriptedEmail,
     updateDriverDetails,
-    updateCustomerDetails
+    getDriversSubscriptedEmail,
+    getDriversSubscriptedSMS
   };
 }

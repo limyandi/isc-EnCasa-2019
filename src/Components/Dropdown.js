@@ -48,6 +48,9 @@ const MyDropdown = props => {
   const classes = useStyles();
   const { value, onChange, valueLists } = props;
 
+  console.log(value);
+  console.log(valueLists);
+
   return (
     <FormControl className={classes.formControl}>
       <Select
@@ -64,9 +67,16 @@ const MyDropdown = props => {
         MenuProps={MenuProps}
       >
         {valueLists.map(val => {
+          /* console.log(
+            value.findIndex(i => {
+              console.log(i.ID, val.ID);
+              if (i.ID === val.ID) console.log('ada yang sama');
+            })
+          ); */
+
           return (
             <MenuItem key={val.ID} value={val}>
-              <Checkbox checked={value.findIndex(i => i.ID == val.ID) > -1} />
+              <Checkbox checked={value.findIndex(i => i.ID === val.ID) > -1} />
               <ListItemText primary={val.name} />
             </MenuItem>
           );
