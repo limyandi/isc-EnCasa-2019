@@ -1,9 +1,8 @@
 export default function Pickup(axios, config) {
   const addPickup = pickupObject => {
     // also need to add status
-    const { customerId, date, time, timeTo, pickupLocation } = pickupObject;
-    console.log(pickupObject);
-    if (!customerId || !date || !time || !timeTo || !pickupLocation) {
+    const { customerId, date, time, timeTo, pickupAddress } = pickupObject;
+    if (!customerId || !date || !time || !timeTo || !pickupAddress) {
       throw new Error('invalid pickup object');
     }
 
@@ -18,9 +17,5 @@ export default function Pickup(axios, config) {
   return {
     addPickup,
     getUnassignedPickups
-    // updateDelivery,
-    // deleteDelivery,
-    // getDelivery,
-    // getUnassignedDeliveries
   };
 }

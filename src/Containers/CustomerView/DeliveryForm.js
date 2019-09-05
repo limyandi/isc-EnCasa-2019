@@ -124,6 +124,18 @@ const DeliveryForm = () => {
     }
   };
 
+  const [deliveryPrice, setDeliveryPrice] = React.useState(undefined);
+  const quoteDeliveryPrice = (deliveryAddress, pickupAddress) => {
+    return (
+      deliveryAddress &&
+      pickupAddress &&
+      Delivery.quoteDeliveryPrice(deliveryAddress, pickupAddress).then(res => {
+        console.log(res.data.price);
+        setDeliveryPrice(res.data.price);
+      })
+    );
+  };
+
   const [
     communityDispatchCentres,
     setCommunityDispatchCentres
@@ -135,6 +147,7 @@ const DeliveryForm = () => {
       setCommunityDispatchCentres(res.data.dispatchCentres);
     });
   };
+
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MyHeader>Your Delivery Request</MyHeader>
@@ -164,9 +177,20 @@ const DeliveryForm = () => {
               value={values.pickupAddress}
               name="pickupAddress"
               label="Item Pickup Address"
-              onChange={handleChange}
+              onChange={e => {
+                handleChange(e);
+                quoteDeliveryPrice(
+                  values.deliveryAddress,
+                  values.pickupAddress
+                );
+              }}
             />
           </div>
+          {deliveryPrice && (
+            <div style={{ color: '#3F51B5', marginBottom: 10 }}>
+              Price Estimate: {deliveryPrice}
+            </div>
+          )}
           <MySingleDropdown
             data={user.communities}
             name="communityID"

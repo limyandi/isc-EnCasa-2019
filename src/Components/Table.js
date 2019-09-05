@@ -33,7 +33,8 @@ const StyledTableRow = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%'
+    // width: '100%',
+    display: 'inline-block'
     // marginTop: theme.spacing(3),
     // overflowX: 'auto'
   },
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
   table: {
     minWidth: 200,
-    maxWidth: 800
+    maxWidth: 1000
   }
 }));
 

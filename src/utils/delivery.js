@@ -64,11 +64,19 @@ export default function Delivery(axios, config) {
     return axios.get(`/logistics/deliveries/${driverId}`, config);
   };
 
+  const quoteDeliveryPrice = (deliveryAddress, pickupAddress) => {
+    return axios.get('/logistics/quote/delivery', {
+      params: { deliveryAddress, pickupAddress },
+      headers: config.headers
+    });
+  };
+
   return {
     addDelivery,
     updateDelivery,
     deleteDelivery,
     getDelivery,
-    getUnassignedDeliveries
+    getUnassignedDeliveries,
+    quoteDeliveryPrice
   };
 }
