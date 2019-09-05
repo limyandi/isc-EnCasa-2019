@@ -33,9 +33,15 @@ const StyledTableRow = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
+    width: '100%'
+    // marginTop: theme.spacing(3),
+    // overflowX: 'auto'
+  },
+  paper: {
     marginTop: theme.spacing(3),
-    overflowX: 'auto'
+    width: '100%',
+    overflowX: 'auto',
+    marginBottom: theme.spacing(2)
   },
   table: {
     minWidth: 200,
@@ -53,7 +59,8 @@ const MyTable = props => {
     addOnClick,
     tableHeader,
     tableBody,
-    rowOnClick
+    rowOnClick,
+    size
   } = props;
 
   const MyTableHeader = () => {
@@ -112,33 +119,39 @@ const MyTable = props => {
   };
 
   return (
-    <Paper className={classes.root}>
-      <Table className={classes.table}>
-        {!tableHeader && <MyTableHeader />}
-        {tableHeader && (
-          <TableHead>
-            <TableRow>
-              {tableHeader.map(columnHeader => (
-                <StyledTableCell>{columnHeader}</StyledTableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-        )}
-        {!tableBody && <MyTableBody />}
-        {tableBody && (
-          <TableBody>
-            {tableBody.map(oneData => {
-              return (
-                <StyledTableCell align="right">
-                  {Object.values(oneData)}
-                </StyledTableCell>
-              );
-            })}
-          </TableBody>
-        )}
-      </Table>
-    </Paper>
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        <Table className={classes.table} size={size}>
+          {!tableHeader && <MyTableHeader />}
+          {tableHeader && (
+            <TableHead>
+              <TableRow>
+                {tableHeader.map(columnHeader => (
+                  <StyledTableCell>{columnHeader}</StyledTableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+          )}
+          {!tableBody && <MyTableBody />}
+          {tableBody && (
+            <TableBody>
+              {tableBody.map(oneData => {
+                return (
+                  <StyledTableCell align="right">
+                    {Object.values(oneData)}
+                  </StyledTableCell>
+                );
+              })}
+            </TableBody>
+          )}
+        </Table>
+      </Paper>
+    </div>
   );
+};
+
+MyTable.defaultProps = {
+  size: 'small'
 };
 
 export default MyTable;

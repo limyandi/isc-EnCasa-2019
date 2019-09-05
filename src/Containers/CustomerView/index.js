@@ -16,7 +16,7 @@ function CustomerView(props) {
 
   const tableOnRowClick = id => {
     const thisData = user.pickups.filter(pickup => pickup.ID === id)[0];
-    console.log(thisData);
+
     const dayOfWeek = [
       'Sunday',
       'Monday',
