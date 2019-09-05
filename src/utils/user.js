@@ -55,6 +55,7 @@ export default function User(axios, config) {
   };
 
   const updateDriverDetails = (driverDetails, userId) => {
+    console.log({ driverDetails });
     return axios.put(
       `/logistics/user/driverDetails/${userId}`,
       { driverDetails },

@@ -7,26 +7,26 @@ import {
   MyDropdown
 } from '../../Components';
 import { User, Community } from '../../utils/http';
+import { removeDuplicates } from '../../helper/function';
+import EditCommunities from '../EditCommunities';
 
 function CustomerSetting() {
   const [user, setUser] = useGlobal('user');
-  const [communities, setCommunities] = React.useState(undefined);
   const [selectedCommunities, setSelectedCommunities] = React.useState(
     user.communities
   );
 
-  React.useEffect(() => {
-    Community.getCommunities().then(res => {
-      setCommunities(res.data);
-    });
-  }, [setCommunities]);
+  function handleSelectedCommunities(event) {
+    const arr = [...event.target.value];
+    setSelectedCommunities(removeDuplicates(arr, event.target.value));
+  }
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       emailNotification: user.emailNotification,
       smsNotification: user.smsNotification
     },
-    onSubmit(val, errors) {
+    onSubmit(val) {
       const customerDetails = {
         ...val.values,
         communities: selectedCommunities.map(community => community.ID)
@@ -39,46 +39,20 @@ function CustomerSetting() {
         });
       });
     },
-    validate(val) {
+    validate() {
       const errors = {};
       return errors;
     }
   });
 
-  function handleSelectedCommunities(event) {
-    function removeDuplicates(arr) {
-      const counts = arr.reduce((counts, item) => {
-        counts[item.ID] = (counts[item.ID] || 0) + 1;
-        return counts;
-      }, {});
-      return Object.keys(counts).reduce(function(arr, item) {
-        if (counts[item] === 1) {
-          arr.push(
-            ...event.target.value.filter(val => {
-              return val.ID == item;
-            })
-          );
-        }
-        return arr;
-      }, []);
-    }
-
-    setSelectedCommunities(removeDuplicates(event.target.value));
-  }
-
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <MyHeader>Customer Setting</MyHeader>
-        <div>Edit Communities</div>
-        {communities && (
-          <MyDropdown
-            light
-            value={selectedCommunities}
-            onChange={handleSelectedCommunities}
-            valueLists={communities.communities}
-          />
-        )}
+        <EditCommunities
+          onChange={handleSelectedCommunities}
+          value={selectedCommunities}
+        />
         <div>Notification Settings</div>
         <MyCheckbox
           checked={values.emailNotification}

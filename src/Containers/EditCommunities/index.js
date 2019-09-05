@@ -2,12 +2,9 @@ import React, { useGlobal } from 'reactn';
 import { MyDropdown } from '../../Components';
 import { Community } from '../../utils/http';
 
-function EditCommunities() {
-  const [user, setUser] = useGlobal('user');
+const EditCommunities = props => {
   const [communities, setCommunities] = React.useState(undefined);
-  const [selectedCommunities, setSelectedCommunities] = React.useState(
-    user.communities
-  );
+  const { onChange, value } = props;
 
   React.useEffect(() => {
     Community.getCommunities().then(res => {
@@ -15,24 +12,19 @@ function EditCommunities() {
     });
   }, [setCommunities]);
 
-  function handleSelectedCommunities(event) {
-    console.log(event.target.value);
-    setSelectedCommunities(event.target.value);
-  }
-
   return (
     <div>
       <div>Edit Communities</div>
       {communities && (
         <MyDropdown
-          value={selectedCommunities}
-          onChange={handleSelectedCommunities}
+          light
+          value={value}
+          onChange={onChange}
           valueLists={communities.communities}
         />
       )}
-      <div>Notification Settings</div>
     </div>
   );
-}
+};
 
 export default EditCommunities;

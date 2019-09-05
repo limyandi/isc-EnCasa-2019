@@ -1,4 +1,4 @@
-export function removeDuplicates(arr) {
+export function removeDuplicates(arr, value) {
   const counts = arr.reduce((counts, item) => {
     counts[item.ID] = (counts[item.ID] || 0) + 1;
     return counts;
@@ -6,7 +6,7 @@ export function removeDuplicates(arr) {
   return Object.keys(counts).reduce(function(arr, item) {
     if (counts[item] === 1) {
       arr.push(
-        ...arr.filter(val => {
+        ...value.filter(val => {
           return val.ID == item;
         })
       );

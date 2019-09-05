@@ -8,63 +8,53 @@ import {
   MyTable
 } from '../../Components';
 import { User } from '../../utils/http';
+import { removeDuplicates } from '../../helper/function';
+import EditCommunities from '../EditCommunities';
+import EditAvailabilities from '../EditAvailablities';
 
 function DriverSetting() {
   const [user, setUser] = useGlobal('user');
+  const [selectedCommunities, setSelectedCommunities] = React.useState(
+    user.driverDetails.communities
+  );
 
-  const availabilitiesTableHeader = [
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-    'Sunday'
-  ];
-
-  const availabilitiesTableBody = Object.keys(
-    user.driverDetails.availabilities
-  ).map(day => {
-    const timeFrom = moment(
-      `"${user.driverDetails.availabilities[day].from}"`,
-      'HH:mm'
-    ).format('HH:mm');
-    const timeTo = moment(
-      `"${user.driverDetails.availabilities[day].to}"`,
-      'HH:mm'
-    ).format('HH:mm');
-    return {
-      [day]: `${timeFrom}-${timeTo}`
-    };
-  });
+  function handleSelectedCommunities(event) {
+    const arr = [...event.target.value];
+    setSelectedCommunities(removeDuplicates(arr, event.target.value));
+  }
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       emailNotification: user.driverDetails.emailNotification,
       smsNotification: user.driverDetails.smsNotification
     },
-    onSubmit(val, errors) {
-      const driverDetails = { ...user.driverDetails, ...val.values };
-      User.updateDriverDetails(driverDetails, user.ID).then(res =>
-        setUser({ ...res.data, role: 'Driver' })
-      );
+    onSubmit(val) {
+      const driverDetails = {
+        ...user.driverDetails,
+        ...val.values,
+        communities: selectedCommunities.map(community => community.ID)
+      };
+      User.updateDriverDetails(driverDetails, user.ID).then(res => {
+        console.log(res.data);
+        setUser({ ...res.data, role: 'Driver' });
+      });
     },
-    validate(val) {
+    validate() {
       const errors = {};
       return errors;
     }
   });
 
-  // TODO: Availability Settings - Time Range
-  // TODO: Notification settings - with checkbox
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <MyHeader>Driver Setting</MyHeader>
-        <div>Availability Settings</div>
-        <MyTable
-          tableHeader={availabilitiesTableHeader}
-          tableBody={availabilitiesTableBody}
+        <EditCommunities
+          onChange={handleSelectedCommunities}
+          value={selectedCommunities}
+        />
+        <EditAvailabilities
+          availabilities={user.driverDetails.availabilities}
         />
         <div>Notification Settings</div>
         <MyCheckbox
