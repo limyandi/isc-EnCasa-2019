@@ -30,7 +30,7 @@ import JobsList from './DriverView/jobsList';
 const customerOnlyRoute = {};
 
 const driverOnlyRoute = {
-  path: () => '/driver/jobs',
+  path: () => '/Driver/jobs',
   main: () => <JobsList />,
   name: 'Jobs',
   sidebarName: 'Jobs',
@@ -53,18 +53,20 @@ const renderRoute = user => {
       icon: <HomeIcon />
     },
     {
+      ...(user.role === 'Driver'
+        ? {
+            ...driverOnlyRoute
+          }
+        : { ...customerOnlyRoute })
+    },
+    {
       path: () => `/${user.role}/setting`,
       component: () =>
         user.role === 'Driver' ? <DriverSetting /> : <CustomerSetting />,
       name: 'Setting',
       sidebarName: 'Setting',
       icon: <SettingIcon />
-    },
-    user.role === 'Driver'
-      ? {
-          ...driverOnlyRoute
-        }
-      : { ...customerOnlyRoute }
+    }
   ];
 };
 

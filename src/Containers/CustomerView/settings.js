@@ -46,18 +46,24 @@ function CustomerSetting() {
   });
 
   function handleSelectedCommunities(event) {
-    const result = [];
-    const map = new Map();
-    // for (const item of event.target.value) {
-    //   if (!map.has(item.ID)) {
-    //     map.set(item.ID, true); // set any value to Map
-    //     result.push({
-    //       ID: item.ID,
-    //       name: item.name
-    //     });
-    //   }
-    // }
-    setSelectedCommunities(event.target.value);
+    function removeDuplicates(arr) {
+      const counts = arr.reduce((counts, item) => {
+        counts[item.ID] = (counts[item.ID] || 0) + 1;
+        return counts;
+      }, {});
+      return Object.keys(counts).reduce(function(arr, item) {
+        if (counts[item] === 1) {
+          arr.push(
+            ...event.target.value.filter(val => {
+              return val.ID == item;
+            })
+          );
+        }
+        return arr;
+      }, []);
+    }
+
+    setSelectedCommunities(removeDuplicates(event.target.value));
   }
 
   return (
@@ -67,6 +73,7 @@ function CustomerSetting() {
         <div>Edit Communities</div>
         {communities && (
           <MyDropdown
+            light
             value={selectedCommunities}
             onChange={handleSelectedCommunities}
             valueLists={communities.communities}

@@ -46,14 +46,12 @@ const MenuProps = {
 
 const MyDropdown = props => {
   const classes = useStyles();
-  const { value, onChange, valueLists } = props;
-
-  console.log(value);
-  console.log(valueLists);
+  const { value, onChange, valueLists, light } = props;
 
   return (
     <FormControl className={classes.formControl}>
       <Select
+        style={{ backgroundColor: light ? 'aliceblue' : null }}
         multiple
         value={value}
         onChange={onChange}
