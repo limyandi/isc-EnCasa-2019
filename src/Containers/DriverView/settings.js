@@ -35,7 +35,6 @@ function DriverSetting() {
         communities: selectedCommunities.map(community => community.ID)
       };
       User.updateDriverDetails(driverDetails, user.ID).then(res => {
-        console.log(res.data);
         setUser({ ...res.data, role: 'Driver' });
       });
     },
