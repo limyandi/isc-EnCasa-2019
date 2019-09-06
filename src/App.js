@@ -21,6 +21,9 @@ import DriverView from './Containers/DriverView';
 import DriverSetting from './Containers/DriverView/settings';
 import CustomerSetting from './Containers/CustomerView/settings';
 import JobsList from './Containers/DriverView/jobsList';
+import DeliveryPickupHistory from './Containers/CustomerView/DeliveryPickupHistory';
+import JobsHistory from './Containers/DriverView/JobsHistory';
+import AcceptedDeliveryPickupRequestView from './Containers/CustomerView/AcceptedDeliveryPickupRequestView';
 
 const routesDefinition = [
   {
@@ -68,6 +71,21 @@ const routesDefinition = [
     path: '/customer/setting',
     private: true,
     main: () => <CustomerSetting />
+  },
+  {
+    path: '/customer/history',
+    private: true,
+    main: () => <DeliveryPickupHistory />
+  },
+  {
+    path: '/driver/history',
+    private: true,
+    main: () => <JobsHistory />
+  },
+  {
+    path: () => '/Customer/acceptedRequest',
+    private: true,
+    main: () => <AcceptedDeliveryPickupRequestView />
   }
 ];
 

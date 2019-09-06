@@ -8,5 +8,10 @@ export default function Job(axios, config) {
     return axios.post(`/logistics/job`, jobObject, config);
   };
 
-  return { addJob };
+  // user id is used to filter out jobs that this user request (so this user can't see this job as job that he/she can take)
+  const getUnassignedJobs = userId => {
+    return axios.get(`/logistics/jobs/${userId}`, config);
+  };
+
+  return { addJob, getUnassignedJobs };
 }

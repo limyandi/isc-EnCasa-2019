@@ -7,7 +7,7 @@ import {
   KeyboardTimePicker
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { Delivery, Job, User, Pickup, sendEmail } from '../../utils/http';
+import { Job, sendEmail } from '../../utils/http';
 import { MyHeader, MyTable, MyFormDialog } from '../../Components';
 
 function DriverView() {
@@ -16,10 +16,8 @@ function DriverView() {
   const [unassignedDeliveries, setUnassignedDeliveries] = React.useState([]);
   const [unassignedPickups, setUnassignedPickups] = React.useState([]);
   useEffect(() => {
-    Delivery.getUnassignedDeliveries(user.ID).then(res => {
+    Job.getUnassignedJobs(user.ID).then(res => {
       setUnassignedDeliveries(res.data.deliveries);
-    });
-    Pickup.getUnassignedPickups(user.ID).then(res => {
       setUnassignedPickups(res.data.pickups);
     });
   }, [user.ID]);

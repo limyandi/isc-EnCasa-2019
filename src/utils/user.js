@@ -39,7 +39,7 @@ export default function User(axios, config) {
 
   /** Driver Utility Here */
   const getMyJobs = driverId => {
-    return axios.get(`logistics/driver/${driverId}/jobs`, config);
+    return axios.get(`/logistics/driver/${driverId}/jobs`, config);
   };
 
   const getDriversByAvailability = availabilityDetails => {

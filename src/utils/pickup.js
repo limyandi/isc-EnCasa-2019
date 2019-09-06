@@ -14,8 +14,26 @@ export default function Pickup(axios, config) {
     return axios.get(`/logistics/pickups/${driverId}`, config);
   };
 
+  const getCurrentPickupsRequest = (userId, status = 0) => {
+    return axios.get(`/logistics/pickups/${userId}`, {
+      params: { status, past: 0 },
+      headers: config.headers
+    });
+  };
+
+  const getPastPickupsRequest = userId => {
+    return axios.get(`/logistics/pickups/${userId}`, {
+      params: {
+        past: 1
+      },
+      headers: config.headers
+    });
+  };
+
   return {
     addPickup,
-    getUnassignedPickups
+    getUnassignedPickups,
+    getCurrentPickupsRequest,
+    getPastPickupsRequest
   };
 }

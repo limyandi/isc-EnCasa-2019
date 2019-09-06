@@ -9,7 +9,6 @@ export default function Delivery(axios, config) {
       timeTo,
       pickupAddress
     } = deliveryObject;
-    console.log(deliveryObject)
     if (
       !customerId ||
       !deliveryAddress ||
@@ -23,6 +22,22 @@ export default function Delivery(axios, config) {
 
     // axios posting.
     return axios.post('/logistics/delivery', deliveryObject, config);
+  };
+
+  const getCurrentDeliveriesRequest = (userId, status = 0) => {
+    return axios.get(`/logistics/deliveries/${userId}`, {
+      params: { status, past: 0 },
+      headers: config.headers
+    });
+  };
+
+  const getPastDeliveriesRequest = userId => {
+    return axios.get(`/logistics/deliveries/${userId}`, {
+      params: {
+        past: 1
+      },
+      headers: config.headers
+    });
   };
 
   const updateDelivery = (deliveryId, deliveryObject) => {
@@ -78,6 +93,8 @@ export default function Delivery(axios, config) {
     deleteDelivery,
     getDelivery,
     getUnassignedDeliveries,
+    getCurrentDeliveriesRequest,
+    getPastDeliveriesRequest,
     quoteDeliveryPrice
   };
 }

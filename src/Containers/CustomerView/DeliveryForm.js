@@ -101,8 +101,8 @@ const DeliveryForm = () => {
 
     validate(val) {
       const errors = {};
-      if (val.fromAddress === '') {
-        errors.fromAddress = 'Please enter the from address';
+      if (val.pickupAddress === '') {
+        errors.pickupAddress = 'Please enter the from address';
       }
       return errors;
     }
@@ -130,7 +130,6 @@ const DeliveryForm = () => {
       deliveryAddress &&
       pickupAddress &&
       Delivery.quoteDeliveryPrice(deliveryAddress, pickupAddress).then(res => {
-        console.log(res.data.price);
         setDeliveryPrice(res.data.price);
       })
     );

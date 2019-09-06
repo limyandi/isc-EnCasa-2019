@@ -1,12 +1,35 @@
 import React, { useEffect, useGlobal } from 'reactn';
 import moment from 'moment';
 import { MyTable, MyFormDialog } from '../../Components';
-import { User } from '../../utils/http';
+import { User, Delivery, Pickup } from '../../utils/http';
 import PickupForm from './PickupForm';
 import DeliveryForm from './DeliveryForm';
 
 function CustomerView(props) {
   const [user] = useGlobal('user');
+
+  const [
+    unacceptedDeliveriesRequest,
+    setUnacceptedDeliveriesRequest
+  ] = React.useState(undefined);
+  const [
+    unacceptedPickupsRequest,
+    setUnacceptedPickupsRequest
+  ] = React.useState(undefined);
+
+  useEffect(() => {
+    Delivery.getCurrentDeliveriesRequest(user.ID, 0).then(res => {
+      if (res.data.deliveries) {
+        setUnacceptedDeliveriesRequest(res.data.deliveries);
+      }
+    });
+    Pickup.getCurrentPickupsRequest(user.ID, 0).then(res => {
+      if (res.data.pickups) {
+        setUnacceptedPickupsRequest(res.data.pickups);
+      }
+    });
+  }, [user.ID]);
+
   const [availableDrivers, setAvailableDrivers] = React.useState(undefined);
 
   const [
@@ -15,7 +38,9 @@ function CustomerView(props) {
   ] = React.useState(false);
 
   const tableOnRowClick = id => {
-    const thisData = user.pickups.filter(pickup => pickup.ID === id)[0];
+    const thisData = unacceptedPickupsRequest.filter(
+      pickup => pickup.ID === id
+    )[0];
 
     const dayOfWeek = [
       'Sunday',
@@ -47,19 +72,23 @@ function CustomerView(props) {
   };
 
   const MyDeliveries = () => {
-    if (user.deliveries) {
-      if (user.deliveries.length !== 0) {
-        return <MyTable data={user.deliveries} />;
+    if (unacceptedDeliveriesRequest) {
+      if (unacceptedDeliveriesRequest.length !== 0) {
+        return <MyTable data={unacceptedDeliveriesRequest} />;
       }
     }
-
     return null;
   };
 
   const MyPickupRequest = () => {
-    if (user.pickups) {
-      if (user.pickups.length !== 0) {
-        return <MyTable rowOnClick={tableOnRowClick} data={user.pickups} />;
+    if (unacceptedPickupsRequest) {
+      if (unacceptedPickupsRequest.length !== 0) {
+        return (
+          <MyTable
+            rowOnClick={tableOnRowClick}
+            data={unacceptedPickupsRequest}
+          />
+        );
       }
     }
     return null;
