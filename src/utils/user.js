@@ -33,14 +33,13 @@ export default function User(axios, config) {
 
   /** Customer(User) Utility Here */
   const updateCustomerDetails = (customerDetails, userId) => {
-    console.log(customerDetails);
     // console.log({ customerDetails });
     return axios.put(`/logistics/user/${userId}`, customerDetails, config);
   };
 
   /** Driver Utility Here */
   const getMyJobs = driverId => {
-    return axios.get(`logistics/driver/${driverId}/jobs`, config);
+    return axios.get(`/logistics/driver/${driverId}/jobs`, config);
   };
 
   const getDriversByAvailability = availabilityDetails => {

@@ -28,7 +28,7 @@ const PickupForm = () => {
   const [user, setUser] = useGlobal('user');
   const [open, setOpen] = React.useState(false);
   const [date, setDate] = React.useState(new Date());
-  const [dateTo, setDateTo] = React.useState(date);
+  const [dateTo, setDateTo] = React.useState(moment(date).add(1, 'hours'));
 
   const handleDateChange = selectedDate => {
     setDate(selectedDate);
@@ -43,7 +43,7 @@ const PickupForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      pickupLocation: '',
+      pickupAddress: '',
       agreement: ''
     },
 
@@ -172,8 +172,8 @@ const PickupForm = () => {
             </Grid>
           </MuiPickersUtilsProvider>
           <TextField
-            value={values.pickupLocation}
-            name="pickupLocation"
+            value={values.pickupAddress}
+            name="pickupAddress"
             label="Pickup Address"
             onChange={handleChange}
             style={{ marginBottom: 20 }}

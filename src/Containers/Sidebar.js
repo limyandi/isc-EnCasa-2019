@@ -19,15 +19,25 @@ import {
 import LogoutIcon from '@material-ui/icons/PowerSettingsNew';
 import SettingIcon from '@material-ui/icons/Build';
 import HomeIcon from '@material-ui/icons/Home';
-import { Add as AddIcon } from '@material-ui/icons';
+import HistoryIcon from '@material-ui/icons/History';
+import { Add as AddIcon, Schedule as ScheduleIcon } from '@material-ui/icons';
 // import RegisterView from './RegisterView';
 // import LoginView from './LoginView';
 import { MySwitch } from '../Components';
 import DriverSetting from './DriverView/settings';
 import CustomerSetting from './CustomerView/settings';
 import JobsList from './DriverView/jobsList';
+import JobsHistory from './DriverView/JobsHistory';
+import DeliveryPickupHistory from './CustomerView/DeliveryPickupHistory';
+import AcceptedDeliveryPickupRequestView from './CustomerView/AcceptedDeliveryPickupRequestView';
 
-const customerOnlyRoute = {};
+const customerOnlyRoute = {
+  path: () => '/Customer/acceptedRequest',
+  main: () => <AcceptedDeliveryPickupRequestView />,
+  name: 'Ongoing Request',
+  sidebarName: 'Accepted Request',
+  icon: <ScheduleIcon />
+};
 
 const driverOnlyRoute = {
   path: () => '/Driver/jobs',
@@ -58,6 +68,14 @@ const renderRoute = user => {
             ...driverOnlyRoute
           }
         : { ...customerOnlyRoute })
+    },
+    {
+      path: () => `/${user.role}/history`,
+      component: () =>
+        user.role === 'Driver' ? <JobsHistory /> : <DeliveryPickupHistory />,
+      name: 'History',
+      sidebarName: 'History',
+      icon: <HistoryIcon />
     },
     {
       path: () => `/${user.role}/setting`,

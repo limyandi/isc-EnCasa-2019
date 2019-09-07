@@ -7,7 +7,7 @@ import {
   KeyboardTimePicker
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { Delivery, Job, User, Pickup, sendEmail } from '../../utils/http';
+import { Job, sendEmail } from '../../utils/http';
 import { MyHeader, MyTable, MyFormDialog } from '../../Components';
 
 function DriverView() {
@@ -16,53 +16,57 @@ function DriverView() {
   const [unassignedDeliveries, setUnassignedDeliveries] = React.useState([]);
   const [unassignedPickups, setUnassignedPickups] = React.useState([]);
   useEffect(() => {
-    Delivery.getUnassignedDeliveries(user.ID).then(res => {
+    Job.getUnassignedJobs(user.ID).then(res => {
       setUnassignedDeliveries(res.data.deliveries);
-    });
-    Pickup.getUnassignedPickups(user.ID).then(res => {
       setUnassignedPickups(res.data.pickups);
     });
   }, [user.ID]);
 
-  const [deliveryData, setDeliveryData] = React.useState(undefined);
+  const [jobData, setJobData] = React.useState(undefined);
   const [ETA, setETA] = React.useState(new Date());
-  const [deliveryFormOpen, setDeliveryFormOpen] = React.useState(false);
+  const [jobFormOpen, setJobFormOpen] = React.useState(false);
 
-  const postNewDeliveryForm = {
+  const postNewJobForm = {
     dialogTitle: 'Indicate the estimated time you will arrive',
     dialogText:
-      deliveryData &&
-      `Ensure that the time you input is within the time range (${deliveryData.time}-${deliveryData.timeTo})`,
+      jobData &&
+      `Ensure that the time you input is within the time range (${jobData.time}-${jobData.timeTo})`,
     handleConfirm: e => {
+      const jobTypeId = `${jobData.type}Id`;
       // implementation for confirming adding new delivery job.
-      Job.addJob({ deliveryId: deliveryData.ID, driverId: user.ID, ETA })
+      Job.addJob({ [jobTypeId]: jobData.ID, driverId: user.ID, ETA })
         .then(res => {
           sendEmail.sendJobNotification({
-            destinations: [deliveryData.customerEmail],
-            subject: 'Accepted delivery request',
-            textBody: `Your delivery request ${deliveryData.ID} has been accepted by ${user.name}. His estimated arrival time is on ${ETA}`
+            destinations: [jobData.customerEmail],
+            subject: `Accepted ${jobData.type} request`,
+            textBody: `Your ${jobData.type} request ${jobData.ID} has been accepted by ${user.name}. Estimated arrival time is on ${ETA}`
           });
-          setUnassignedDeliveries(
-            unassignedDeliveries.filter(i => i.ID !== deliveryData.ID)
-          );
+          // eslint-disable-next-line no-unused-expressions
+          jobData.type === 'Delivery'
+            ? setUnassignedDeliveries(
+                unassignedDeliveries.filter(i => i.ID !== jobData.ID)
+              )
+            : setUnassignedPickups(
+                unassignedDeliveries.filter(i => i.ID !== jobData.ID)
+              );
         })
-        .then(() => setDeliveryFormOpen(false));
+        .then(() => setJobFormOpen(false));
     },
     handleClose: () => {
-      setDeliveryFormOpen(false);
+      setJobFormOpen(false);
     }
   };
 
   const handleAddDeliveriesOnClick = data => {
-    setDeliveryFormOpen(true);
+    setJobFormOpen(true);
     setETA(moment(data.time, 'HH:mm'));
-    setDeliveryData(data);
+    setJobData({ ...data, type: 'delivery' });
   };
 
   const handleAddPickupsOnClick = data => {
-    Job.addJob({ pickupId: data.ID, driverId: user.ID }).then(res => {
-      setUnassignedPickups(unassignedPickups.filter(i => i.ID !== data.ID));
-    });
+    setJobFormOpen(true);
+    setETA(moment(data.time, 'HH:mm'));
+    setJobData({ ...data, type: 'pickup' });
   };
 
   return (
@@ -77,11 +81,11 @@ function DriverView() {
         />
       )}
       <MyFormDialog
-        open={deliveryFormOpen}
-        handleClose={postNewDeliveryForm.handleClose}
-        handleSubmit={postNewDeliveryForm.handleConfirm}
-        dialogTitle={postNewDeliveryForm.dialogTitle}
-        dialogText={postNewDeliveryForm.dialogText}
+        open={jobFormOpen}
+        handleClose={postNewJobForm.handleClose}
+        handleSubmit={postNewJobForm.handleConfirm}
+        dialogTitle={postNewJobForm.dialogTitle}
+        dialogText={postNewJobForm.dialogText}
       >
         <form>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>

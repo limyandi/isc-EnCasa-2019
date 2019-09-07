@@ -24,6 +24,22 @@ export default function Delivery(axios, config) {
     return axios.post('/logistics/delivery', deliveryObject, config);
   };
 
+  const getCurrentDeliveriesRequest = (userId, status = 0) => {
+    return axios.get(`/logistics/deliveries/${userId}`, {
+      params: { status, past: 0 },
+      headers: config.headers
+    });
+  };
+
+  const getPastDeliveriesRequest = userId => {
+    return axios.get(`/logistics/deliveries/${userId}`, {
+      params: {
+        past: 1
+      },
+      headers: config.headers
+    });
+  };
+
   const updateDelivery = (deliveryId, deliveryObject) => {
     const {
       customerId,
@@ -64,11 +80,21 @@ export default function Delivery(axios, config) {
     return axios.get(`/logistics/deliveries/${driverId}`, config);
   };
 
+  const quoteDeliveryPrice = (deliveryAddress, pickupAddress) => {
+    return axios.get('/logistics/quote/delivery', {
+      params: { deliveryAddress, pickupAddress },
+      headers: config.headers
+    });
+  };
+
   return {
     addDelivery,
     updateDelivery,
     deleteDelivery,
     getDelivery,
-    getUnassignedDeliveries
+    getUnassignedDeliveries,
+    getCurrentDeliveriesRequest,
+    getPastDeliveriesRequest,
+    quoteDeliveryPrice
   };
 }
