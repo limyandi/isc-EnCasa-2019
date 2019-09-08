@@ -25,14 +25,7 @@ const useStyles = makeStyles({
 
 const CardTemplate = props => {
   const classes = useStyles();
-  const {
-    id,
-    driverName,
-    phoneNumber,
-    ETA,
-    deliveryAddress,
-    pickupAddress
-  } = props;
+  const { object } = props;
 
   return (
     <Card className={classes.card}>
@@ -42,20 +35,20 @@ const CardTemplate = props => {
           color="textSecondary"
           gutterBottom
         >
-          ID: {id}
+          ID: {object.id}
         </Typography>
         <Typography variant="h5" component="h2">
-          {driverName}
+          {object.driverName}
         </Typography>
         <Typography className={classes.pos} color="textSecondary">
-          {phoneNumber}
+          {object.driverPhoneNumber}
         </Typography>
         <Typography variant="body2" component="p">
-          Estimated Arrival Time: {ETA}
+          Estimated Arrival Time: {object.ETA}
           <br />
-          Delivery Address: {deliveryAddress}
+          Delivery Address: {object.deliveryAddress}
           <br />
-          Pickup Address: {pickupAddress}
+          Pickup Address: {object.pickupAddress}
         </Typography>
       </CardContent>
       <CardActions>

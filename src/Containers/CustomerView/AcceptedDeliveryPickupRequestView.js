@@ -17,7 +17,6 @@ function AcceptedDeliveryPickupRequestView() {
   useEffect(() => {
     Delivery.getCurrentDeliveriesRequest(user.ID, 1).then(res => {
       if (res.data.deliveries) {
-        console.log(res.data.deliveries);
         setAcceptedDeliveriesRequest(res.data.deliveries);
       }
     });
