@@ -13,9 +13,7 @@ function DriverView() {
       // const jobs = [res.data.jobs.map(job => job.deliveries)];
       // check if the jobs exist
       if (res.data.jobs) {
-        console.log(res.data.jobs);
         const jobs = [...res.data.jobs.map(job => job.delivery || job.pickup)];
-        console.log(jobs);
         setMyJobs(jobs);
       }
     });

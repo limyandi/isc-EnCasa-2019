@@ -35,7 +35,8 @@ const CardTemplate = props => {
           color="textSecondary"
           gutterBottom
         >
-          ID: {object.id}
+          ID: {object.ID}
+          <br />
           Driver Details
         </Typography>
         <Typography variant="h5" component="h2">
@@ -46,14 +47,15 @@ const CardTemplate = props => {
         </Typography>
         <Typography variant="body2" component="p">
           Estimated Arrival: {object.date} ({object.ETA})
-          <br />
-          Delivery Address: {object.deliveryAddress}
+          {object.deliveryAddress && (
+            <div>Delivery Address: {object.deliveryAddress}</div>
+          )}
           <br />
           Pickup Address: {object.pickupAddress}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">More Details</Button>
+        <Button size="small">Chat with Driver</Button>
       </CardActions>
     </Card>
   );

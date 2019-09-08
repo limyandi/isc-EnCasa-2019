@@ -33,7 +33,16 @@ function AcceptedDeliveryPickupRequestView() {
         return (
           <div>
             <MyHeader>Accepted Ongoing Deliveries</MyHeader>
-            <MyTable data={acceptedDeliveriesRequest} />
+            {/* <MyTable data={acceptedDeliveriesRequest} /> */}
+            <Grid container spacing={2}>
+              {acceptedDeliveriesRequest.map(delivery => {
+                return (
+                  <Grid item>
+                    <MyCardTemplate object={delivery} />
+                  </Grid>
+                );
+              })}
+            </Grid>
           </div>
         );
       }
@@ -47,7 +56,16 @@ function AcceptedDeliveryPickupRequestView() {
         return (
           <div>
             <MyHeader>Accepted Ongoing Pickups</MyHeader>
-            <MyTable data={acceptedPickupsRequest} />
+            {/* <MyTable data={acceptedPickupsRequest} /> */}
+            <Grid container spacing={2}>
+              {acceptedPickupsRequest.map(pickup => {
+                return (
+                  <Grid item>
+                    <MyCardTemplate object={pickup} />
+                  </Grid>
+                );
+              })}
+            </Grid>
           </div>
         );
       }
@@ -57,31 +75,29 @@ function AcceptedDeliveryPickupRequestView() {
 
   return (
     <div>
-      <div style={{ display: 'flex' }}>
-        <Grid container spacing={1}>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
-          <Grid item>
-            <MyCardTemplate />
-          </Grid>
+      {/* <Grid container spacing={2}>
+        <Grid item>
+          <MyCardTemplate />
         </Grid>
-      </div>
+        <Grid item>
+          <MyCardTemplate />
+        </Grid>
+        <Grid item>
+          <MyCardTemplate />
+        </Grid>
+        <Grid item>
+          <MyCardTemplate />
+        </Grid>
+        <Grid item>
+          <MyCardTemplate />
+        </Grid>
+        <Grid item>
+          <MyCardTemplate />
+        </Grid>
+        <Grid item>
+          <MyCardTemplate />
+        </Grid>
+      </Grid> */}
 
       <MyAcceptedDeliveries />
       <MyAcceptedPickupRequest />
