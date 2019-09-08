@@ -36,6 +36,7 @@ const CardTemplate = props => {
           gutterBottom
         >
           ID: {object.id}
+          Driver Details
         </Typography>
         <Typography variant="h5" component="h2">
           {object.driverName}
@@ -44,7 +45,7 @@ const CardTemplate = props => {
           {object.driverPhoneNumber}
         </Typography>
         <Typography variant="body2" component="p">
-          Estimated Arrival Time: {object.ETA}
+          Estimated Arrival: {object.date} ({object.ETA})
           <br />
           Delivery Address: {object.deliveryAddress}
           <br />
