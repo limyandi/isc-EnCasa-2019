@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal } from 'reactn';
 import { withRouter } from 'react-router-dom';
 import { User, Delivery, Pickup } from '../../utils/http';
-import { MyHeader, MyTable } from '../../Components';
+import { MyHeader, MyTable, MyCardTemplate } from '../../Components';
 
 function DeliveryPickupHistory() {
   const [user] = useGlobal('user');

@@ -15,7 +15,8 @@ import {
   MyFormDialog,
   MyUseForm,
   MyCheckbox,
-  MyHeader
+  MyHeader,
+  MySingleDropdown
 } from '../../Components';
 import { Pickup, User, sendEmail, sendSMS } from '../../utils/http';
 import {
@@ -44,7 +45,8 @@ const PickupForm = () => {
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
       pickupAddress: '',
-      agreement: ''
+      agreement: '',
+      communityID: undefined
     },
 
     onSubmit(val) {
@@ -177,6 +179,18 @@ const PickupForm = () => {
             label="Pickup Address"
             onChange={handleChange}
             style={{ marginBottom: 20 }}
+          />
+          <MySingleDropdown
+            data={user.communities}
+            name="communityID"
+            label="Community"
+            value={values.communityID}
+            onChange={e => {
+              handleChange(e);
+              // e.target.value to use because sometimes
+              // handleChange is not done before setDispatchCentre
+              // setDispatchCentre(e.target.value);
+            }}
           />
           <MyCheckbox
             name="agreement"

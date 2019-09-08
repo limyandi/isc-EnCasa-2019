@@ -14,7 +14,7 @@ import {
   Delivery,
   User,
   sendEmail,
-  DispatchCentre,
+  // DispatchCentre,
   sendSMS
 } from '../../utils/http';
 import {
@@ -135,17 +135,17 @@ const DeliveryForm = () => {
     );
   };
 
-  const [
-    communityDispatchCentres,
-    setCommunityDispatchCentres
-  ] = React.useState([]);
-  const setDispatchCentre = communityID => {
-    // reset the dispatchcentreID
-    values.dispatchCentreID = undefined;
-    DispatchCentre.getByCommunity(communityID).then(res => {
-      setCommunityDispatchCentres(res.data.dispatchCentres);
-    });
-  };
+  // const [
+  //   communityDispatchCentres,
+  //   setCommunityDispatchCentres
+  // ] = React.useState([]);
+  // const setDispatchCentre = communityID => {
+  //   // reset the dispatchcentreID
+  //   values.dispatchCentreID = undefined;
+  //   DispatchCentre.getByCommunity(communityID).then(res => {
+  //     setCommunityDispatchCentres(res.data.dispatchCentres);
+  //   });
+  // };
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
@@ -199,7 +199,7 @@ const DeliveryForm = () => {
               handleChange(e);
               // e.target.value to use because sometimes
               // handleChange is not done before setDispatchCentre
-              setDispatchCentre(e.target.value);
+              // setDispatchCentre(e.target.value);
             }}
           />
           {/* {values.communityID && (

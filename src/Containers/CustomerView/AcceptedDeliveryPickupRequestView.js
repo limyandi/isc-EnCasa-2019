@@ -1,5 +1,6 @@
 import React, { useEffect, useGlobal } from 'reactn';
-import { MyTable, MyHeader } from '../../Components';
+import { Grid } from '@material-ui/core';
+import { MyTable, MyHeader, MyCardTemplate } from '../../Components';
 import { Delivery, Pickup } from '../../utils/http';
 
 function AcceptedDeliveryPickupRequestView() {
@@ -16,6 +17,7 @@ function AcceptedDeliveryPickupRequestView() {
   useEffect(() => {
     Delivery.getCurrentDeliveriesRequest(user.ID, 1).then(res => {
       if (res.data.deliveries) {
+        console.log(res.data.deliveries);
         setAcceptedDeliveriesRequest(res.data.deliveries);
       }
     });
@@ -56,6 +58,32 @@ function AcceptedDeliveryPickupRequestView() {
 
   return (
     <div>
+      <div style={{ display: 'flex' }}>
+        <Grid container spacing={1}>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+          <Grid item>
+            <MyCardTemplate />
+          </Grid>
+        </Grid>
+      </div>
+
       <MyAcceptedDeliveries />
       <MyAcceptedPickupRequest />
       <div />

@@ -13,6 +13,7 @@ import MyTable from './Table';
 import MyErrorText from './ErrorText';
 import MyPhoneNumberTextField from './PhoneNumberTextField';
 import MySingleDropdown from './SingleDropdown';
+import MyCardTemplate from './CardTemplate';
 
 export {
   MyButton,
@@ -29,5 +30,6 @@ export {
   MyTable,
   MyErrorText,
   MyPhoneNumberTextField,
-  MySingleDropdown
+  MySingleDropdown,
+  MyCardTemplate
 };
