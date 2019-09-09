@@ -35,7 +35,7 @@ function AcceptedDeliveryPickupRequestView() {
             <div style={{ display: 'flex' }}>
               <MyHeader>Accepted Ongoing Deliveries</MyHeader>
               <MyTooltip
-                label="This is the list of your accepted delivery pickup request (getting things delivered to your destination address via dispatch centre)"
+                label="This is the list of your accepted delivery request (getting driver to deliver your things to your selected destination address via dispatch centre)"
                 placement="right"
               />
             </div>
