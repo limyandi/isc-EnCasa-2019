@@ -1,5 +1,5 @@
 import React, { useEffect, useGlobal } from 'reactn';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 import { MyTable, MyHeader, MyCardTemplate } from '../../Components';
 import { Delivery, Pickup } from '../../utils/http';
 
@@ -38,7 +38,25 @@ function AcceptedDeliveryPickupRequestView() {
               {acceptedDeliveriesRequest.map(delivery => {
                 return (
                   <Grid item>
-                    <MyCardTemplate object={delivery} />
+                    <MyCardTemplate actionText="Chat with Driver">
+                      <Typography color="textSecondary" gutterBottom>
+                        Delivery ID: {delivery.ID}
+                        <br />
+                        Driver Details
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {delivery.driverName}
+                      </Typography>
+                      <Typography color="textSecondary">
+                        {delivery.driverPhoneNumber}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Estimated Arrival: {delivery.date} ({delivery.ETA})
+                        <div>Delivery Address: {delivery.deliveryAddress}</div>
+                        <br />
+                        Pickup Address: {delivery.pickupAddress}
+                      </Typography>
+                    </MyCardTemplate>
                   </Grid>
                 );
               })}
@@ -61,7 +79,24 @@ function AcceptedDeliveryPickupRequestView() {
               {acceptedPickupsRequest.map(pickup => {
                 return (
                   <Grid item>
-                    <MyCardTemplate object={pickup} />
+                    <MyCardTemplate actionText="Chat with Driver">
+                      <Typography color="textSecondary" gutterBottom>
+                        Delivery ID: {pickup.ID}
+                        <br />
+                        Driver Details
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {pickup.driverName}
+                      </Typography>
+                      <Typography color="textSecondary">
+                        {pickup.driverPhoneNumber}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Estimated Arrival: {pickup.date} ({pickup.ETA})
+                        <br />
+                        Pickup Address: {pickup.pickupAddress}
+                      </Typography>
+                    </MyCardTemplate>
                   </Grid>
                 );
               })}

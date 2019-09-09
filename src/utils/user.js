@@ -38,8 +38,12 @@ export default function User(axios, config) {
   };
 
   /** Driver Utility Here */
-  const getMyJobs = driverId => {
-    return axios.get(`/logistics/driver/${driverId}/jobs`, config);
+  const getMyIncompleteJobs = driverId => {
+    return axios.get(`/logistics/driver/${driverId}/jobs?jobStatus=0`, config);
+  };
+
+  const getMyCompletedJobs = driverId => {
+    return axios.get(`/logistics/driver/${driverId}/jobs?jobStatus=1`, config);
   };
 
   const getDriversByAvailability = availabilityDetails => {
@@ -80,7 +84,8 @@ export default function User(axios, config) {
     register,
     login,
     updateCustomerDetails,
-    getMyJobs,
+    getMyIncompleteJobs,
+    getMyCompletedJobs,
     getDriversByAvailability,
     updateDriverDetails,
     getDriversSubscriptedEmail,
