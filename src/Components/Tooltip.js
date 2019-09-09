@@ -6,29 +6,16 @@ import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const useStyles = makeStyles(theme => ({
-  fab: {
-    margin: theme.spacing(2)
-  },
-  absolute: {
-    position: 'absolute',
-    bottom: theme.spacing(2),
-    right: theme.spacing(3)
-  }
-}));
-
-const Tooltip = props => {
-  const { label } = props;
+const MyTooltip = props => {
+  const { label, placement } = props;
 
   return (
-    <div>
-      <Tooltip title={label}>
-        <IconButton aria-label="delete">
-          <HelpIcon />
-        </IconButton>
-      </Tooltip>
-    </div>
+    <Tooltip title={label} placement={placement}>
+      <IconButton>
+        <HelpIcon style={{ color: 'white' }} />
+      </IconButton>
+    </Tooltip>
   );
 };
 
-export default Tooltip
+export default MyTooltip;

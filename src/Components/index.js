@@ -14,6 +14,7 @@ import MyErrorText from './ErrorText';
 import MyPhoneNumberTextField from './PhoneNumberTextField';
 import MySingleDropdown from './SingleDropdown';
 import MyCardTemplate from './CardTemplate';
+import MyTooltip from './Tooltip';
 
 export {
   MyButton,
@@ -28,6 +29,7 @@ export {
   MyFloatingActionButton,
   MySwitch,
   MyTable,
+  MyTooltip,
   MyErrorText,
   MyPhoneNumberTextField,
   MySingleDropdown,

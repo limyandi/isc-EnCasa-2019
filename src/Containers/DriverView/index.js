@@ -2,7 +2,7 @@ import React, { useEffect, useGlobal } from 'reactn';
 import { withRouter } from 'react-router-dom';
 import { Grid, Typography } from '@material-ui/core';
 import { User, Job } from '../../utils/http';
-import { MyHeader, MyTable, MyCardTemplate } from '../../Components';
+import { MyHeader, MyTable, MyCardTemplate, MyTooltip } from '../../Components';
 
 function DriverView() {
   const [user] = useGlobal('user');
@@ -34,37 +34,46 @@ function DriverView() {
   const MyDeliveryJobs = () => {
     if (myDeliveryJobs && myDeliveryJobs.length !== 0) {
       return (
-        <Grid container spacing={2}>
-          {myDeliveryJobs.map(delivery => {
-            return (
-              <Grid item>
-                <MyCardTemplate
-                  actionText="Mark as Completed"
-                  actionOnClick={() => handleDeliveryJobOnClick(delivery.ID)}
-                >
-                  <Typography color="textSecondary" gutterBottom>
-                    Job ID: {delivery.ID}
-                    <br />
-                    Customer Details
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    {delivery.customerName}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    Phone Number: {delivery.customerPhoneNumber}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    Customer Available Date Time Range: <br />
-                    {delivery.date} ({delivery.time} - {delivery.timeTo})
-                    <div>Delivery Address: {delivery.deliveryAddress}</div>
-                    <br />
-                    Pickup Address: {delivery.pickupAddress}
-                  </Typography>
-                </MyCardTemplate>
-              </Grid>
-            );
-          })}
-        </Grid>
+        <div>
+          <div>
+            Delivery Jobs
+            <MyTooltip
+              label="This is the delivery job that you have accepted, Do not forget to mark it as completed when it is done. Delivery job refers to a job where you (as a driver) have to pickup an item from a designated customer address and then send it to a dispatch centre"
+              placement="right"
+            />
+          </div>
+          <Grid container spacing={2}>
+            {myDeliveryJobs.map(delivery => {
+              return (
+                <Grid item>
+                  <MyCardTemplate
+                    actionText="Mark as Completed"
+                    actionOnClick={() => handleDeliveryJobOnClick(delivery.ID)}
+                  >
+                    <Typography color="textSecondary" gutterBottom>
+                      Job ID: {delivery.ID}
+                      <br />
+                      Customer Details
+                    </Typography>
+                    <Typography variant="h5" component="h2">
+                      {delivery.customerName}
+                    </Typography>
+                    <Typography color="textSecondary">
+                      Phone Number: {delivery.customerPhoneNumber}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      Customer Available Date Time Range: <br />
+                      {delivery.date} ({delivery.time} - {delivery.timeTo})
+                      <div>Delivery Address: {delivery.deliveryAddress}</div>
+                      <br />
+                      Pickup Address: {delivery.pickupAddress}
+                    </Typography>
+                  </MyCardTemplate>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
       );
     }
     return null;
@@ -73,33 +82,42 @@ function DriverView() {
   const MyPickupJobs = () => {
     if (myPickupJobs && myPickupJobs.length !== 0) {
       return (
-        <Grid container spacing={2}>
-          {myPickupJobs.map(pickup => {
-            return (
-              <Grid item>
-                <MyCardTemplate actionText="Mark as Completed">
-                  <Typography color="textSecondary" gutterBottom>
-                    Job ID: {pickup.ID}
-                    <br />
-                    Customer Details
-                  </Typography>
-                  <Typography variant="h5" component="h2">
-                    {pickup.customerName}
-                  </Typography>
-                  <Typography color="textSecondary">
-                    {pickup.customerPhoneNumber}
-                  </Typography>
-                  <Typography variant="body2" component="p">
-                    Customer Available Date Time Range: <br />
-                    {pickup.date} ({pickup.time} - {pickup.timeTo})
-                    <br />
-                    Pickup Address: {pickup.pickupAddress}
-                  </Typography>
-                </MyCardTemplate>
-              </Grid>
-            );
-          })}
-        </Grid>
+        <div>
+          <div>
+            Pickup Jobs
+            <MyTooltip
+              label="This is the pickup job that you have accepted, Do not forget to mark it as completed when it is done. A pickup job refers to a job where you (as a driver) have to pickup and item from a dispatch centre and then send it to designated customer pickup address."
+              placement="right"
+            />
+          </div>
+          <Grid container spacing={2}>
+            {myPickupJobs.map(pickup => {
+              return (
+                <Grid item>
+                  <MyCardTemplate actionText="Mark as Completed">
+                    <Typography color="textSecondary" gutterBottom>
+                      Job ID: {pickup.ID}
+                      <br />
+                      Customer Details
+                    </Typography>
+                    <Typography variant="h5" component="h2">
+                      {pickup.customerName}
+                    </Typography>
+                    <Typography color="textSecondary">
+                      {pickup.customerPhoneNumber}
+                    </Typography>
+                    <Typography variant="body2" component="p">
+                      Customer Available Date Time Range: <br />
+                      {pickup.date} ({pickup.time} - {pickup.timeTo})
+                      <br />
+                      Pickup Address: {pickup.pickupAddress}
+                    </Typography>
+                  </MyCardTemplate>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </div>
       );
     }
     return null;
@@ -108,9 +126,7 @@ function DriverView() {
   return (
     <div>
       <MyHeader>My Job</MyHeader>
-      <div>Delivery Jobs</div>
       <MyDeliveryJobs />
-      <div>Pickup Jobs</div>
       <MyPickupJobs />
     </div>
   );
