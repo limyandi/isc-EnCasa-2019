@@ -44,7 +44,7 @@ const PickupForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
-      deliverySlip: undefined,
+      deliverySlipID: undefined,
       pickupAddress: '',
       agreement: '',
       communityID: undefined
@@ -54,6 +54,7 @@ const PickupForm = () => {
       // and add a new driverDetails object to pickup
       const time = moment(date).format('HH:mm');
       const timeTo = moment(dateTo).format('HH:mm');
+
       Pickup.addPickup({
         ...val.values,
         date: moment(date).format('YYYY-MM-DD'),
@@ -113,12 +114,13 @@ const PickupForm = () => {
   };
 
   const onChangeHandler = event => {
-    console.log(event.target.files[0]);
-
     const formData = new FormData();
     formData.append('fotofile0', event.target.files[0]);
 
-    Pickup.deliverySlipUpload(formData).then(res => console.log(res));
+    Pickup.deliverySlipUpload(formData).then(
+      res => (values.deliverySlipID = res.data)
+    );
+    Pickup.deliverySlipFileRequest(2).then(res => console.log(res.data));
   };
 
   return (

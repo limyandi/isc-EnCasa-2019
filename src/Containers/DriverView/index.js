@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal } from 'reactn';
 import { withRouter } from 'react-router-dom';
-import { Grid, Typography } from '@material-ui/core';
-import { User, Job } from '../../utils/http';
+import { Grid, Typography, Button } from '@material-ui/core';
+import { User, Job, Pickup } from '../../utils/http';
 import { MyHeader, MyTable, MyCardTemplate, MyTooltip } from '../../Components';
 
 function DriverView() {
@@ -112,6 +112,17 @@ function DriverView() {
                       <br />
                       Pickup Address: {pickup.pickupAddress}
                     </Typography>
+                    <Button
+                      onClick={() =>
+                        Pickup.deliverySlipFileRequest(
+                          pickup.deliverySlipID
+                        ).then(res => {
+                          window.open(res.data.DownloadLink, '_blank');
+                        })
+                      }
+                    >
+                      Open/Download Delivery Slip
+                    </Button>
                   </MyCardTemplate>
                 </Grid>
               );

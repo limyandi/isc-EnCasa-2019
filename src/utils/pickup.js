@@ -34,11 +34,16 @@ export default function Pickup(axios, config) {
     return axios.post('/fileserver/upload', data, config);
   };
 
+  const deliverySlipFileRequest = deliverySlipFileID => {
+    return axios.get('/fileserver/requestfile/4', config);
+  };
+
   return {
     addPickup,
     getUnassignedPickups,
     getCurrentPickupsRequest,
     getPastPickupsRequest,
-    deliverySlipUpload
+    deliverySlipUpload,
+    deliverySlipFileRequest
   };
 }
