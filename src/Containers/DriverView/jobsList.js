@@ -42,12 +42,12 @@ function DriverView() {
             textBody: `Your ${jobData.type} request ${jobData.ID} has been accepted by ${user.name}. Estimated arrival time is on ${ETA}`
           });
           // eslint-disable-next-line no-unused-expressions
-          jobData.type === 'Delivery'
+          jobData.type === 'delivery'
             ? setUnassignedDeliveries(
-                unassignedDeliveries.filter(i => i.ID !== jobData.ID)
+                unassignedDeliveries.filter(i => i.ID != jobData.ID)
               )
             : setUnassignedPickups(
-                unassignedDeliveries.filter(i => i.ID !== jobData.ID)
+                unassignedPickups.filter(i => i.ID != jobData.ID)
               );
         })
         .then(() => setJobFormOpen(false));

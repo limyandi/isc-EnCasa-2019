@@ -44,6 +44,7 @@ const PickupForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
+      deliverySlip: undefined,
       pickupAddress: '',
       agreement: '',
       communityID: undefined
@@ -111,6 +112,15 @@ const PickupForm = () => {
     }
   };
 
+  const onChangeHandler = event => {
+    console.log(event.target.files[0]);
+
+    const formData = new FormData();
+    formData.append('fotofile0', event.target.files[0]);
+
+    Pickup.deliverySlipUpload(formData).then(res => console.log(res));
+  };
+
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MyHeader>Your Pickup request</MyHeader>
@@ -126,6 +136,7 @@ const PickupForm = () => {
         disableConfirmButton={!values.agreement}
       >
         <form>
+          <input type="file" name="file" onChange={onChangeHandler} />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container>
               <KeyboardDatePicker

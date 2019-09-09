@@ -104,7 +104,7 @@ function DriverView() {
                       {pickup.customerName}
                     </Typography>
                     <Typography color="textSecondary">
-                      {pickup.customerPhoneNumber}
+                      Phone Number: {pickup.customerPhoneNumber}
                     </Typography>
                     <Typography variant="body2" component="p">
                       Customer Available Date Time Range: <br />
@@ -127,6 +127,7 @@ function DriverView() {
     <div>
       <MyHeader>My Job</MyHeader>
       <MyDeliveryJobs />
+      <div style={{ marginTop: 20 }} />
       <MyPickupJobs />
     </div>
   );
