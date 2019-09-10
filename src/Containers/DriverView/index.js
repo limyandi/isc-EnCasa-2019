@@ -31,6 +31,12 @@ function DriverView() {
     });
   };
 
+  const handlePickupJobOnClick = pickupID => {
+    Job.updateJobStatus(pickupID).then(() => {
+      setMyDeliveryJobs(myPickupJobs.filter(pickup => pickup.ID !== pickupID));
+    });
+  };
+
   const MyDeliveryJobs = () => {
     if (myDeliveryJobs && myDeliveryJobs.length !== 0) {
       return (
@@ -94,7 +100,10 @@ function DriverView() {
             {myPickupJobs.map(pickup => {
               return (
                 <Grid item>
-                  <MyCardTemplate actionText="Mark as Completed">
+                  <MyCardTemplate
+                    actionText="Mark as Completed"
+                    actionOnClick={() => handlePickupJobOnClick(pickup.ID)}
+                  >
                     <Typography color="textSecondary" gutterBottom>
                       Job ID: {pickup.ID}
                       <br />

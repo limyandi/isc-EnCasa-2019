@@ -35,7 +35,7 @@ export default function Pickup(axios, config) {
   };
 
   const deliverySlipFileRequest = deliverySlipFileID => {
-    return axios.get('/fileserver/requestfile/4', config);
+    return axios.get(`/fileserver/requestfile/${deliverySlipFileID}`, config);
   };
 
   return {
