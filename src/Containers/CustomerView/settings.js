@@ -1,12 +1,7 @@
 import React, { useGlobal } from 'reactn';
-import {
-  MyHeader,
-  MyCheckbox,
-  MyUseForm,
-  MyButton,
-  MyDropdown
-} from '../../Components';
-import { User, Community } from '../../utils/http';
+import MuiPhoneNumber from 'material-ui-phone-number';
+import { MyHeader, MyCheckbox, MyUseForm, MyButton } from '../../Components';
+import { User } from '../../utils/http';
 import { removeDuplicates } from '../../helper/function';
 import EditCommunities from '../EditCommunities';
 
@@ -15,6 +10,7 @@ function CustomerSetting() {
   const [selectedCommunities, setSelectedCommunities] = React.useState(
     user.communities
   );
+  const [phoneNumber, setPhoneNumber] = React.useState(user.phoneNumber);
 
   function handleSelectedCommunities(event) {
     const arr = [...event.target.value];
@@ -29,6 +25,7 @@ function CustomerSetting() {
     onSubmit(val) {
       const customerDetails = {
         ...val.values,
+        phoneNumber,
         communities: selectedCommunities.map(community => community.ID)
       };
 
@@ -65,6 +62,17 @@ function CustomerSetting() {
           onChange={handleChange}
           name="smsNotification"
           label="SMS Notification"
+        />
+        <MuiPhoneNumber
+          required
+          defaultCountry="au"
+          onlyCountries={['au']}
+          inputClass={{ color: 'white !important' }}
+          dropdownClass={{ color: 'white !important' }}
+          onChange={val => setPhoneNumber(val)}
+          value={phoneNumber}
+          label="Phone Number"
+          name="phoneNumber"
         />
         <MyButton
           style={{ marginTop: 15, marginBottom: 10 }}

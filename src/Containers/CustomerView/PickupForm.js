@@ -1,6 +1,6 @@
 import React, { useGlobal } from 'reactn';
 import moment from 'moment';
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -113,14 +113,16 @@ const PickupForm = () => {
     }
   };
 
+  const [uploadedFileName, setUploadedFileName] = React.useState(undefined);
   const onChangeHandler = event => {
     const formData = new FormData();
     formData.append('fotofile0', event.target.files[0]);
 
+    setUploadedFileName(event.target.files[0].name);
+
     Pickup.deliverySlipUpload(formData).then(
       res => (values.deliverySlipID = res.data)
     );
-    Pickup.deliverySlipFileRequest(2).then(res => console.log(res.data));
   };
 
   return (
@@ -138,7 +140,21 @@ const PickupForm = () => {
         disableConfirmButton={!values.agreement}
       >
         <form>
-          <input type="file" name="file" onChange={onChangeHandler} />
+          <div style={{ display: 'flex' }}>
+            <Button variant="contained" component="label">
+              Upload Delivery Slip
+              <input
+                type="file"
+                name="file"
+                onChange={onChangeHandler}
+                style={{ display: 'none' }}
+              />
+            </Button>
+            {uploadedFileName && (
+              <p style={{ fontSize: 10, marginLeft: 5 }}>{uploadedFileName}</p>
+            )}
+          </div>
+
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container>
               <KeyboardDatePicker
