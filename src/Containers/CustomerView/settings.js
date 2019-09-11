@@ -4,6 +4,9 @@ import { MyHeader, MyCheckbox, MyUseForm, MyButton } from '../../Components';
 import { User } from '../../utils/http';
 import { removeDuplicates } from '../../helper/function';
 import EditCommunities from '../EditCommunities';
+import './settings.css';
+import ReactPhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/dist/style.css';
 
 function CustomerSetting() {
   const [user, setUser] = useGlobal('user');
@@ -63,14 +66,11 @@ function CustomerSetting() {
           name="smsNotification"
           label="SMS Notification"
         />
-        <MuiPhoneNumber
-          required
+        <ReactPhoneInput
           defaultCountry="au"
           onlyCountries={['au']}
-          inputClass={{ color: 'white !important' }}
-          dropdownClass={{ color: 'white !important' }}
-          onChange={val => setPhoneNumber(val)}
           value={phoneNumber}
+          onChange={val => setPhoneNumber(val)}
           label="Phone Number"
           name="phoneNumber"
         />
