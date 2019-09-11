@@ -106,6 +106,7 @@ function CustomerView(props) {
         handleClose={availableDriversForm.handleClose}
         dialogTitle={availableDriversForm.dialogTitle}
         dialogText={availableDriversForm.dialogText}
+        cancelText="close"
       >
         {availableDrivers && <MyTable data={availableDrivers} />}
       </MyFormDialog>

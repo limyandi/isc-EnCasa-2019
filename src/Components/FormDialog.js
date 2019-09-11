@@ -45,13 +45,15 @@ const FormDialog = props => {
           <Button onClick={handleClose} color="primary">
             {cancelText}
           </Button>
-          <Button
-            disabled={disableConfirmButton}
-            onClick={handleSubmit}
-            color="primary"
-          >
-            {confirmText}
-          </Button>
+          {handleSubmit && (
+            <Button
+              disabled={disableConfirmButton}
+              onClick={handleSubmit}
+              color="primary"
+            >
+              {confirmText}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>

@@ -1,11 +1,10 @@
 import React, { useGlobal } from 'reactn';
-import MuiPhoneNumber from 'material-ui-phone-number';
+import ReactPhoneInput from 'react-phone-input-2';
 import { MyHeader, MyCheckbox, MyUseForm, MyButton } from '../../Components';
 import { User } from '../../utils/http';
 import { removeDuplicates } from '../../helper/function';
 import EditCommunities from '../EditCommunities';
 import './settings.css';
-import ReactPhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/dist/style.css';
 
 function CustomerSetting() {
