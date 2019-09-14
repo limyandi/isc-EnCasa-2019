@@ -13,5 +13,10 @@ export default function Job(axios, config) {
     return axios.get(`/logistics/jobs/${userId}`, config);
   };
 
-  return { addJob, getUnassignedJobs };
+  // this function is for driver to mark a job as completed
+  const updateJobStatus = jobId => {
+    return axios.patch(`/logistics/job/${jobId}`, { status: true }, config);
+  };
+
+  return { addJob, getUnassignedJobs, updateJobStatus };
 }

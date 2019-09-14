@@ -15,6 +15,33 @@ export function removeDuplicates(arr, value) {
   }, []);
 }
 
-export function a() {
-  
-}
+export const basicDriverDetails = {
+  Monday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  },
+  Tuesday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  },
+  Wednesday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  },
+  Thursday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  },
+  Friday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  },
+  Saturday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  },
+  Sunday: {
+    from: '08:30:00Z',
+    to: '20:00:00Z'
+  }
+};

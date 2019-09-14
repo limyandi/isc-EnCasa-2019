@@ -30,10 +30,20 @@ export default function Pickup(axios, config) {
     });
   };
 
+  const deliverySlipUpload = data => {
+    return axios.post('/fileserver/upload', data, config);
+  };
+
+  const deliverySlipFileRequest = deliverySlipFileID => {
+    return axios.get(`/fileserver/requestfile/${deliverySlipFileID}`, config);
+  };
+
   return {
     addPickup,
     getUnassignedPickups,
     getCurrentPickupsRequest,
-    getPastPickupsRequest
+    getPastPickupsRequest,
+    deliverySlipUpload,
+    deliverySlipFileRequest
   };
 }

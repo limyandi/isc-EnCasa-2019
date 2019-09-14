@@ -22,7 +22,8 @@ import {
   MyFormDialog,
   MyUseForm,
   MyHeader,
-  MySingleDropdown
+  MySingleDropdown,
+  MyTooltip
 } from '../../Components';
 import {
   newDeliveryTextBody,
@@ -150,9 +151,14 @@ const DeliveryForm = () => {
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MyHeader>Your Delivery Request</MyHeader>
-      <MyFloatingActionButton onClick={openDeliveryForm}>
-        <AddIcon />
-      </MyFloatingActionButton>
+      <MyTooltip
+        label="This is where you can add a new delivery request to get a driver to pickup a thing you want to deliver and send it to a (where possible) preferred dispatch centre"
+        placement="right"
+      >
+        <MyFloatingActionButton onClick={openDeliveryForm}>
+          <AddIcon />
+        </MyFloatingActionButton>
+      </MyTooltip>
 
       <MyFormDialog
         open={open}

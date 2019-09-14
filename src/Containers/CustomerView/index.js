@@ -77,7 +77,7 @@ function CustomerView(props) {
         return <MyTable data={unacceptedDeliveriesRequest} />;
       }
     }
-    return null;
+    return <div>You have no deliveries yet</div>;
   };
 
   const MyPickupRequest = () => {
@@ -91,7 +91,7 @@ function CustomerView(props) {
         );
       }
     }
-    return null;
+    return <div>You have no pickups yet.</div>;
   };
 
   return (

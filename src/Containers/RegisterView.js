@@ -16,6 +16,7 @@ import {
 import { User, Community } from '../utils/http';
 import MyErrorText from '../Components/ErrorText';
 import './helper.css';
+import { basicDriverDetails } from '../helper/function';
 
 function RegisterView(props) {
   const [phoneNumber, setPhoneNumber] = React.useState('');
@@ -85,37 +86,7 @@ function RegisterView(props) {
       const driverDetails = {};
 
       if (values.driverChecked) {
-        // TODO: Basic Driver Details
-        driverDetails.availabilities = {
-          Monday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          },
-          Tuesday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          },
-          Wednesday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          },
-          Thursday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          },
-          Friday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          },
-          Saturday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          },
-          Sunday: {
-            from: '08:30:00Z',
-            to: '20:00:00Z'
-          }
-        };
+        driverDetails.availabilities = basicDriverDetails;
         driverDetails.appNotification = true;
         driverDetails.smsNotification = false;
         driverDetails.emailNotification = false;

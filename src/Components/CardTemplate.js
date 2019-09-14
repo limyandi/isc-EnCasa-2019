@@ -25,37 +25,15 @@ const useStyles = makeStyles({
 
 const CardTemplate = props => {
   const classes = useStyles();
-  const { object } = props;
+  const { children, actionText, actionOnClick } = props;
 
   return (
     <Card className={classes.card}>
-      <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          ID: {object.ID}
-          <br />
-          Driver Details
-        </Typography>
-        <Typography variant="h5" component="h2">
-          {object.driverName}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          {object.driverPhoneNumber}
-        </Typography>
-        <Typography variant="body2" component="p">
-          Estimated Arrival: {object.date} ({object.ETA})
-          {object.deliveryAddress && (
-            <div>Delivery Address: {object.deliveryAddress}</div>
-          )}
-          <br />
-          Pickup Address: {object.pickupAddress}
-        </Typography>
-      </CardContent>
+      <CardContent>{children}</CardContent>
       <CardActions>
-        <Button size="small">Chat with Driver</Button>
+        <Button onClick={actionOnClick} size="small">
+          {actionText}
+        </Button>
       </CardActions>
     </Card>
   );

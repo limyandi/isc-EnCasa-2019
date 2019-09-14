@@ -1,6 +1,6 @@
 import React, { useEffect, useGlobal } from 'reactn';
-import { Grid } from '@material-ui/core';
-import { MyTable, MyHeader, MyCardTemplate } from '../../Components';
+import { Grid, Typography } from '@material-ui/core';
+import { MyTable, MyHeader, MyCardTemplate, MyTooltip } from '../../Components';
 import { Delivery, Pickup } from '../../utils/http';
 
 function AcceptedDeliveryPickupRequestView() {
@@ -32,13 +32,37 @@ function AcceptedDeliveryPickupRequestView() {
       if (acceptedDeliveriesRequest.length !== 0) {
         return (
           <div>
-            <MyHeader>Accepted Ongoing Deliveries</MyHeader>
+            <div style={{ display: 'flex' }}>
+              <MyHeader>Accepted Ongoing Deliveries</MyHeader>
+              <MyTooltip
+                label="This is the list of your accepted delivery request (getting driver to deliver your things to your selected destination address via dispatch centre)"
+                placement="right"
+              />
+            </div>
             {/* <MyTable data={acceptedDeliveriesRequest} /> */}
             <Grid container spacing={2}>
               {acceptedDeliveriesRequest.map(delivery => {
                 return (
                   <Grid item>
-                    <MyCardTemplate object={delivery} />
+                    <MyCardTemplate actionText="Chat with Driver">
+                      <Typography color="textSecondary" gutterBottom>
+                        Delivery ID: {delivery.ID}
+                        <br />
+                        Driver Details
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {delivery.driverName}
+                      </Typography>
+                      <Typography color="textSecondary">
+                        {delivery.driverPhoneNumber}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Estimated Arrival: {delivery.date} ({delivery.ETA})
+                        <div>Delivery Address: {delivery.deliveryAddress}</div>
+                        <br />
+                        Pickup Address: {delivery.pickupAddress}
+                      </Typography>
+                    </MyCardTemplate>
                   </Grid>
                 );
               })}
@@ -55,13 +79,36 @@ function AcceptedDeliveryPickupRequestView() {
       if (acceptedPickupsRequest.length !== 0) {
         return (
           <div>
-            <MyHeader>Accepted Ongoing Pickups</MyHeader>
+            <div style={{ display: 'flex' }}>
+              <MyHeader>Accepted Ongoing Pickups</MyHeader>
+              <MyTooltip
+                label="This is the list of your accepted pickup request (getting things delivered to your place)"
+                placement="right"
+              />
+            </div>
             {/* <MyTable data={acceptedPickupsRequest} /> */}
             <Grid container spacing={2}>
               {acceptedPickupsRequest.map(pickup => {
                 return (
                   <Grid item>
-                    <MyCardTemplate object={pickup} />
+                    <MyCardTemplate actionText="Chat with Driver">
+                      <Typography color="textSecondary" gutterBottom>
+                        Delivery ID: {pickup.ID}
+                        <br />
+                        Driver Details
+                      </Typography>
+                      <Typography variant="h5" component="h2">
+                        {pickup.driverName}
+                      </Typography>
+                      <Typography color="textSecondary">
+                        {pickup.driverPhoneNumber}
+                      </Typography>
+                      <Typography variant="body2" component="p">
+                        Estimated Arrival: {pickup.date} ({pickup.ETA})
+                        <br />
+                        Pickup Address: {pickup.pickupAddress}
+                      </Typography>
+                    </MyCardTemplate>
                   </Grid>
                 );
               })}
@@ -75,33 +122,8 @@ function AcceptedDeliveryPickupRequestView() {
 
   return (
     <div>
-      {/* <Grid container spacing={2}>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-        <Grid item>
-          <MyCardTemplate />
-        </Grid>
-      </Grid> */}
-
       <MyAcceptedDeliveries />
       <MyAcceptedPickupRequest />
-      <div />
     </div>
   );
 }

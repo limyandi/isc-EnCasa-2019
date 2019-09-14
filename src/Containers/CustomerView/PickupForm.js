@@ -1,6 +1,6 @@
 import React, { useGlobal } from 'reactn';
 import moment from 'moment';
-import { TextField } from '@material-ui/core';
+import { TextField, Button } from '@material-ui/core';
 import { Add as AddIcon } from '@material-ui/icons';
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
@@ -44,6 +44,7 @@ const PickupForm = () => {
 
   const { values, handleChange, handleSubmit } = MyUseForm({
     initialValues: {
+      deliverySlipID: undefined,
       pickupAddress: '',
       agreement: '',
       communityID: undefined
@@ -53,6 +54,7 @@ const PickupForm = () => {
       // and add a new driverDetails object to pickup
       const time = moment(date).format('HH:mm');
       const timeTo = moment(dateTo).format('HH:mm');
+
       Pickup.addPickup({
         ...val.values,
         date: moment(date).format('YYYY-MM-DD'),
@@ -111,6 +113,18 @@ const PickupForm = () => {
     }
   };
 
+  const [uploadedFileName, setUploadedFileName] = React.useState(undefined);
+  const onChangeHandler = event => {
+    const formData = new FormData();
+    formData.append('fotofile0', event.target.files[0]);
+
+    setUploadedFileName(event.target.files[0].name);
+
+    Pickup.deliverySlipUpload(formData).then(
+      res => (values.deliverySlipID = res.data)
+    );
+  };
+
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
       <MyHeader>Your Pickup request</MyHeader>
@@ -126,6 +140,21 @@ const PickupForm = () => {
         disableConfirmButton={!values.agreement}
       >
         <form>
+          <div style={{ display: 'flex' }}>
+            <Button variant="contained" component="label">
+              Upload Delivery Slip
+              <input
+                type="file"
+                name="file"
+                onChange={onChangeHandler}
+                style={{ display: 'none' }}
+              />
+            </Button>
+            {uploadedFileName && (
+              <p style={{ fontSize: 10, marginLeft: 5 }}>{uploadedFileName}</p>
+            )}
+          </div>
+
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container>
               <KeyboardDatePicker
