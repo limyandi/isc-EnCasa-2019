@@ -10,6 +10,7 @@ import {
   MyErrorText
 } from '../Components';
 import { User } from '../utils/http';
+import './helper.css';
 
 // import { login } from '../utils/http';
 
@@ -47,7 +48,7 @@ function LoginView(props) {
   });
 
   return (
-    <div>
+    <div className="absoluteCenter">
       <form onSubmit={handleSubmit}>
         <MyPaper>
           <MyHeader>Login</MyHeader>
