@@ -15,6 +15,7 @@ import {
 } from '../Components';
 import { User, Community } from '../utils/http';
 import MyErrorText from '../Components/ErrorText';
+import './helper.css';
 import { basicDriverDetails } from '../helper/function';
 
 function RegisterView(props) {
@@ -128,7 +129,7 @@ function RegisterView(props) {
   };
 
   return (
-    <div>
+    <div className="absoluteCenter" style={{ top: '15%' }}>
       <form onSubmit={handleSubmit}>
         <MyPaper>
           <MyHeader>Register</MyHeader>
