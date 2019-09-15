@@ -171,14 +171,16 @@ function Routes(props) {
       </div>
       <Divider />
       <List>
-        <MenuItem button key="SwitchMode">
-          <MySwitch
-            checked={user.role !== 'Customer'}
-            label={`${user.role} view`}
-            onChange={switchUserMode}
-            visible={userHasDriverRole}
-          />
-        </MenuItem>
+        {user.driverDetails && (
+          <MenuItem button key="SwitchMode">
+            <MySwitch
+              checked={user.role !== 'Customer'}
+              label={`${user.role} view`}
+              onChange={switchUserMode}
+              visible={userHasDriverRole}
+            />
+          </MenuItem>
+        )}
         {renderRoute(user).map(
           route =>
             Object.keys(route).length !== 0 &&

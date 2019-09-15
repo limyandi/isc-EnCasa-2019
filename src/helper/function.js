@@ -45,3 +45,9 @@ export const basicDriverDetails = {
     to: '20:00:00Z'
   }
 };
+
+export const convertTimeToDate = (date, time) => {
+  time += ':00';
+  const dateObj = new Date(`${date} ${time}`);
+  return dateObj;
+};

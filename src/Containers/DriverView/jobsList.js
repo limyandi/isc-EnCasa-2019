@@ -9,6 +9,7 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import { Job, sendEmail } from '../../utils/http';
 import { MyHeader, MyTable, MyFormDialog } from '../../Components';
+import { convertTimeToDate } from '../../helper/function';
 
 function DriverView() {
   const [user] = useGlobal('user');
@@ -34,7 +35,11 @@ function DriverView() {
     handleConfirm: e => {
       const jobTypeId = `${jobData.type}Id`;
       // implementation for confirming adding new delivery job.
-      Job.addJob({ [jobTypeId]: jobData.ID, driverId: user.ID, ETA })
+      Job.addJob({
+        [jobTypeId]: jobData.ID,
+        driverId: user.ID,
+        ETA
+      })
         .then(res => {
           sendEmail.sendJobNotification({
             destinations: [jobData.customerEmail],

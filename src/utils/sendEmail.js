@@ -1,8 +1,8 @@
 export default function sendEmail(axios, config) {
   const sendJobNotification = jobNotificationDetails => {
-    const { destinations, textBody } = jobNotificationDetails;
+    const { destinations, subject, textBody } = jobNotificationDetails;
 
-    if (!destinations || !textBody) {
+    if (!destinations || !textBody || !subject) {
       throw new Error('invalid job notification details data');
     }
 

@@ -37,7 +37,6 @@ const DeliveryForm = () => {
   const [date, setDate] = React.useState(new Date());
   const [dateTo, setDateTo] = React.useState(moment(date).add(1, 'hours'));
 
-  // TODO: Set Date not working.
   const handleDateChange = selectedDate => {
     setDate(selectedDate);
     setDateTo(moment(selectedDate).add(1, 'hours'));
@@ -89,7 +88,6 @@ const DeliveryForm = () => {
           User.getDriversSubscriptedSMS(val.values.communityID, user.ID).then(
             result => {
               sendSMS.sendJobNotification({
-                // TODO: Dynamic get phone number
                 to: result.data.phoneNumber,
                 senderId: textSMSSenderId,
                 messageText: newDeliveryTextBody(user, date, time, timeTo)

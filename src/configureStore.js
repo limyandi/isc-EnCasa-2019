@@ -151,67 +151,6 @@ export default function configureStore() {
         longitude: '151.17028'
       }
     ],
-    driverDetails: {
-      availabilities: {
-        Monday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        },
-        Tuesday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        },
-        Wednesday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        },
-        Thursday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        },
-        Friday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        },
-        Saturday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        },
-        Sunday: {
-          from: '08:30:00Z',
-          to: '20:00:00Z'
-        }
-      },
-      appNotification: true,
-      emailNotification: true,
-      smsNotification: true,
-      communities: [
-        {
-          ID: 2,
-          name: 'Armidale Regional',
-          latitude: '-30.41247',
-          longitude: '151.94013'
-        },
-        {
-          ID: 20,
-          name: 'Camden Council',
-          latitude: '-34.0161',
-          longitude: '150.72521'
-        },
-        {
-          ID: 107,
-          name: 'Sydney',
-          latitude: '-33.86778',
-          longitude: '151.20844'
-        },
-        {
-          ID: 65,
-          name: 'Lane Cove',
-          latitude: '-33.82321',
-          longitude: '151.17028'
-        }
-      ]
-    },
     role: 'Customer'
   };
 

@@ -4,7 +4,6 @@ import { MyHeader, MyCheckbox, MyUseForm, MyButton } from '../../Components';
 import { User } from '../../utils/http';
 import { removeDuplicates } from '../../helper/function';
 import EditCommunities from '../EditCommunities';
-import './settings.css';
 import 'react-phone-input-2/dist/style.css';
 
 function CustomerSetting() {
