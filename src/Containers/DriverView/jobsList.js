@@ -44,7 +44,7 @@ function DriverView() {
           sendEmail.sendJobNotification({
             destinations: [jobData.customerEmail],
             subject: `Accepted ${jobData.type} request`,
-            textBody: `Your ${jobData.type} request ${jobData.ID} has been accepted by ${user.name}. Estimated arrival time is on ${ETA}`
+            textBody: {Details: `Your ${jobData.type} request ${jobData.ID} has been accepted by ${user.name}. Estimated arrival time is on ${ETA}`}
           });
           // eslint-disable-next-line no-unused-expressions
           jobData.type === 'delivery'
