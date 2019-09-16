@@ -1,7 +1,7 @@
 import React, { useEffect, useGlobal } from 'reactn';
 import { withRouter } from 'react-router-dom';
 import { Grid, Typography, Button } from '@material-ui/core';
-import { User, Job, Pickup } from '../../utils/http';
+import { User, Job, Pickup, sendEmail } from '../../utils/http';
 import { MyHeader, MyTable, MyCardTemplate, MyTooltip } from '../../Components';
 
 function DriverView() {
@@ -24,7 +24,12 @@ function DriverView() {
   }, [user.ID]);
 
   const handleDeliveryJobOnClick = deliveryID => {
-    Job.updateJobStatus(deliveryID).then(() => {
+    Job.updateJobStatus(deliveryID).then(customer => {
+      sendEmail.sendJobNotification({
+        destinations: [customer.data.email],
+        subject: `Your request with ID: ${deliveryID} has been marked as completed`,
+        textBody: `Your delivery request has been marked as completed by ${user.name}, thank you for requesting from us! Have a lovely day!`
+      });
       setMyDeliveryJobs(
         myDeliveryJobs.filter(delivery => delivery.ID !== deliveryID)
       );
@@ -32,8 +37,13 @@ function DriverView() {
   };
 
   const handlePickupJobOnClick = pickupID => {
-    Job.updateJobStatus(pickupID).then(() => {
-      setMyDeliveryJobs(myPickupJobs.filter(pickup => pickup.ID !== pickupID));
+    Job.updateJobStatus(pickupID).then(customer => {
+      sendEmail.sendJobNotification({
+        destinations: [customer.data.email],
+        subject: `Your request with ID: ${pickupID} has been marked as completed`,
+        textBody: `Your pickup request has been marked as completed by ${user.name}, thank you for requesting from us! Have a lovely day!`
+      });
+      setMyPickupJobs(myPickupJobs.filter(pickup => pickup.ID !== pickupID));
     });
   };
 

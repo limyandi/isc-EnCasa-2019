@@ -14,7 +14,7 @@ const MyTextField = props => {
     style
   } = props;
   const rootStyle = {
-    marginBottom: 10,
+    marginBottom: 15,
     ...style
   };
   return (

@@ -10,6 +10,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { Job, sendEmail } from '../../utils/http';
 import { MyHeader, MyTable, MyFormDialog } from '../../Components';
 import { convertTimeToDate } from '../../helper/function';
+import { acceptedRequestTextBody } from '../../helper/textMessage';
 
 function DriverView() {
   const [user] = useGlobal('user');
@@ -33,18 +34,21 @@ function DriverView() {
       jobData &&
       `Ensure that the time you input is within the time range (${jobData.time}-${jobData.timeTo})`,
     handleConfirm: e => {
+      console.log(ETA.format('HH:mm'));
       const jobTypeId = `${jobData.type}Id`;
       // implementation for confirming adding new delivery job.
       Job.addJob({
         [jobTypeId]: jobData.ID,
         driverId: user.ID,
-        ETA
+        ETA: moment(`${jobData.date} ${ETA.format('HH:mm')}`).format(
+          'YYYY-MM-DDTHH:mm:ss.SSSS[Z]'
+        )
       })
         .then(res => {
           sendEmail.sendJobNotification({
             destinations: [jobData.customerEmail],
             subject: `Accepted ${jobData.type} request`,
-            textBody: {Details: `Your ${jobData.type} request ${jobData.ID} has been accepted by ${user.name}. Estimated arrival time is on ${ETA}`}
+            textBody: acceptedRequestTextBody(jobData, user, ETA)
           });
           // eslint-disable-next-line no-unused-expressions
           jobData.type === 'delivery'
@@ -64,13 +68,13 @@ function DriverView() {
 
   const handleAddDeliveriesOnClick = data => {
     setJobFormOpen(true);
-    setETA(moment(data.time, 'HH:mm'));
+    setETA(moment(`${data.time}`, 'HH:mm'));
     setJobData({ ...data, type: 'delivery' });
   };
 
   const handleAddPickupsOnClick = data => {
     setJobFormOpen(true);
-    setETA(moment(data.time, 'HH:mm'));
+    setETA(moment(`${data.time}`, 'HH:mm'));
     setJobData({ ...data, type: 'pickup' });
   };
 
@@ -101,7 +105,7 @@ function DriverView() {
                 label="Estimated Time Arrival"
                 value={ETA}
                 minutesStep={15}
-                onChange={selectedTime => setETA(selectedTime)}
+                onChange={selectedTime => setETA(moment(selectedTime, 'HH:mm'))}
                 KeyboardButtonProps={{
                   'aria-label': 'change time'
                 }}

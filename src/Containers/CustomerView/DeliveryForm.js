@@ -164,6 +164,7 @@ const DeliveryForm = () => {
         handleSubmit={deliveryForm.handleConfirm}
         dialogTitle={deliveryForm.dialogTitle}
         dialogText={deliveryForm.dialogText}
+        fullWidth
       >
         <form>
           <div>
@@ -177,6 +178,7 @@ const DeliveryForm = () => {
           </div>
           <div>
             <TextField
+              style={{ marginTop: 10 }}
               value={values.pickupAddress}
               name="pickupAddress"
               label="Item Pickup Address"
@@ -217,7 +219,7 @@ const DeliveryForm = () => {
             />
           )} */}
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify="space-around">
+            <Grid container>
               <KeyboardDatePicker
                 margin="normal"
                 id="date-picker-dialog"
@@ -234,7 +236,7 @@ const DeliveryForm = () => {
             </Grid>
           </MuiPickersUtilsProvider>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify="space-around">
+            <Grid container>
               <KeyboardTimePicker
                 margin="normal"
                 id="time-from"
@@ -249,7 +251,7 @@ const DeliveryForm = () => {
             </Grid>
           </MuiPickersUtilsProvider>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <Grid container justify="space-around">
+            <Grid container>
               <KeyboardTimePicker
                 margin="normal"
                 id="time-to"

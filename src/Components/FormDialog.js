@@ -17,7 +17,8 @@ const FormDialog = props => {
     children,
     cancelText,
     confirmText,
-    disableConfirmButton
+    disableConfirmButton,
+    fullWidth
   } = props;
   //   const [open, setOpen] = React.useState(false);
 
@@ -35,6 +36,8 @@ const FormDialog = props => {
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
+        maxWidth="xs"
+        fullWidth={fullWidth}
       >
         <DialogTitle id="form-dialog-title">{dialogTitle}</DialogTitle>
         <DialogContent>

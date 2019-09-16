@@ -154,7 +154,25 @@ const PickupForm = () => {
               <p style={{ fontSize: 10, marginLeft: 5 }}>{uploadedFileName}</p>
             )}
           </div>
-
+          <TextField
+            value={values.pickupAddress}
+            name="pickupAddress"
+            label="Pickup Address"
+            onChange={handleChange}
+            style={{ marginBottom: 20 }}
+          />
+          <MySingleDropdown
+            data={user.communities}
+            name="communityID"
+            label="Community"
+            value={values.communityID}
+            onChange={e => {
+              handleChange(e);
+              // e.target.value to use because sometimes
+              // handleChange is not done before setDispatchCentre
+              // setDispatchCentre(e.target.value);
+            }}
+          />
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <Grid container>
               <KeyboardDatePicker
@@ -202,25 +220,6 @@ const PickupForm = () => {
               />
             </Grid>
           </MuiPickersUtilsProvider>
-          <TextField
-            value={values.pickupAddress}
-            name="pickupAddress"
-            label="Pickup Address"
-            onChange={handleChange}
-            style={{ marginBottom: 20 }}
-          />
-          <MySingleDropdown
-            data={user.communities}
-            name="communityID"
-            label="Community"
-            value={values.communityID}
-            onChange={e => {
-              handleChange(e);
-              // e.target.value to use because sometimes
-              // handleChange is not done before setDispatchCentre
-              // setDispatchCentre(e.target.value);
-            }}
-          />
           <MyCheckbox
             name="agreement"
             onChange={handleChange}

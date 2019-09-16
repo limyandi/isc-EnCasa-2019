@@ -8,6 +8,8 @@ export const newPickupEmailSubject = 'New pickup has been posted';
 export const textSMSSenderId = 'CLP';
 
 /** Both */
+
+// Requested by user scenario, send to user
 export const newPickupTextBody = (user, date, time, timeTo) =>
   `A new pickup request has been posted by a customer, ${
     user.name
@@ -17,3 +19,7 @@ export const newDeliveryTextBody = (user, date, time, timeTo) =>
   `A new delivery has been posted by a customer, ${
     user.name
   } is available at ${moment(date).format('DD/MM')} from ${time}-${timeTo}`;
+
+// Accepted by driver scenario, send to user
+export const acceptedRequestTextBody = (jobData, user, ETA) =>
+  `Your ${jobData.type} request ${jobData.ID} has been accepted by ${user.name}. Estimated arrival time is on ${ETA}`;

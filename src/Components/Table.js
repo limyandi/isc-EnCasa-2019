@@ -73,6 +73,7 @@ const MyTable = props => {
               {columnHeader}
             </StyledTableCell>
           ))}
+          {addable && <StyledTableCell>Action</StyledTableCell>}
         </TableRow>
       </TableHead>
     );

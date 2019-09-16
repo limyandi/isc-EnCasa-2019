@@ -89,7 +89,7 @@ function RegisterView(props) {
         driverDetails.availabilities = basicDriverDetails;
         driverDetails.appNotification = true;
         driverDetails.smsNotification = false;
-        driverDetails.emailNotification = false;
+        driverDetails.emailNotification = true;
       }
 
       const myCommunities = selectedCommunities.map(
@@ -99,7 +99,7 @@ function RegisterView(props) {
       // this is for user, the previous one is for driver
       const userNotificationDetails = {
         appNotification: true,
-        emailNotification: false,
+        emailNotification: true,
         smsNotification: false
       };
       User.register({
@@ -129,7 +129,7 @@ function RegisterView(props) {
   };
 
   return (
-    <div className="absoluteCenter" style={{ top: '15%' }}>
+    <div className="absoluteCenter" style={{ top: '8%' }}>
       <form onSubmit={handleSubmit}>
         <MyPaper>
           <MyHeader>Register</MyHeader>
