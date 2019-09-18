@@ -28,7 +28,7 @@ function DriverView() {
       sendEmail.sendJobNotification({
         destinations: [customer.data.email],
         subject: `Your request with ID: ${deliveryID} has been marked as completed`,
-        textBody: `Your delivery request has been marked as completed by ${user.name}, thank you for requesting from us! Have a lovely day!`
+        textBody: `Your delivery request has been marked as completed by ${user.name}(${user.email}), thank you for requesting from us! Have a lovely day!`
       });
       setMyDeliveryJobs(
         myDeliveryJobs.filter(delivery => delivery.ID !== deliveryID)
