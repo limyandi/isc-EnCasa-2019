@@ -3,7 +3,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Getting Started
 
 1. run `npm install`
-2. Create .env file in the root directory, create and fill the value of REACT_APP_DEV_IRIS_PORT={YOUR IRIS INSTANCE PORT}
+2. Create .env file in the root directory, create and fill the value of 
+
+REACT_APP_DEV_IRIS_PORT={YOUR IRIS INSTANCE PORT}
 REACT_APP_INTEROP_IRIS_PORT={NotificationRESTService Interoperability Port}
 
 ```
